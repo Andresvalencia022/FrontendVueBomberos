@@ -6,7 +6,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'bebasNeue': ['Bebas Neue', 'sans-serif']
+        'bebasNeue': ['Bebas Neue', 'sans-serif'], 
+        'PoetsenOne': ['Poetsen One', 'sans-serif'], 
+
       }
     },
   },
