@@ -1,9 +1,24 @@
 <script setup>
+import ModalEvent from '../../components/Modal/modalEvent.vue'
+
+import { UseEventStore } from "../../stores/UseEventStore";
+const EventStore = UseEventStore();
+const { show_modal, modal } = EventStore;
+
+// console.log(show_modal());
+
 </script>
 <template>
   <div>
-    <div class="p-2">
+    <div class="flex p-2 justify-between">
       <h1 class="mt-2 ml-9 text-xl font-PoetsenOne">Administrador de eventos</h1>
+      <a
+          href="#"
+          class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          @click.prevent="show_modal()" 
+        >
+           Nuevo Evento  
+        </a>
     </div>
     <div class="m-10 grid gap-x-8 gap-y-4 grid-cols-2">
       <div
@@ -70,5 +85,5 @@
       </div>
     </div>
   </div>
+  <ModalEvent v-if="modal.mostrar"></ModalEvent>
 </template>
-
