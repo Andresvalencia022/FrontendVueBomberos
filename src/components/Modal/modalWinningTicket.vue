@@ -1,14 +1,12 @@
 <script setup>
-import Datepicker from "vue3-datepicker";
 
-import { UseEventStore } from "../../stores/UseEventStore";
-const EventStore = UseEventStore();
-const { start_date, end_date, objectEvent, addEvent } = EventStore;
+import Datepicker from "vue3-datepicker";
 
 //Stora para manejar todos los Modales
 import { UseModalStore } from "../../stores/UseModalStore";
 const ModalStore = UseModalStore();
 const { modal, hideModel } = ModalStore;
+
 </script>
 
 <template>
@@ -24,7 +22,7 @@ const { modal, hideModel } = ModalStore;
         <h1
           class="text-center p-4 text-2xl text-white bg-red-700 rounded-lg mb-5"
         >
-          Registrar Eventos
+          Nueva boleta ganadora
         </h1>
         <h1
           class="absolute -top-1 -right-1 h-7 w-7 text-center text-xl text-white rounded-full cursor-pointer"
@@ -39,29 +37,26 @@ const { modal, hideModel } = ModalStore;
         </Alerta>
          -->
         <form class="block px-9 pb-5" @submit.prevent="addEvent()">
-          <div class="sm:col-span-4">
-            <div class="w-full px-0.5">
+          <div class="sm:col-span-4 flex">
+            <div class="w-1/2 px-0.5">
               <label
-                for="event_name"
+                for="winning_number"
                 class="block text-sm font-medium leading-6 text-gray-900"
-                >Titulo del evento</label
+                >Numero ganador</label
               >
               <div class="mt-2">
                 <input
-                  id="event_name"
-                  name="event_name"
+                  id="winning_number"
+                  name="winning_number"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model="objectEvent.event_name"
                 />
               </div>
             </div>
-          </div>
-          <div class="flex sm:col-span-4">
             <div class="w-1/2 px-0.5">
               <label
-                for="stock"
+                for="last_name"
                 class="block text-sm font-medium leading-6 text-gray-900"
-                >Fecha de inicio</label
+                >Fecha del juego</label
               >
               <div class="mt-2">
                 <Datepicker
@@ -75,59 +70,54 @@ const { modal, hideModel } = ModalStore;
                 />
               </div>
             </div>
+          </div>
+          <div class="sm:col-span-4 flex">
             <div class="w-1/2 px-0.5">
-              <label
-                for="stock"
+             <label
+                for="email"
                 class="block text-sm font-medium leading-6 text-gray-900"
-                >Fecha de Fin</label
+                >Nombre del ganador</label
               >
               <div class="mt-2">
-                <Datepicker
-                  :minimumView
-                  :style="{
-                    '--vdp-hover-bg-color': '#ad0b0b',
-                    '--vdp-selected-bg-color': '#ad0b0b',
-                  }"
+                <input
+                  id="email"
+                  name="email"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model="end_date"
                 />
-                <!-- v-model="objectBarcode.amount" -->
+              </div>
+            </div>
+            <div class="w-1/2 px-0.5">
+               <label
+                for="phone"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >Telefono</label
+              >
+              <div class="mt-2">
+                <input
+                  id="phone"
+                  name="phone"
+                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
               </div>
             </div>
           </div>
-          <div class="mt-2">
+         <div class="sm:col-span-4">
             <label
-              for="stock"
-              class="block text-sm font-medium leading-6 text-gray-900"
-              >Hora
-            </label>
-            <input
-              id="hour"
-              name="hour"
-              type="time"
-              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500 sm:text-sm"
-              v-model="objectEvent.hour"
-            />
-
-            <!-- <input type="time" id="time" class="bg-red-50 border leading-none border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-600 dark:focus:border-red-600" min="09:00" max="18:00" value="00:00" required /> -->
-          </div>
-          <div class="sm:col-span-4">
-            <label
-              for="description"
+              for="info"
               class="block text-sm font-medium leading-6 text-gray-900"
               >Descripcion</label
             >
             <div class="mt-2">
               <textarea
-                id="description"
-                name="description"
+                id="info"
+                name="info"
                 rows="4"
                 cols="50"
                 class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                v-model="objectEvent.description"
               ></textarea>
+              <!-- v-model="objectEvent.description" -->
             </div>
-          </div>
+          </div> 
           <div class="mt-5 mb-5">
             <button
               type="submit"

@@ -1,9 +1,10 @@
 <script setup>
 import ModalNews from "../../components/Modal/modalNews.vue";
-import { UseNewsStore } from "../../stores/UseNewsStore";
+import Modal from '../../components/ModalDetalles/Modal.vue'
 
-const NewsStore = UseNewsStore();
-const { modal, show_modal } = NewsStore;
+import { UseModalStore } from "../../stores/UseModalStore";
+const ModalStore = UseModalStore();
+const { modal, modalDetalle, show_modal } = ModalStore;
 
 </script>
 <template>
@@ -12,7 +13,7 @@ const { modal, show_modal } = NewsStore;
       <h1 class="mt-2 ml-9 text-xl font-PoetsenOne">Administrador de noticias</h1>
       <a
           class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          @click="show_modal()"
+          @click="show_modal('modal_new_registration')"
         >
            Nueva noticia  
         </a>
@@ -73,6 +74,7 @@ const { modal, show_modal } = NewsStore;
         <a
           href="#"
           class="block items-center  px-3 py-2 w-full text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          @click="show_modal('modalDetails')"
         >
          Ver mas detalles   
         </a>
@@ -80,4 +82,5 @@ const { modal, show_modal } = NewsStore;
     </div>
   </div>
   <ModalNews v-if="modal.mostrar"></ModalNews>
+  <Modal v-if="modalDetalle.mostrar"></Modal>
 </template>

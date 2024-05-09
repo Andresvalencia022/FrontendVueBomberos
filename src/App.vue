@@ -5,7 +5,11 @@ import logobomberos from "./assets/img/Bomberos.png";
 import llamar from "./assets/img/llamar.png";
 import { onUnmounted, computed } from "vue";
 import { RouterLink, useRoute } from "vue-router";
+import { UseModalStore } from "./stores/UseModalStore";
 import { useControlPagineStore } from "./stores/controlPaginate";
+
+const ModalStore = UseModalStore();
+const { modalDetalle } = ModalStore;
 
 const controlPagine = useControlPagineStore();
 const { sections, handleScroll } = controlPagine;
@@ -42,7 +46,7 @@ const Inicio = computed(() => route.name === "inicio");
           </div>
           <div class="w-2/4 flex justify-end items-center">
             <img class="w-44" :src="llamar" alt="" />
-            <h1 class="font-bebasNeue text-4xl text-white">31374123331</h1>
+            <h1 class="font-bebasNeue text-3xl text-white">31374123331</h1>
           </div>
         </div>
       </div>
@@ -50,9 +54,9 @@ const Inicio = computed(() => route.name === "inicio");
         <nav
           id="nav"
           class="top-0 left-0 w-full bg-gray-700 text-white py-2"
-          :class="[sections.state ? 'fixed' : '']"
+          :class="[sections.state ? 'fixed' : '']" v-if="!modalDetalle.mostrar"
         >
-          <ul class="flex flex-row">
+          <ul class="flex flex-row justify-center">
             <li>
               <a
                 href="#index"

@@ -1,11 +1,12 @@
 <script setup>
 import ModalEvent from '../../components/Modal/modalEvent.vue'
+import Modal from '../../components/ModalDetalles/Modal.vue'
 
-import { UseEventStore } from "../../stores/UseEventStore";
-const EventStore = UseEventStore();
-const { show_modal, modal } = EventStore;
+import { UseModalStore } from "../../stores/UseModalStore";
+const ModalStore = UseModalStore();
+const { modal, modalDetalle, show_modal } = ModalStore;
 
-// console.log(show_modal());
+
 
 </script>
 <template>
@@ -15,7 +16,7 @@ const { show_modal, modal } = EventStore;
       <a
           href="#"
           class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          @click.prevent="show_modal()" 
+          @click="show_modal('modal_new_registration')" 
         >
            Nuevo Evento  
         </a>
@@ -79,11 +80,13 @@ const { show_modal, modal } = EventStore;
         <a
           href="#"
           class="block items-center  px-3 py-2 w-full text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
+          @click="show_modal('modalDetails')" 
+          >
          Ver mas detalles   
         </a>
       </div>
     </div>
   </div>
   <ModalEvent v-if="modal.mostrar"></ModalEvent>
+  <Modal v-if="modalDetalle.mostrar"></Modal>
 </template>

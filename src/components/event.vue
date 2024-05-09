@@ -1,4 +1,11 @@
 <script setup>
+
+import Modal from '../components/ModalDetalles/Modal.vue'
+
+import { UseModalStore } from "../stores/UseModalStore";
+const ModalStore = UseModalStore();
+const { modalDetalle, show_modal } = ModalStore;
+
 </script>
 <template>
   <div id="eventos" class="my-2 mt-9">
@@ -26,6 +33,7 @@
         <button
           type="button"
           class="text-white w-full bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          @click="show_modal('modalDetails', 'Start_event')" 
         >
           leer mas...
         </button>
@@ -48,11 +56,13 @@
         <button
           type="button"
           class="text-white w-full bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          @click="show_modal('modalDetails', 'Start_event')" 
         >
           leer mas...
         </button>
       </div>
     </div>
   </div>
+  <Modal v-if="modalDetalle.mostrar"></Modal>
 </template>
 

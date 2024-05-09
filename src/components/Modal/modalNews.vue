@@ -1,8 +1,10 @@
 <script setup>
-import { UseNewsStore } from "../../stores/UseNewsStore";
 
-const NewsStore = UseNewsStore();
-const { modal, hideModel } = NewsStore;
+//Stora para manejar todos los Modales
+import { UseModalStore } from "../../stores/UseModalStore";
+const ModalStore = UseModalStore();
+const { modal, hideModel } = ModalStore;
+
 </script>
 
 <template>
@@ -22,7 +24,7 @@ const { modal, hideModel } = NewsStore;
         </h1>
         <h1
           class="absolute -top-1 -right-1 h-7 w-7 text-center text-xl text-white rounded-full cursor-pointer"
-          @click="hideModel()"
+          @click="hideModel('modal_new_registration')"
         >
           x
         </h1>

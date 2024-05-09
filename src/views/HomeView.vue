@@ -26,7 +26,7 @@ const images = ref([
 </script>
 
 <template>
-  <div class="w-[80rem] m-auto">
+  <div class="w-[74rem] m-auto">
     <div id="img" class="h-72 mt-9 overflow-hidden">
       <Carousel :items-to-show="2.5" :wrap-around="true">
         <Slide v-for="image in images " :key="images">
