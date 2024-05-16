@@ -1,44 +1,41 @@
 
 <script setup>
-import { defineComponent } from 'vue'
-import { Carousel, Navigation, Slide } from 'vue3-carousel'
-
-import 'vue3-carousel/dist/carousel.css'
-
-
 import servicioBombero from "../assets/img/imgservicio.jpg";
 import AboutUs from "../components/aboutUs.vue";
 import NewsVue from "../components/news.vue";
 import Event from "../components/event.vue";
 
-import foto from "../assets/img/imagenes/Foto.jpg";
-import imageDos from "../assets/img/imagenes/fotoDos.jpg";
-import imageTres from "../assets/img/imagenes/FotoTres.jpg";
+import fotolamerced from "../assets/img/la_merced.jpeg";
+import bomberomovible from "../assets/img/bomberomovible.png";
 
-import { ref } from 'vue';
+import { useControlPagineStore } from "../stores/controlPaginate";
+const controlPagine = useControlPagineStore();
+const { sections } = controlPagine;
 
-const images = ref([
-  { url:  foto },
-  { url:  imageDos },
-  { url:  imageTres },
-])
+import { UseModalStore } from "../stores/UseModalStore";
+const ModalStore = UseModalStore();
+const { modalDetalle } = ModalStore;
 
 </script>
 
 <template>
-  <div class="w-[74rem] m-auto">
-    <div id="img" class="h-72 mt-9 overflow-hidden">
-      <Carousel :items-to-show="2.5" :wrap-around="true">
-        <Slide v-for="image in images " :key="images">
-          <div class="carousel__item" >
-            <img :src="image.url" alt="carousel image" class="w-full px-1 object-cover" />
-          </div>
-        </Slide>
-        <template #addons>
-          <Navigation class=" bg-red-100" />
-        </template>
-      </Carousel>
+  <div class="h-[30rem] -mt-1 w-full overflow-hidden relative">
+    <img class="w-full -mt-20 saturate-150" :src="fotolamerced" alt="" />
+    <div
+      class="w-3/5 absolute top-72 -right-80 text-white bg-gray-700 opacity-85 p-5 text-2xl animate-slide-left"
+    >
+      El Cuerpo Oficial de Bomberos la merced es la institución en el manejo de
+      desastres. Un equipo conformado por más de 20 hombres y mujeres expertos
+      en la respuesta de emergencias, está disponibles 24 horas y siete días a
+      la semana para atender el llamado ciudadano.
     </div>
+    <img
+      class="w-80 absolute top-0 -right-80 transform transition-transform duration-200 filter drop-shadow-xl animate-slide-left"
+      :src="bomberomovible"
+      alt=""
+    />
+  </div>
+  <div class="w-[74rem] m-auto relative">
     <div id="servicios" class="my-2 mt-9">
       <div class="my-10">
         <h1
@@ -97,6 +94,64 @@ const images = ref([
     <NewsVue></NewsVue>
 
     <AboutUs></AboutUs>
+    <div v-if="!modalDetalle.mostrar">
+      <div
+        v-if="sections.statelottery"
+        class="w-3/5 flex m-auto overflow-hidden bg-white rounded-lg p-2 fixed bottom-2 right-72 border border-red-500 transition-all ease-in-out duration-500"
+        :class="[sections.Animationlottery ? ' bg-opacity-80' : 'opacity-0']"
+      >
+        <div class="p-2 w-4/12 text-center">
+          <h1 class="font-PoetsenOne text-xl">Ultimo sorteo</h1>
+          <p class="text-xl">10/06/24</p>
+        </div>
+        <div class="p-2 w-4/12">
+          <p class="flex justify-center font-PoetsenOne text-xl">
+            <span
+              class="p-2 px-3 mx-1 text-center text-white bg-red-600 rounded-lg"
+              >1</span
+            >
+            <span
+              class="p-2 px-3 mx-1 text-center text-white bg-red-600 rounded-lg"
+              >2</span
+            >
+            <span
+              class="p-2 px-3 mx-1 text-center text-white bg-red-600 rounded-lg"
+              >8</span
+            >
+            <span
+              class="p-2 px-3 mx-1 text-center text-white bg-red-600 rounded-lg"
+              >8</span
+            >
+          </p>
+          <p class="text-center text-xl">Numero ganado</p>
+        </div>
+        <div class="p-2 w-4/12 content-center">
+          <button
+            type="button"
+            class="block rounded-lg text-white my-2 w-11/12 m-auto bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          >
+            Consultar Ganador
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style>
+@keyframes slide-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-slide-left {
+  animation: slide-left 2s linear forwards;
+}
+</style>
+
+
 

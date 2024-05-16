@@ -26,11 +26,17 @@ onUnmounted(() => {
 const route = useRoute();
 const login = computed(() => route.name === "login");
 const Inicio = computed(() => route.name === "inicio");
+const lottery = computed(() => route.name === "lottery");
+
 </script>
 
 <template>
   <div v-if="login">
      <RouterView />
+  </div>
+
+   <div v-else-if="lottery">
+       <RouterView /> 
   </div>
 
  <!-- else if -->
@@ -108,7 +114,6 @@ const Inicio = computed(() => route.name === "inicio");
       <h1 class="text-center py-3 text-white">© 2024 Bomberos</h1>
     </footer>
   </div>
-
    <div v-else>
     <div class="flex">
       <div class="w-1/5 bg-white h-[35rem] border-r-4 border-black">
