@@ -1,5 +1,7 @@
 
 <script setup>
+import { RouterLink } from "vue-router";
+
 import servicioBombero from "../assets/img/imgservicio.jpg";
 import AboutUs from "../components/aboutUs.vue";
 import NewsVue from "../components/news.vue";
@@ -126,12 +128,9 @@ const { modalDetalle } = ModalStore;
           <p class="text-center text-xl">Numero ganado</p>
         </div>
         <div class="p-2 w-4/12 content-center">
-          <button
-            type="button"
-            class="block rounded-lg text-white my-2 w-11/12 m-auto bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-          >
-            Consultar Ganador
-          </button>
+         <RouterLink to="/loteria" class="block rounded-lg text-white my-2 w-11/12 m-auto bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+         Consultar Ganador
+        </RouterLink>
         </div>
       </div>
     </div>

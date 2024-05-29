@@ -3,6 +3,10 @@ import imagenlogin from "../assets/img/imgservicio.jpg";
 import { reactive, ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 
+import { UseUserStore } from "../stores/UseUserStore";
+const UserStore = UseUserStore();
+const {loginForm, authenticateUser} = UserStore;
+
 const showText = ref(false);
 
 onMounted(() => {
@@ -41,7 +45,7 @@ const login = computed(() => route.name === "login");
       <div
         class="w-full max-w-sm p-4 bg-gray-900 border text-white border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
       >
-        <form class="space-y-6" action="#">
+        <form @click.prevent="authenticateUser"  class="space-y-6" action="#">
           <h5
             class="text-xl text-center text-white font-medium dark:text-white"
           >
@@ -59,7 +63,7 @@ const login = computed(() => route.name === "login");
               id="email"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="name@company.com"
-              required
+              v-model="loginForm.email"
             />
           </div>
           <div>
@@ -74,11 +78,11 @@ const login = computed(() => route.name === "login");
               id="password"
               placeholder="••••••••"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              required
+               v-model="loginForm.password"
             />
           </div>
           <div class="flex items-start">
-            <div class="flex items-start">
+            <!-- <div class="flex items-start">
               <div class="flex items-center h-5">
                 <input
                   id="remember"
@@ -93,7 +97,7 @@ const login = computed(() => route.name === "login");
                 class="ms-2 text-sm font-medium text-white dark:text-gray-300"
                 >Remember me</label
               >
-            </div>
+            </div> -->
             <a
               href="#"
               class="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500"

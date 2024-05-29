@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Inicio from '../views/HomeView.vue'
+import Cookies from 'js-cookie';
+import { useRoute } from "vue-router";
+import APIService from '../services/APIService'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,7 +24,6 @@ const router = createRouter({
     },{
       path: '/inicio_de_sesion',
       name: 'access',
-      // component: Access,
       meta: { requiresAuth: true },
       children: [
         {
@@ -48,8 +50,37 @@ const router = createRouter({
       ]
     },
     
-   
   ]
 })
+
+router.beforeEach(async (to, from, next) =>{
+const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+if (!requiresAuth){
+  next();
+  return;
+}
+
+try {
+  const token = Cookies.get('AUTH-TOKEN')
+  if (!token) {
+    next('/login_bomberos');
+    return;
+  }
+
+  const { data } = await APIService.verifyUser(token);
+  if (!data) {
+    next('/login_bomberos');
+    return;
+  }
+
+  next();
+
+} catch (error) {
+  next('/login_bomberos');
+}
+
+});
+
 
 export default router

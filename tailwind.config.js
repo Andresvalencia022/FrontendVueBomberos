@@ -8,7 +8,11 @@ export default {
       fontFamily: {
         'bebasNeue': ['Bebas Neue', 'sans-serif'], 
         'PoetsenOne': ['Poetsen One', 'sans-serif'], 
+        'Neuton': ['Neuton', 'serif'], 
 
+      }, 
+      backgroundImage: {
+        'backgroundImage': "url('./src/assets/img/backgroundImage/fondoGanador.png')"
       }
     },
   },
