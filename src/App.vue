@@ -27,6 +27,7 @@ const route = useRoute();
 const login = computed(() => route.name === "login");
 const Inicio = computed(() => route.name === "inicio");
 const lottery = computed(() => route.name === "lottery");
+const NotFound = computed(() => route.name === "NotFound");
 
 </script>
 
@@ -35,7 +36,7 @@ const lottery = computed(() => route.name === "lottery");
      <RouterView />
   </div>
 
-   <div v-else-if="lottery">
+   <div v-else-if="lottery || NotFound">
        <RouterView /> 
   </div>
 

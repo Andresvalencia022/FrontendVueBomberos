@@ -1,4 +1,5 @@
 //Se hace un opjeto de funciones
+
 export default {
   show(modal) {
     modal.mostrar = true;
@@ -15,4 +16,5 @@ export default {
       modal.animar = false;
     }, 300);
   },
+
 };

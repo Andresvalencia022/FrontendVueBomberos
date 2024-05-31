@@ -1,9 +1,10 @@
 <script setup>
 import Datepicker from "vue3-datepicker";
+import Alerta from '../UI/Alert.vue'
 
 import { UseEventStore } from "../../stores/UseEventStore";
 const EventStore = UseEventStore();
-const { start_date, end_date, objectEvent, addEvent } = EventStore;
+const { start_date, end_date, objectEvent, addEvent, stateAlert } = EventStore;
 
 //Stora para manejar todos los Modales
 import { UseModalStore } from "../../stores/UseModalStore";
@@ -32,12 +33,12 @@ const { modal, hideModel } = ModalStore;
         >
           x
         </h1>
-        <!-- <Alerta
-          v-if="state.showAlertError"
-          :class="['bg-red-600 text-white']"
-          >{{ state.errorMessage }}
+        <Alerta
+          v-if="stateAlert.showAlert"
+          :class="stateAlert.classAlert"
+          >{{ stateAlert.Message }}
         </Alerta>
-         -->
+        
         <form class="block px-9 pb-5" @submit.prevent="addEvent()">
           <div class="sm:col-span-4">
             <div class="w-full px-0.5">
@@ -109,7 +110,7 @@ const { modal, hideModel } = ModalStore;
               v-model="objectEvent.hour"
             />
 
-            <!-- <input type="time" id="time" class="bg-red-50 border leading-none border-red-300 text-red-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-600 dark:focus:border-red-600" min="09:00" max="18:00" value="00:00" required /> -->
+           <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Por favor, introduce una hora válida en formato de 24 horas (1 a 24).<samp class="font-bold  hover:text-red-600 "> Ejemplo: 13:30.</samp></p>
           </div>
           <div class="sm:col-span-4">
             <label
@@ -121,7 +122,7 @@ const { modal, hideModel } = ModalStore;
               <textarea
                 id="description"
                 name="description"
-                rows="4"
+                rows="3"
                 cols="50"
                 class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 v-model="objectEvent.description"

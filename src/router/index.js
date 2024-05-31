@@ -49,7 +49,11 @@ const router = createRouter({
 
       ]
     },
-    
+    {
+      path: '/:catchAll(.*)',
+      name: 'NotFound',
+      component: () => import('../views/NotFound.vue'),
+    },
   ]
 })
 
@@ -79,8 +83,6 @@ try {
 } catch (error) {
   next('/login_bomberos');
 }
-
 });
-
 
 export default router

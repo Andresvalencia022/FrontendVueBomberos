@@ -6,7 +6,9 @@ import { UseModalStore } from "../../stores/UseModalStore";
 const ModalStore = UseModalStore();
 const { modal, modalDetalle, show_modal } = ModalStore;
 
-
+import { UseEventStore } from "../../stores/UseEventStore";
+const EventStore = UseEventStore();
+// const {arrayEvents} = EventStore;
 
 </script>
 <template>
@@ -21,15 +23,20 @@ const { modal, modalDetalle, show_modal } = ModalStore;
            Nuevo Evento  
         </a>
     </div>
-    <div class="m-10 grid gap-x-8 gap-y-4 grid-cols-2">
+    <div class="grid grid-cols-2 gap-1">
+    <div v-for="Events in EventStore.arrayEvents.slice(0, 4)" 
+    :key="Events.id" 
+    :Events="Events"
+     class="mx-9 my-2">
       <div
-        class="w-full p-6 bg-gray-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        class="w-full p-6 h-52 bg-gray-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
       >
         <div class="flex">
           <h5
-            class="w-9/12 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            class="w-9/12 text-base  h-14bg-slate-500 overflow-hidden
+             font-bold tracking-tight text-gray-900 dark:text-white"
           >
-            Evento 1
+            {{Events.event_name}}
           </h5>
           <div class="flex justify-end w-5/12 gap-x-3 gap-y-4 grid-cols-2 ">
             <a href="" class="">
@@ -67,14 +74,14 @@ const { modal, modalDetalle, show_modal } = ModalStore;
           </div>
         </div>
 
-        <div class="flex gap-x-32 gap-y-4 grid-cols-2 mb-3 font-normal text-gray-700 dark:text-gray-400">
+        <div class="flex gap-x-32 gap-y-4  grid-cols-2 mb-8 font-normal text-gray-700 dark:text-gray-400">
           <article>
             <h3>Fecha de inicio</h3>
-            <p>03-05-2024</p>
+            <p>{{Events.start_date}}</p>
           </article>
           <article>
             <h3>Fecha fin</h3>
-            <p>03-05-2024</p>
+            <p>{{Events.end_date}}</p>
           </article>
         </div>
         <a
@@ -85,6 +92,7 @@ const { modal, modalDetalle, show_modal } = ModalStore;
          Ver mas detalles   
         </a>
       </div>
+    </div>
     </div>
   </div>
   <ModalEvent v-if="modal.mostrar"></ModalEvent>

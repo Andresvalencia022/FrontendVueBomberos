@@ -18,7 +18,6 @@ export const UseUserStore = defineStore("UserStore", () => {
     'ERR_BAD_REQUEST' : 'Credenciales incorrectas',
   }
 
-
   async function authenticateUser(){
      try {
     const {data} = await  APIService.getTokenLongin(loginForm);
@@ -29,7 +28,6 @@ export const UseUserStore = defineStore("UserStore", () => {
     console.log(errorCode[error.code]);
    }
   }
-
 
     return{
         loginForm,
