@@ -1,1 +1,21 @@
 npm i vue3-datepicker
+npm install moment
+
+export const UseEventStore = defineStore("EventStore", () => {
+ 
+const start_date = ref(new Date())
+
+
+    //objeto de modal
+        const objectEvent = reactive({
+            id: '',
+            event_name: '',
+            start_date: start_date.value,
+            end_date: end_date.value,
+            hour: '',
+            description: '',
+        });
+
+
+
+})

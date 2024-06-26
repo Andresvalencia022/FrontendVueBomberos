@@ -5,7 +5,7 @@ import { useRoute } from "vue-router";
 
 import { UseUserStore } from "../stores/UseUserStore";
 const UserStore = UseUserStore();
-const {loginForm, authenticateUser} = UserStore;
+const {userObjectForm,  authenticateUser} = UserStore;
 
 const showText = ref(false);
 
@@ -63,7 +63,7 @@ const login = computed(() => route.name === "login");
               id="email"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="name@company.com"
-              v-model="loginForm.email"
+              v-model="userObjectForm.email"
             />
           </div>
           <div>
@@ -78,7 +78,7 @@ const login = computed(() => route.name === "login");
               id="password"
               placeholder="••••••••"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-               v-model="loginForm.password"
+               v-model="userObjectForm.password"
             />
           </div>
           <div class="flex items-start">

@@ -3,6 +3,8 @@ import Inicio from '../views/HomeView.vue'
 import Cookies from 'js-cookie';
 import { useRoute } from "vue-router";
 import APIService from '../services/APIService'
+import { UseUserStore } from '../stores/UseUserStore'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -71,12 +73,19 @@ try {
     next('/login_bomberos');
     return;
   }
-
+  const UserStore = UseUserStore()
   const { data } = await APIService.verifyUser(token);
   if (!data) {
     next('/login_bomberos');
     return;
   }
+  //  Asigna los datos del usuario a objectUser en useUserStore
+   UserStore.objectUser.id = data.user.id
+   UserStore.objectUser.name = data.user.name
+   UserStore.objectUser.last_name = data.user.last_name
+   UserStore.objectUser.phone = data.user.phone
+   UserStore.objectUser.email = data.user.email
+   UserStore.objectUser.state = data.user.state
 
   next();
 

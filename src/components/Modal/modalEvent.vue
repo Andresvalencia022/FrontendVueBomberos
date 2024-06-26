@@ -1,15 +1,16 @@
 <script setup>
 import Datepicker from "vue3-datepicker";
-import Alerta from '../UI/Alert.vue'
+import Alert from '../UI/Alert.vue'
 
 import { UseEventStore } from "../../stores/UseEventStore";
 const EventStore = UseEventStore();
-const { start_date, end_date, objectEvent, addEvent, stateAlert } = EventStore;
+const { start_date, end_date, objectEvent, addEvent, stateAlert, modal, hideModel } = EventStore;
 
 //Stora para manejar todos los Modales
-import { UseModalStore } from "../../stores/UseModalStore";
-const ModalStore = UseModalStore();
-const { modal, hideModel } = ModalStore;
+// import { UseModalStore } from "../../stores/UseEventStore";
+// const ModalStore = UseModalStore();
+// const { modal, hideModel } = ModalStore;
+
 </script>
 
 <template>
@@ -29,15 +30,15 @@ const { modal, hideModel } = ModalStore;
         </h1>
         <h1
           class="absolute -top-1 -right-1 h-7 w-7 text-center text-xl text-white rounded-full cursor-pointer"
-          @click="hideModel('modal_new_registration')"
+          @click="hideModel('cerrarSinGuardarEvent')"
         >
           x
         </h1>
-        <Alerta
+        <Alert
           v-if="stateAlert.showAlert"
           :class="stateAlert.classAlert"
           >{{ stateAlert.Message }}
-        </Alerta>
+        </Alert>
         
         <form class="block px-9 pb-5" @submit.prevent="addEvent()">
           <div class="sm:col-span-4">
@@ -98,16 +99,16 @@ const { modal, hideModel } = ModalStore;
           </div>
           <div class="mt-2">
             <label
-              for="stock"
+              for="time"
               class="block text-sm font-medium leading-6 text-gray-900"
               >Hora
             </label>
             <input
-              id="hour"
-              name="hour"
+              id="time"
+              name="time"
               type="time"
               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500 sm:text-sm"
-              v-model="objectEvent.hour"
+              v-model="objectEvent.time"
             />
 
            <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Por favor, introduce una hora válida en formato de 24 horas (1 a 24).<samp class="font-bold  hover:text-red-600 "> Ejemplo: 13:30.</samp></p>

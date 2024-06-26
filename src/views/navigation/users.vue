@@ -5,7 +5,12 @@ import Modal from '../../components/ModalDetalles/Modal.vue'
 
 import { UseModalStore } from "../../stores/UseModalStore";
 const ModalStore = UseModalStore();
-const { modal, modalDetalle, show_modal } = ModalStore;
+const { modalDetalle } = ModalStore;
+
+import {UseUserStore} from '../../stores/UseUserStore';
+const UserStore = UseUserStore();
+const { modal, show_modal } = UserStore;
+
 </script>
 
 <template>
@@ -48,14 +53,14 @@ const { modal, modalDetalle, show_modal } = ModalStore;
         <a
           href="#"
           class="block items-center px-3 py-2 w-full text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          @click="show_modal('modalDetails')"
         >
+          <!-- @click="show_modal('modalDetails')" -->
           Ver detalles
         </a>
       </div>
     </div>
   </div>
   <ModalUsers v-if="modal.mostrar" ></ModalUsers>
-  <Modal v-if="modalDetalle.mostrar"></Modal>
+  <!-- <Modal v-if="modalDetalle.mostrar"></Modal> -->
 
 </template>

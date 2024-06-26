@@ -32,7 +32,7 @@ const user = computed(() => route.name === "users");
       :class="[modalDetalle.animar ? ' bg-opacity-70' : 'opacity-0']"
     >
       <div class="bg-white relative rounded-lg"  :class="[user ? 'mt-12' : '' ]">
-        <h1 v-if="modalStart === 'Start_event'" class="text-center p-4 text-2xl text-white bg-red-700 rounded-lg mb-5">
+        <h1 v-if="modalStart === 'event_details'" class="text-center p-4 text-2xl text-white bg-red-700 rounded-lg mb-5">
           Evento: 
         </h1>
 
@@ -50,7 +50,7 @@ const user = computed(() => route.name === "users");
           x
         </h1>
          
-         <EventDetails v-if="event || modalStart === 'Start_event' "></EventDetails>
+         <EventDetails v-if="event || modalStart === 'event_details' "></EventDetails>
 
          <NewsDetail v-else-if="news || modalStart === 'home_news' "></NewsDetail>
        

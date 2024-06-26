@@ -1,8 +1,12 @@
 <script setup>
+
+import Alert from '../UI/Alert.vue'
+
 //Stora para manejar todos los Modales
-import { UseModalStore } from "../../stores/UseModalStore";
-const ModalStore = UseModalStore();
-const { modal, hideModel } = ModalStore;
+import {UseUserStore} from '../../stores/UseUserStore';
+const UserStore = UseUserStore();
+const { modal, hideModel, userObjectForm, addUser, stateAlert } = UserStore;
+
 
 </script>
 
@@ -23,17 +27,17 @@ const { modal, hideModel } = ModalStore;
         </h1>
         <h1
           class="absolute -top-1 -right-1 h-7 w-7 text-center text-xl text-white rounded-full cursor-pointer"
-          @click="hideModel('modal_new_registration')"
+          @click="hideModel('cerrarSinGuardarUser')"
         >
           x
         </h1>
-        <!-- <Alerta
-          v-if="state.showAlertError"
-          :class="['bg-red-600 text-white']"
-          >{{ state.errorMessage }}
-        </Alerta>
-         -->
-        <form class="block px-9 pb-5" @submit.prevent="addEvent()">
+        <Alert
+          v-if="stateAlert.showAlert"
+          :class="stateAlert.classAlert"
+          >{{ stateAlert.Message }}
+        </Alert>
+        
+        <form class="block px-9 pb-5" @submit.prevent="addUser()">
           <div class="sm:col-span-4 flex">
             <div class="w-1/2 px-0.5">
               <label
@@ -46,6 +50,7 @@ const { modal, hideModel } = ModalStore;
                   id="name"
                   name="name"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  v-model="userObjectForm.name"
                 />
               </div>
             </div>
@@ -60,6 +65,7 @@ const { modal, hideModel } = ModalStore;
                   id="last_name"
                   name="last_name"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  v-model="userObjectForm.last_name"
                 />
               </div>
             </div>
@@ -76,6 +82,7 @@ const { modal, hideModel } = ModalStore;
                   id="phone"
                   name="phone"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  v-model="userObjectForm.phone"
                 />
               </div>
             </div>
@@ -90,6 +97,7 @@ const { modal, hideModel } = ModalStore;
                   id="email"
                   name="email"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  v-model="userObjectForm.email"
                 />
               </div>
             </div>
@@ -107,6 +115,7 @@ const { modal, hideModel } = ModalStore;
                   type="password"
                   name="password"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  v-model="userObjectForm.password"
                 />
               </div>
             </div>
@@ -122,6 +131,7 @@ const { modal, hideModel } = ModalStore;
                   type="password"
                   name="password_confirm"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  v-model="userObjectForm.password_confirm"
                 />
               </div>
             </div>
@@ -139,8 +149,8 @@ const { modal, hideModel } = ModalStore;
                   id="post"
                   name="post"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  v-model="userObjectForm.post"
                 />
-                <!-- v-model="objectEvent.event_name" -->
               </div>
             </div>
           </div>

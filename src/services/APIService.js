@@ -29,9 +29,9 @@ export default {
     return api.get('/event'); // Asume que '/user' es la ruta para verificar al usuario    
     },
     
-    createEvent (data, token){
-        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        return api.post('/event',data, token); 
+    CreateEvent (data, token){
+         api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
+         return api.post('/event', data, token)
     },
 
     updateEvent (id, data, token){
@@ -42,8 +42,14 @@ export default {
     deleteEvent (id, token){
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         return api.delete('/event/' + id ,token)
-    }
+    },
 
+
+    // --------------------------User------------------------------------------------------------
     
+    CreateUser (data, token){
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
+      return api.post('/createuser', data, token)
+ },
 
 }

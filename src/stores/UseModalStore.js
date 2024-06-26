@@ -2,14 +2,11 @@ import { defineStore } from "pinia";
 import ModalServices from "../services/ModalServices";
 import { ref, reactive } from "vue";
 
-export const UseModalStore = defineStore("ModalStore", () => {
-  let modalStart = ref("");
+import { UseEventStore } from "../stores/UseEventStore";
 
-  //objeto de modal
-  const modal = reactive({
-    mostrar: false,
-    animar: false,
-  });
+export const UseModalStore = defineStore("ModalStore", () => {
+ 
+  let modalStart = ref("");
 
   //objeto de modal
   const modalDetalle = reactive({
@@ -18,32 +15,34 @@ export const UseModalStore = defineStore("ModalStore", () => {
   });
 
   //mostrar modal
-  const show_modal = (ModalType, modal_start) => {
-    if (ModalType === "modal_new_registration") {
-        ModalServices.show(modal);
-    } else {
-      if (modal_start === "Start_event") {
-          modalStart.value = modal_start;
-      } else {
-          modalStart.value = modal_start; 
+  const show_modalDetalle = (modalDetailType) => {
+      if (modalDetailType === "event_details") {
+          modalStart.value = modalDetailType;
+          ModalServices.show(modalDetalle);
+      } else if (modalDetailType === 'home_news') {
+          modalStart.value = modalDetailType;
+          ModalServices.show(modalDetalle);
       }
-      ModalServices.show(modalDetalle);
-    }
   };
 
+
   //ocultar modal
-  const hideModel = (ModalType) => {
+  const hideModel = (ModalType, close ) => {
+    console.log(close);
     if (ModalType === "modal_new_registration") {
-      ModalServices.hide(modal);
+      if(close === 'cerrarSinGuardarEvent' ){
+        ModalServices.hide(modal);
+        // UseEventStore.restartEvent();
+      }
+
     } else {
       ModalServices.hide(modalDetalle);
     }
   };
 
   return {
-    modal,
     modalDetalle,
-    show_modal,
+    show_modalDetalle,
     hideModel,
     modalStart,
   };
