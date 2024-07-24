@@ -28,10 +28,10 @@ const user = computed(() => route.name === "users");
     :class="[modalDetalle.animar ? ' bg-opacity-70' : 'opacity-0']"
   >
     <div
-      class="content w-2/4 pt-2 justify-center overflow-hidden transition-all ease-in-out duration-1000"
+      class="content w-2/4 pt-1 justify-center content-center overflow-hidden transition-all ease-in-out duration-1000"
       :class="[modalDetalle.animar ? ' bg-opacity-70' : 'opacity-0']"
     >
-      <div class="bg-white relative rounded-lg"  :class="[user ? 'mt-12' : '' ]">
+      <div class="bg-white relative rounded-lg"  :class="[user ? 'mt-10' : '' ]">
         <h1 v-if="modalStart === 'event_details'" class="text-center p-4 text-2xl text-white bg-red-700 rounded-lg mb-5">
           Evento: 
         </h1>
@@ -45,7 +45,7 @@ const user = computed(() => route.name === "users");
         </h1>
         <h1
           class="absolute -top-1 -right-1 h-7 w-7 text-center text-xl text-white rounded-full cursor-pointer"
-          @click="hideModel('modalDetails')"
+          @click="hideModel()"
         >
           x
         </h1>
@@ -54,7 +54,7 @@ const user = computed(() => route.name === "users");
 
          <NewsDetail v-else-if="news || modalStart === 'home_news' "></NewsDetail>
        
-         <WinningTicketDetail v-else-if="winningTicket"></WinningTicketDetail>
+         <WinningTicketDetail v-else-if="winningTicket || modalStart === 'WinningTicket_details'"></WinningTicketDetail>
 
          <UserDetail v-else></UserDetail>
 

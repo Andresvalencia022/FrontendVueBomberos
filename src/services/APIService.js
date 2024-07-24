@@ -26,7 +26,7 @@ export default {
     //  Todos Eventos
     getEvents (token){
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return api.get('/event'); // Asume que '/user' es la ruta para verificar al usuario    
+    return api.get('/event'); 
     },
     
     CreateEvent (data, token){
@@ -34,22 +34,64 @@ export default {
          return api.post('/event', data, token)
     },
 
-    updateEvent (id, data, token){
+    bringEvent (id, token){
+         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+         return api.get('/event/' + id, token); 
+    },
+
+    
+    updateEvent(id, data, token){
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        return api.put('/event'); 
+        return api.put('/event/' + id, data, token ); 
     },
 
     deleteEvent (id, token){
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         return api.delete('/event/' + id ,token)
     },
-
+    
+    // --------------------------Winning Ticket------------------------------------------------------------
+    createWinningTicket (data, token){
+      console.log(data)
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
+      return api.post('/Winningticket', data, token)
+    },
+    
+    //  Todos los WinningTicket
+    getWinningTicket (token){
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return api.get('/Winningticket'); 
+   },
+   //buscar
+   bringWinningTicket(id, token){
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return api.get('/Winningticket/' + id, token); 
+   },
+   updateWinningTicket(id, data, token){
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return api.put('/Winningticket/' + id, data, token ); 
+},
+  deleteWinningTicket (id, token){
+  api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  return api.delete('/Winningticket/' + id ,token)
+},
 
     // --------------------------User------------------------------------------------------------
     
-    CreateUser (data, token){
+  CreateUser (data, token){
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
       return api.post('/createuser', data, token)
  },
+
+ //  Todos los usuarios
+   getUser (token){
+   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+   return api.get('/users'); 
+  },
+
+   bringUser(id, token){
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return api.get('/users/' + id, token); 
+   }
 
 }

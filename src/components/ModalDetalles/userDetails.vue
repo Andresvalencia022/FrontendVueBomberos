@@ -1,5 +1,10 @@
 <script setup>
 import News from "../../assets/img/news1.jpg";
+
+import {UseUserStore} from '../../stores/UseUserStore';
+const UserStore = UseUserStore();
+const { userObjectForm } = UserStore;
+
 </script>
 <template>
   <div class="pb-3 m-7">
@@ -24,7 +29,7 @@ import News from "../../assets/img/news1.jpg";
                 clip-rule="evenodd"
               />
             </svg>
-            <span class="flex-1 ms-3 whitespace-nowrap">Nombre:</span>
+            <span class="flex-1 ms-3 whitespace-nowrap">Nombre: {{userObjectForm.name}} {{userObjectForm.last_name}}</span>
           </div>
           <div></div>
         </li>
@@ -45,7 +50,7 @@ import News from "../../assets/img/news1.jpg";
             />
           </svg>
 
-          <span class="flex-1 ms-3 whitespace-nowrap">Teléfono:</span>
+          <span class="flex-1 ms-3 whitespace-nowrap">Teléfono: {{userObjectForm.phone}}</span>
         </li>
         <li
           class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
@@ -67,7 +72,7 @@ import News from "../../assets/img/news1.jpg";
             />
           </svg>
 
-          <span class="flex-1 ms-3 whitespace-nowrap">Correo:</span>
+          <span class="flex-1 ms-3 whitespace-nowrap">Correo: {{userObjectForm.email}}</span>
         </li>
         <li
           class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
@@ -87,7 +92,7 @@ import News from "../../assets/img/news1.jpg";
               clip-rule="evenodd"
             />
           </svg>
-          <span class="flex-1 ms-3 whitespace-nowrap">Cargo:</span>
+          <span class="flex-1 ms-3 whitespace-nowrap">Cargo: {{userObjectForm.post}}</span>
         </li>
         <li
           class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
@@ -108,7 +113,8 @@ import News from "../../assets/img/news1.jpg";
             />
           </svg>
 
-          <span class="flex-1 ms-3 whitespace-nowrap">Estado:</span>
+          <span v-if="userObjectForm.state == '1'" class="flex-1 ms-3 whitespace-nowrap">Estado: Activo</span>
+          <span v-else class="flex-1 ms-3 whitespace-nowrap">Estado: inactivo</span>
         </li>
       </ul>
     </div>

@@ -1,14 +1,17 @@
 import { defineStore } from "pinia";
+import {reactive, ref } from "vue";
 import APIService from '../services/APIService'
-import { useRouter} from 'vue-router';
-import { reactive, ref } from "vue";
+import { useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
+
+
 
 import ModalServices from "../services/ModalServices";
 
 // _____________________________________________________
 export const UseUserStore = defineStore("UserStore", () => {
-
+  
+  // const ModalStore = UseModalStore();
   const router = useRouter(); // Obtiene el router de Vue
 
 
@@ -45,7 +48,12 @@ export const UseUserStore = defineStore("UserStore", () => {
     email: '',
     state: '',
   })
-
+  
+  //objeto de modal
+  const modal = reactive({
+   mostrar: false,
+   animar: false,
+ });  
 
   //Diccopnario errores
   const errorCode = {
@@ -63,11 +71,19 @@ export const UseUserStore = defineStore("UserStore", () => {
    }
   }
 
-     //objeto de modal
-     const modal = reactive({
-      mostrar: false,
-      animar: false,
-    });  
+  //Todos los User
+  const readUser =  async () => {
+   const token = APIService.authToken();
+   try {
+      const { data } = await APIService.getUser(token)
+
+      // Formatear las fechas antes de asignar los datos a arrayEvents.value
+       arrayUser.value =  data.data
+  
+    } catch (error) {
+      console.error('Error al leer Eventos:', error.message);
+    }
+  }
 
     //Mostrar modal
     const show_modal = (ModalType) => {
@@ -85,6 +101,7 @@ export const UseUserStore = defineStore("UserStore", () => {
     ModalServices.hide(modal);
   }
 };
+
 
  //Agregar Productos
  const addUser = () => {
@@ -137,8 +154,24 @@ export const UseUserStore = defineStore("UserStore", () => {
 } catch (error) {
     console.error('Error al crear el evento:', error.message);
 }
-  
  }
+
+ async function searchrecord(id){
+   const token = APIService.authToken();
+  try {
+    const { data } = await APIService.bringUser(id, token);
+    userObjectForm.name = data.data.name;
+    userObjectForm.last_name = data.data.last_name;
+    userObjectForm.phone = data.data.phone;
+    userObjectForm.email = data.data.email;
+    userObjectForm.post = data.data.post;
+    userObjectForm.state = data.data.state;
+
+      }  catch (error) {
+         console.error('Error al crear el evento:', error.message);
+     }
+ }
+
 
 const restartUser = () => {
   //  reiniciar el objeto para que no muestre los valores en los campos del formulario
@@ -157,6 +190,8 @@ const restartUser = () => {
 
     return{
         userObjectForm,
+        arrayUser,
+        readUser,
         authenticateUser,
         objectUser,
         modal,
@@ -164,6 +199,8 @@ const restartUser = () => {
         hideModel,
         addUser,
         stateAlert,
+        searchrecord,
+        restartUser
     };
 
 });

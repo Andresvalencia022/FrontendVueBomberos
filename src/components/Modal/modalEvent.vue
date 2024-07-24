@@ -4,19 +4,15 @@ import Alert from '../UI/Alert.vue'
 
 import { UseEventStore } from "../../stores/UseEventStore";
 const EventStore = UseEventStore();
-const { start_date, end_date, objectEvent, addEvent, stateAlert, modal, hideModel } = EventStore;
+const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventStore;
 
-//Stora para manejar todos los Modales
-// import { UseModalStore } from "../../stores/UseEventStore";
-// const ModalStore = UseModalStore();
-// const { modal, hideModel } = ModalStore;
 
 </script>
 
 <template>
   <div
     class="Modal fixed bg-black bg-opacity-50 top-0 left-0 right-0 bottom-0 flex justify-center overflow-hidden transition-all ease-in-out duration-700"
-    :class="[modal.animar ? ' bg-opacity-70' : 'opacity-0']"
+    :class="[modal.animar ? 'bg-opacity-70' : 'opacity-0']"
   >
     <div
       class="content w-2/4 pt-2 justify-center overflow-hidden transition-all ease-in-out duration-1000"
@@ -61,39 +57,36 @@ const { start_date, end_date, objectEvent, addEvent, stateAlert, modal, hideMode
           <div class="flex sm:col-span-4">
             <div class="w-1/2 px-0.5">
               <label
-                for="stock"
+                for="start_date"
                 class="block text-sm font-medium leading-6 text-gray-900"
                 >Fecha de inicio</label
               >
               <div class="mt-2">
                 <Datepicker
-                  :minimumView
                   :style="{
                     '--vdp-hover-bg-color': '#ad0b0b',
                     '--vdp-selected-bg-color': '#ad0b0b',
                   }"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model="start_date"
+                  v-model="EventStore.start_date"
                 />
               </div>
             </div>
             <div class="w-1/2 px-0.5">
               <label
-                for="stock"
+                for="end_date"
                 class="block text-sm font-medium leading-6 text-gray-900"
                 >Fecha de Fin</label
               >
               <div class="mt-2">
                 <Datepicker
-                  :minimumView
                   :style="{
                     '--vdp-hover-bg-color': '#ad0b0b',
                     '--vdp-selected-bg-color': '#ad0b0b',
                   }"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model="end_date"
+                  v-model="EventStore.end_date"
                 />
-                <!-- v-model="objectBarcode.amount" -->
               </div>
             </div>
           </div>
@@ -106,7 +99,6 @@ const { start_date, end_date, objectEvent, addEvent, stateAlert, modal, hideMode
             <input
               id="time"
               name="time"
-              type="time"
               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500 sm:text-sm"
               v-model="objectEvent.time"
             />
@@ -130,7 +122,16 @@ const { start_date, end_date, objectEvent, addEvent, stateAlert, modal, hideMode
               ></textarea>
             </div>
           </div>
-          <div class="mt-5 mb-5">
+      
+          <div v-if="editMode" class="mt-5 mb-5">
+            <button
+              type="submit"
+              class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
+            >
+              Editar registro
+            </button>
+          </div>
+          <div v-else class="mt-5 mb-5">
             <button
               type="submit"
               class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"

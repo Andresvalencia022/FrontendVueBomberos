@@ -1,11 +1,10 @@
 <script setup>
-
+import Alert from '../UI/Alert.vue'
 import Datepicker from "vue3-datepicker";
 
-//Stora para manejar todos los Modales
-import { UseModalStore } from "../../stores/UseModalStore";
-const ModalStore = UseModalStore();
-const { modal, hideModel } = ModalStore;
+import {UseWinningTicketStore} from '../../stores/UseWinningTicket';
+const WinningTicketStore = UseWinningTicketStore();
+const { modal, hideModel, objectWinningTicket, stateAlert, addWinningTicket, editMode} = WinningTicketStore;
 
 </script>
 
@@ -26,17 +25,17 @@ const { modal, hideModel } = ModalStore;
         </h1>
         <h1
           class="absolute -top-1 -right-1 h-7 w-7 text-center text-xl text-white rounded-full cursor-pointer"
-          @click="hideModel('modal_new_registration')"
+          @click="hideModel('cerrarSinGuardarWinningTicket')"
         >
           x
         </h1>
-        <!-- <Alerta
-          v-if="state.showAlertError"
-          :class="['bg-red-600 text-white']"
-          >{{ state.errorMessage }}
-        </Alerta>
-         -->
-        <form class="block px-9 pb-5" @submit.prevent="addEvent()">
+        <Alert
+           v-if="stateAlert.showAlert"
+          :class="stateAlert.classAlert"
+          >{{ stateAlert.Message }}
+        </Alert>
+        
+        <form class="block px-9 pb-5" @submit.prevent="addWinningTicket()">
           <div class="sm:col-span-4 flex">
             <div class="w-1/2 px-0.5">
               <label
@@ -49,7 +48,8 @@ const { modal, hideModel } = ModalStore;
                   id="winning_number"
                   name="winning_number"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
+                  v-model="objectWinningTicket.winning_number"
+                 />
               </div>
             </div>
             <div class="w-1/2 px-0.5">
@@ -60,13 +60,12 @@ const { modal, hideModel } = ModalStore;
               >
               <div class="mt-2">
                 <Datepicker
-                  :minimumView
                   :style="{
                     '--vdp-hover-bg-color': '#ad0b0b',
                     '--vdp-selected-bg-color': '#ad0b0b',
                   }"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model="start_date"
+                  v-model="WinningTicketStore.inputDate"
                 />
               </div>
             </div>
@@ -74,15 +73,16 @@ const { modal, hideModel } = ModalStore;
           <div class="sm:col-span-4 flex">
             <div class="w-1/2 px-0.5">
              <label
-                for="email"
+                for="winning_name"
                 class="block text-sm font-medium leading-6 text-gray-900"
                 >Nombre del ganador</label
               >
               <div class="mt-2">
                 <input
-                  id="email"
-                  name="email"
+                  id="winning_name"
+                  name="winning_name"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  v-model="objectWinningTicket.winning_name"
                 />
               </div>
             </div>
@@ -97,6 +97,7 @@ const { modal, hideModel } = ModalStore;
                   id="phone"
                   name="phone"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  v-model="objectWinningTicket.phone"
                 />
               </div>
             </div>
@@ -114,12 +115,20 @@ const { modal, hideModel } = ModalStore;
                 rows="4"
                 cols="50"
                 class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                v-model="objectWinningTicket.description"
               ></textarea>
-              <!-- v-model="objectEvent.description" -->
             </div>
           </div> 
           <div class="mt-5 mb-5">
             <button
+              v-if="editMode"
+              type="submit"
+              class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
+            >
+              Actualizar
+            </button>
+            <button
+             v-else
               type="submit"
               class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
             >
