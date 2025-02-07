@@ -10,7 +10,6 @@ defineProps({
     }
    })
   
-console.log('desde inicio');
 </script>
 
 <template>

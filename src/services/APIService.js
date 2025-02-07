@@ -50,9 +50,16 @@ export default {
         return api.delete('/event/' + id ,token)
     },
     
+    // -------------------------- News ------------------------------------------------------------
+    
+    CreateNew(data, token){
+         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+         api.post('/news', data, token)
+    },
+    
     // --------------------------Winning Ticket------------------------------------------------------------
     createWinningTicket (data, token){
-      console.log(data)
+      
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
       return api.post('/Winningticket', data, token)
     },
@@ -92,6 +99,10 @@ export default {
    bringUser(id, token){
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return api.get('/users/' + id, token); 
-   }
+   },
+   updateUser(id, data, token){
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return api.put('/users/' + id, data, token ); 
+},
 
 }

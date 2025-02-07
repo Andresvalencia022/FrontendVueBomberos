@@ -14,6 +14,8 @@ export const UseUserStore = defineStore("UserStore", () => {
   // const ModalStore = UseModalStore();
   const router = useRouter(); // Obtiene el router de Vue
 
+  //objeto modo para editar
+  let editMode = ref();
 
   const arrayUser = ref([])
 
@@ -86,11 +88,15 @@ export const UseUserStore = defineStore("UserStore", () => {
   }
 
     //Mostrar modal
-    const show_modal = (ModalType) => {
-  if (ModalType === "modal_new_registration") {
+    const show_modal = (function_mode) => {
+     if(function_mode === 'new_registration'){
+      editMode.value = false;
+      ModalServices.show(modal);
+     }else{
+      editMode.value = true;
       ModalServices.show(modal);
      }
-}
+  }
 
  //ocultar modal
  const hideModel = (ModalType) => {
@@ -113,31 +119,19 @@ export const UseUserStore = defineStore("UserStore", () => {
   const password = userObjectForm.password == '' ? false : userObjectForm.password;
   const password_confirm = userObjectForm.password_confirm == '' ? false : userObjectForm.password_confirm;
   const post = userObjectForm.post == '' ? false : userObjectForm.post;
-
-
-  if (!name || !last_name || !phone ||  !email || !password || !password_confirm || !post) {
-    stateAlert.Message = '¡Alerta! Debes llenar todos los campos requeridos antes de continuar.'
-    stateAlert.showAlert = true;
-    
-    // identificar el tipo de error para pintar la alerta
-    ModalServices.alertType(stateAlert, 'Error')    
-    return
+  const id = userObjectForm.id == '' ? false : true ;
+  if(!id){  
+    //validar los campos del formulario y mostrar las alertas
+    ModalServices.validateFields(name, last_name, phone, email, password, password_confirm, post, stateAlert)
+    return;
   }
 
-// ---------------Confirmar la contraseña----------------------------
- if (password !== password_confirm){
-  stateAlert.Message = 'Error: las contraseñas ingresadas no son iguales.'
-  stateAlert.showAlert = true;
-   // identificar el tipo de error para pintar la alerta
-  ModalServices.alertType(stateAlert, 'Error') 
-  return
+ if (id) {
+  updateUser();
+ }else{
+  saveUser();
  }
 
- //--------------Validar criterios---------------------------
- ModalServices.validatePasswordCriteria(password,stateAlert)
-
-
- saveUser();
  hideModel('cerrar');
  restartUser();
 }
@@ -156,7 +150,7 @@ export const UseUserStore = defineStore("UserStore", () => {
 }
  }
 
- async function searchrecord(id){
+ async function searchrecord(editResult,id){
    const token = APIService.authToken();
   try {
     const { data } = await APIService.bringUser(id, token);
@@ -166,11 +160,38 @@ export const UseUserStore = defineStore("UserStore", () => {
     userObjectForm.email = data.data.email;
     userObjectForm.post = data.data.post;
     userObjectForm.state = data.data.state;
+    if (editResult === 'edit') {
+      userObjectForm.id = data.data.id
+      show_modal(editResult);
+    }
 
       }  catch (error) {
          console.error('Error al crear el evento:', error.message);
      }
  }
+
+ async function updateUser() {
+  const token = APIService.authToken();
+  // Convertir objectWinningTicket a un objeto plano manualmente
+  const objeto = {
+    id: userObjectForm.id,
+    name: userObjectForm.name,
+    last_name: userObjectForm.last_name,
+    phone: userObjectForm.phone,
+    email: userObjectForm.email,
+    state: userObjectForm.state,
+    post: userObjectForm.post
+  };
+  try {
+    const { data } = await APIService.updateUser(objeto.id, objeto ,token);
+    //el método findIndex en el array se utiliza para encontrar el índice del objeto en el lista category que tiene el mismo id
+    const i = arrayUser.value.findIndex((user) => user.id === objeto.id);
+    //Asigna el objeto data.data al índice i del array WinningTicket.value."
+    arrayUser.value[i] = data.data;
+  } catch (error) {
+    console.error("Error al crear el evento:", error.message);
+  }
+} 
 
 
 const restartUser = () => {
@@ -200,6 +221,7 @@ const restartUser = () => {
         addUser,
         stateAlert,
         searchrecord,
+        editMode,
         restartUser
     };
 

@@ -135,7 +135,7 @@ const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventS
             <button
               type="submit"
               class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
-            >
+           >
               Registrar
             </button>
           </div>

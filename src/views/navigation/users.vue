@@ -10,7 +10,7 @@ const {modalDetalle, show_modalDetalle } = ModalStore;
 
 import {UseUserStore} from '../../stores/UseUserStore';
 const UserStore = UseUserStore();
-const { modal, show_modal, readUser } = UserStore;
+const { modal, show_modal, readUser, searchrecord } = UserStore;
 
 
 onMounted(() => {
@@ -27,7 +27,7 @@ onMounted(() => {
       </h1>
       <a
         class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        @click="show_modal('modal_new_registration')"
+        @click="show_modal('new_registration')"
       >
         Nuevo usuario
       </a>
@@ -46,10 +46,28 @@ onMounted(() => {
           >
             {{user.post}}
           </h5>
-          <div class="flex justify-end w-5/12 gap-x-3 gap-y-4 grid-cols-2">
-            <div class="w-11 bg-white rounded-full overflow-hidden">
-              <img :src="logobomberos" class="rounded-full" alt="" />
-            </div>
+          <div class="flex justify-end w-5/12 gap-x-1 gap-y-4 grid-cols-2">
+      
+              <!-- @click="eventUpdate(Events.id)" -->
+              <a
+              @click="searchrecord('edit', user.id)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-8 h-8 text-green-500 hover:text-green-700"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                  />
+                </svg>
+              </a>
+              <img :src="logobomberos" class="w-8" alt="" />
           </div>
         </div>
 

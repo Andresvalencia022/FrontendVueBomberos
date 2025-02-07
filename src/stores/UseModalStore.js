@@ -22,7 +22,6 @@ export const UseModalStore = defineStore("ModalStore", () => {
 
   //mostrar modal
   const show_modalDetalle = (modalDetailType, id) => {
-     console.log(modalDetailType)
       if (modalDetailType === "event_details") {
           modalStart.value = modalDetailType;
           EventStore.searchrecord(id)
@@ -36,7 +35,7 @@ export const UseModalStore = defineStore("ModalStore", () => {
         ModalServices.show(modalDetalle);
       }else{
         modalStart.value = modalDetailType;
-        UserStore.searchrecord(id);
+        UserStore.searchrecord('user_details',id);
         ModalServices.show(modalDetalle);
       }
   };

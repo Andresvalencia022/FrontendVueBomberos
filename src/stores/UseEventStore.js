@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { ref, reactive, watch, toRaw } from "vue";
+import { ref, reactive, watch } from "vue";
 // import Cookies from 'js-cookie';
 import APIService from "../services/APIService";
 

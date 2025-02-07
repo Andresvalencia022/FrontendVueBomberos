@@ -5,7 +5,7 @@ import Alert from '../UI/Alert.vue'
 //Stora para manejar todos los Modales
 import {UseUserStore} from '../../stores/UseUserStore';
 const UserStore = UseUserStore();
-const { modal, hideModel, userObjectForm, addUser, stateAlert } = UserStore;
+const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
 
 
 </script>
@@ -32,9 +32,9 @@ const { modal, hideModel, userObjectForm, addUser, stateAlert } = UserStore;
           x
         </h1>
         <Alert
-          v-if="stateAlert.showAlert"
-          :class="stateAlert.classAlert"
-          >{{ stateAlert.Message }}
+          v-if="UserStore.stateAlert.showAlert"
+          :class="UserStore.stateAlert.classAlert"
+          >{{ UserStore.stateAlert.Message }}
         </Alert>
         
         <form class="block px-9 pb-5" @submit.prevent="addUser()">
@@ -96,13 +96,16 @@ const { modal, hideModel, userObjectForm, addUser, stateAlert } = UserStore;
                 <input
                   id="email"
                   name="email"
+                  autocomplete="email"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   v-model="userObjectForm.email"
                 />
               </div>
             </div>
           </div>
-          <div class="sm:col-span-4 flex">
+          <div 
+           v-if="!editMode"
+          class="sm:col-span-4 flex">
             <div class="w-1/2 px-0.5">
               <label
                 for="password"
@@ -114,6 +117,7 @@ const { modal, hideModel, userObjectForm, addUser, stateAlert } = UserStore;
                   id="password"
                   type="password"
                   name="password"
+                  autocomplete="new-password" 
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   v-model="userObjectForm.password"
                 />
@@ -130,6 +134,7 @@ const { modal, hideModel, userObjectForm, addUser, stateAlert } = UserStore;
                   id="password_confirm"
                   type="password"
                   name="password_confirm"
+                  autocomplete="new-password"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   v-model="userObjectForm.password_confirm"
                 />
@@ -156,6 +161,14 @@ const { modal, hideModel, userObjectForm, addUser, stateAlert } = UserStore;
           </div>
           <div class="mt-5 mb-5">
             <button
+              v-if="editMode"
+              type="submit"
+              class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
+            >
+              Actualizar 
+            </button>
+            <button
+              v-else
               type="submit"
               class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
             >
