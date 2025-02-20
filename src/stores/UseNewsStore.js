@@ -9,14 +9,17 @@ import { UseUserStore } from "../stores/UseUserStore";
 export const UseNewsStore = defineStore("NewsStore", () => {
   const UserStore = UseUserStore();
 
+
+  const arrayNews = ref([]);
+
   const file = ref(null); // Estado para almacenar el archivo
 
   const objectNew = reactive({
     id: "",
     title_news: "",
     info: "",
-    name_image: "",
-    link_video: "",
+    name_imagen: "",
+    video_name: "",
     user_id: "",
   });
 
@@ -24,6 +27,20 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     mostrar: false,
     animar: false,
   });
+
+
+  //todas las noticias
+    const readNews = async () => {
+      const token = APIService.authToken();
+
+      try {
+        const { data } = await APIService.getNews(token);
+        arrayNews.value = data.data
+
+      } catch (error) {
+        console.error("Error al leer todos las noticias:", error.message);
+      }
+    };
 
   const show_modal = (ModalType) => {
     if (ModalType === "modal_new_registration") {
@@ -47,26 +64,23 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     // e.target.files[0]: Obtiene el primer archivo seleccionado, ya que los inputs de tipo file
     const file = e.target.files[0];
     if (file) {
-       setFile(file);
+      setFile(file);
     }
   };
 
-  // Guardar el archivo en la store
   const setFile = (selectedFile) => {
-    // almacena en la variabel reactive file
     file.value = selectedFile;
-    objectNew.name_image = selectedFile.name; // Guarda el nombre en objectNew
+    objectNew.name_image = selectedFile.name; // Guarda el nombre del archivo
   };
+
 
   const addNew = () => {
     objectNew.user_id = UserStore.objectUser.id;
     const title_news = objectNew.title_news == "" ? false : objectNew.title_news;
     const info = objectNew.info == "" ? false : objectNew.info;
-    const name_image = objectNew.name_image == "" ? false : objectNew.name_image;
-    const link_video = objectNew.link_video == "" ? false : objectNew.link_video;
     const id = objectNew.id == "" ? false : true;
     
-    if (title_news || info) {
+    if (!title_news || !info) {
       "¡Alerta! El campo Título y descripción son obligatorio"
     }
 
@@ -82,34 +96,49 @@ export const UseNewsStore = defineStore("NewsStore", () => {
   // Registrar
   async function  saveNew(){
      const token = APIService.authToken();
+
+     const formData = new FormData(); //crear objeto 
+     formData.append("title_news", objectNew.title_news)
+     formData.append("info", objectNew.info)
+     formData.append("video_name", objectNew.video_name || "")  
+     formData.append("user_id", objectNew.user_id)
+    
+     if(file.value){
+      formData.append("name_imagen", file.value, file.value.name) // Adjuntar el archivo si existe
+     }
+
+    //  console.log("FormData enviado:", [...formData.entries()]); // 🔍 Verificar datos antes de enviarlos
+
      try {
-       const { data } = await  APIService.CreateNew(objectNew ,token);
-     }catch (error) {
+       const { data } = await  APIService.CreateNew(formData, token);  
+        // APIService(formData ,token);
+
+      }catch (error) {
        console.error('Error al crear una noticia:', error.message);
      }
 
   }
   
-
   //  reiniciar el objeto
   const restartNews = () => {
     Object.assign(objectNew, {
       id: "",
       title_news: "",
       info: "",
-      name_image: "",
-      Link_video: "",
+      name_imagen: "",
+      video_name: "",
       user_id: "",
     });
   };
 
   return {
+    arrayNews,
     modal,
     show_modal,
     hide_Model,
+    readNews,
     handleFileChange,
     file,
-    setFile,
     objectNew,
     addNew,
   };

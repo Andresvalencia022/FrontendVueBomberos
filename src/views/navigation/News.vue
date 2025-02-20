@@ -1,26 +1,32 @@
 <script setup>
 import ModalNews from "../../components/Modal/modalNews.vue";
-import Modal from '../../components/ModalDetalles/Modal.vue'
+import Modal from "../../components/ModalDetalles/Modal.vue";
+import { onMounted } from "vue";
 
 import { UseNewsStore } from "../../stores/UseNewsStore";
 const NewsStore = UseNewsStore();
-const { modal, show_modal } = NewsStore;
+const { modal, show_modal, readNews } = NewsStore;
 
+onMounted(() => {
+  readNews();
+});
 </script>
 <template>
-    <div>
+  <div>
     <div class="flex p-2 justify-between">
-      <h1 class="mt-2 ml-9 text-xl font-PoetsenOne">Administrador de noticias</h1>
+      <h1 class="mt-2 ml-9 text-xl font-PoetsenOne">
+        Administrador de noticias
+      </h1>
       <a
-          href="#"
-          class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          @click="show_modal('modal_new_registration')"
-        >
-           Nueva noticia  
-        </a>
+        href="#"
+        class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        @click="show_modal('modal_new_registration')"
+      >
+        Nueva noticia
+      </a>
     </div>
-    <div class="m-10 ">
-        <table
+    <div class="m-10">
+      <table
         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
       >
         <thead
@@ -30,30 +36,44 @@ const { modal, show_modal } = NewsStore;
             <th scope="col" class="px-6 py-3">Id</th>
             <th scope="col" class="px-6 py-3">Encevezado de la noticia</th>
             <th scope="col" class="px-6 py-3">Nombre del editor</th>
-            <th scope="col" class="px-6 py-3">imagen</th>
             <th scope="col" class="px-6 py-3">link: video</th>
             <th scope="col" class="px-6 py-3">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            
+            v-for="New in NewsStore.arrayNews.slice(0, 5)"
+            :key="New.id"
+            :New="New"
             class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
           >
             <th
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              <!-- {{ WinningTicket.id }} -->
+              {{ New.id }}
             </th>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
+            <td class="px-6 py-4">{{ New.title_news }}</td>
+            <td class="px-6 py-4">{{ New.user_id }}</td>
+
+            <td class="px-6 py-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                class="bi bi-camera-video-fill text-gray-800"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2z"
+                />
+              </svg>
+            </td>
             <td class="px-2 py-4 flex">
-               <!-- @click="show_modalDetalle('WinningTicket_details', WinningTicket.id)" -->
-              <a 
-               class="inline-block p-2">
+              <!-- @click="show_modalDetalle('WinningTicket_details', WinningTicket.id)" -->
+              <a class="inline-block p-2">
                 <svg
                   class="w-6 h-6 text-gray-800 dark:text-white"
                   aria-hidden="true"
@@ -71,8 +91,7 @@ const { modal, show_modal } = NewsStore;
                 </svg>
               </a>
               <!-- @click="searchrecord('edit', WinningTicket.id)" -->
-              <a 
-              class="inline-block p-2">
+              <a class="inline-block p-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -89,8 +108,7 @@ const { modal, show_modal } = NewsStore;
                 </svg>
               </a>
               <!-- @click="winningTicketDelete(WinningTicket.id)" -->
-              <a 
-              class="inline-block p-2" >
+              <a class="inline-block p-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

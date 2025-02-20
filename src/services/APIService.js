@@ -1,108 +1,120 @@
-import api from '../lib/axios';
-import Cookies from 'js-cookie';
+import api from "../lib/axios";
+import Cookies from "js-cookie";
 
 export default {
-
   // Sacar el token de la Cookies
-  authToken(){
-    const token = Cookies.get('AUTH-TOKEN');
+  authToken() {
+    const token = Cookies.get("AUTH-TOKEN");
     if (!token) {
-       throw new Error('Token de autenticación no encontrado en el almacenamiento local.');
+      throw new Error(
+        "Token de autenticación no encontrado en el almacenamiento local."
+      );
     }
     return token;
   },
 
-    getTokenLongin(data){
-        return api.post('/login',data)
-    },
-
-    //verifica si el usuario esta autenticado para poder navegar por las rutas de la vista
-    verifyUser (token){
-     // Configurar el encabezado Authorization con el token
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return api.get('/authentication'); // Asume que '/user' es la ruta para verificar al usuario    
-   },
-
-    //  Todos Eventos
-    getEvents (token){
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return api.get('/event'); 
-    },
-    
-    CreateEvent (data, token){
-         api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
-         return api.post('/event', data, token)
-    },
-
-    bringEvent (id, token){
-         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-         return api.get('/event/' + id, token); 
-    },
-
-    
-    updateEvent(id, data, token){
-        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        return api.put('/event/' + id, data, token ); 
-    },
-
-    deleteEvent (id, token){
-        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        return api.delete('/event/' + id ,token)
-    },
-    
-    // -------------------------- News ------------------------------------------------------------
-    
-    CreateNew(data, token){
-         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-         api.post('/news', data, token)
-    },
-    
-    // --------------------------Winning Ticket------------------------------------------------------------
-    createWinningTicket (data, token){
-      
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
-      return api.post('/Winningticket', data, token)
-    },
-    
-    //  Todos los WinningTicket
-    getWinningTicket (token){
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return api.get('/Winningticket'); 
-   },
-   //buscar
-   bringWinningTicket(id, token){
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return api.get('/Winningticket/' + id, token); 
-   },
-   updateWinningTicket(id, data, token){
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return api.put('/Winningticket/' + id, data, token ); 
-},
-  deleteWinningTicket (id, token){
-  api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  return api.delete('/Winningticket/' + id ,token)
-},
-
-    // --------------------------User------------------------------------------------------------
-    
-  CreateUser (data, token){
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
-      return api.post('/createuser', data, token)
- },
-
- //  Todos los usuarios
-   getUser (token){
-   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-   return api.get('/users'); 
+  getTokenLongin(data) {
+    return api.post("/login", data);
   },
 
-   bringUser(id, token){
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return api.get('/users/' + id, token); 
-   },
-   updateUser(id, data, token){
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return api.put('/users/' + id, data, token ); 
-},
+  //verifica si el usuario esta autenticado para poder navegar por las rutas de la vista
+  verifyUser(token) {
+    // Configurar el encabezado Authorization con el token
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.get("/authentication"); // Asume que '/user' es la ruta para verificar al usuario
+  },
 
-}
+  //  Todos Eventos
+  getEvents(token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.get("/event");
+  },
+
+  CreateEvent(data, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.post("/event", data, token);
+  },
+
+  bringEvent(id, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.get("/event/" + id, token);
+  },
+
+  updateEvent(id, data, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.put("/event/" + id, data, token);
+  },
+
+  deleteEvent(id, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.delete("/event/" + id, token);
+  },
+
+  // -------------------------- News ------------------------------------------------------------
+
+  CreateNew(data, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.post("/news", data, token);
+  },
+
+  //  Todos los News
+  getNews(token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.get("/news");
+  },
+
+  updateNews(id, data, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.put("/news/" + id, data, token);
+  },
+  deleteNews(id, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.delete("/news/" + id, token);
+  },
+  // --------------------------Winning Ticket------------------------------------------------------------
+  createWinningTicket(data, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.post("/Winningticket", data, token);
+  },
+
+  //  Todos los WinningTicket
+  getWinningTicket(token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.get("/Winningticket");
+  },
+  //buscar
+  bringWinningTicket(id, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.get("/Winningticket/" + id, token);
+  },
+  updateWinningTicket(id, data, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.put("/Winningticket/" + id, data, token);
+  },
+  deleteWinningTicket(id, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.delete("/Winningticket/" + id, token);
+  },
+
+  // --------------------------User------------------------------------------------------------
+
+  CreateUser(data, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.post("/createuser", data, token);
+  },
+
+  //  Todos los usuarios
+  getUser(token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.get("/users");
+  },
+
+  bringUser(id, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.get("/users/" + id, token);
+  },
+  updateUser(id, data, token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.put("/users/" + id, data, token);
+  },
+};
