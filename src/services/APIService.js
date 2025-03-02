@@ -62,10 +62,14 @@ export default {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.get("/news");
   },
+  bringNews(id, token){
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    return api.get("/news/" + id, token);
+  },
 
   updateNews(id, data, token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    return api.put("/news/" + id, data, token);
+    return api.post("/news/" + id, data, token);
   },
   deleteNews(id, token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;

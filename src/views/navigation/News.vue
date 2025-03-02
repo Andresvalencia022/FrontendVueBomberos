@@ -5,7 +5,7 @@ import { onMounted } from "vue";
 
 import { UseNewsStore } from "../../stores/UseNewsStore";
 const NewsStore = UseNewsStore();
-const { modal, show_modal, readNews } = NewsStore;
+const { modal, show_modal, readNews, eventUpdate, newDelete } = NewsStore;
 
 onMounted(() => {
   readNews();
@@ -55,7 +55,7 @@ onMounted(() => {
             </th>
             <td class="px-6 py-4">{{ New.title_news }}</td>
             <td class="px-6 py-4">{{ New.user_id }}</td>
-
+              <!-- link del video -->
             <td class="px-6 py-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -90,15 +90,15 @@ onMounted(() => {
                   />
                 </svg>
               </a>
-              <!-- @click="searchrecord('edit', WinningTicket.id)" -->
               <a class="inline-block p-2">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6 text-green-500 hover:text-green-700"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6 text-green-500 hover:text-green-700"
+                @click="eventUpdate(New.id)"
                 >
                   <path
                     stroke-linecap="round"
@@ -107,8 +107,10 @@ onMounted(() => {
                   />
                 </svg>
               </a>
-              <!-- @click="winningTicketDelete(WinningTicket.id)" -->
-              <a class="inline-block p-2">
+             
+              <a class="inline-block p-2"
+                  @click="newDelete(New.id)"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

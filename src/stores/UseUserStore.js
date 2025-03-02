@@ -184,7 +184,7 @@ export const UseUserStore = defineStore("UserStore", () => {
   };
   try {
     const { data } = await APIService.updateUser(objeto.id, objeto ,token);
-    //el método findIndex en el array se utiliza para encontrar el índice del objeto en el lista category que tiene el mismo id
+    //el método findIndex en el array se utiliza para encontrar el índice del objeto en el lista user que tiene el mismo id
     const i = arrayUser.value.findIndex((user) => user.id === objeto.id);
     //Asigna el objeto data.data al índice i del array WinningTicket.value."
     arrayUser.value[i] = data.data;

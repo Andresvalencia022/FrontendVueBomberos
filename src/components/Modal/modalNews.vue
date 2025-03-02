@@ -1,12 +1,18 @@
 <script setup>
-
 //Stora para manejar todos los Modales
 import { UseNewsStore } from "../../stores/UseNewsStore";
 const NewsStore = UseNewsStore();
-const { objectNew, modal, hide_Model,handleFileChange, file ,setFile, addNew } = NewsStore;
-
-
-
+const {
+  objectNew,
+  modal,
+  hide_Model,
+  handleFileChange,
+  file,
+  setFile,
+  addNew,
+  editMode,
+  imageIsUpdated
+} = NewsStore;
 </script>
 
 <template>
@@ -50,7 +56,7 @@ const { objectNew, modal, hide_Model,handleFileChange, file ,setFile, addNew } =
                   name="title_news"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   v-model="objectNew.title_news"
-                  />
+                />
               </div>
             </div>
           </div>
@@ -79,12 +85,43 @@ const { objectNew, modal, hide_Model,handleFileChange, file ,setFile, addNew } =
                 >Imagen</label
               >
               <div class="mt-2">
-                <input class="lock w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-black focus:border-black p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" 
-                id="default_size" type="file" 
-                @change="handleFileChange" 
-                accept="image/*"
-                >
-                <p
+                <input
+                  class="lock w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-black focus:border-black p-1 dark:bg-gray-700 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white"
+                  id="default_size"
+                  type="file"
+                  @change="handleFileChange"
+                  accept="image/*"
+                />
+                
+                <p v-if="NewsStore.imageIsUpdated" class="text-green-800">
+                  Has seleccionado una nueva imagen para actualizar. 
+                </p>
+                <article v-else-if="objectNew.name_imagen" class="ml-1">
+                  <a href="#" class="inline-block relative group">
+                    <img
+                      :src="objectNew.name_imagen"
+                      class="img-fluid w-24 rounded-md object-cover transition-opacity duration-300 group-hover:opacity-50"
+                      alt="Imagen subida"
+                    />
+                    <svg
+                      class="w-6 h-6 text-red-600 dark:text-white absolute top-5 left-9 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </a>
+                </article>
+                <p 
+                  v-else
                   class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                   id="file_input_help"
                 >
@@ -104,15 +141,15 @@ const { objectNew, modal, hide_Model,handleFileChange, file ,setFile, addNew } =
                   name="video_name"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   v-model="objectNew.video_name"
-                  />
+                />
               </div>
             </div>
           </div>
           <div class="mt-5 mb-5">
-             <button
+            <button
               type="submit"
               class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
-           >
+            >
               Registrar
             </button>
           </div>
