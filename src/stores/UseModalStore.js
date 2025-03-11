@@ -4,13 +4,16 @@ import { ref, reactive } from "vue";
 
 import {UseUserStore} from '../stores/UseUserStore';
 import { UseEventStore } from "../stores/UseEventStore";
+import { UseNewsStore } from "../stores/UseNewsStore"
 import { UseWinningTicketStore } from "../stores/UseWinningTicket";
+
 
 export const UseModalStore = defineStore("ModalStore", () => {
   
   const EventStore = UseEventStore();
-  const UserStore = UseUserStore();
+  const NewsStore = UseNewsStore();
   const WinningTicketStore = UseWinningTicketStore();
+  const UserStore = UseUserStore();
 
   let modalStart = ref("");
 
@@ -22,13 +25,20 @@ export const UseModalStore = defineStore("ModalStore", () => {
 
   //mostrar modal
   const show_modalDetalle = (modalDetailType, id) => {
-      if (modalDetailType === "event_details") {
-          modalStart.value = modalDetailType;
-          EventStore.searchrecord(id)
-          ModalServices.show(modalDetalle);
-      } else if (modalDetailType === 'home_news') {
-          modalStart.value = modalDetailType;
-          ModalServices.show(modalDetalle);
+    if (modalDetailType === "event_details") {
+      modalStart.value = modalDetailType;
+      EventStore.searchrecord(id)
+      ModalServices.show(modalDetalle);
+      
+    } else if (modalDetailType === 'home_news') {
+      modalStart.value = modalDetailType;
+      ModalServices.show(modalDetalle);
+      
+    }else if (modalDetailType === 'news_details') {
+        modalStart.value = modalDetailType;
+        NewsStore.searchregistration(id);
+        ModalServices.show(modalDetalle);
+
       } else if (modalDetailType === 'WinningTicket_details') {
         modalStart.value = modalDetailType;
         WinningTicketStore.searchrecord('detalle',id);
@@ -52,7 +62,6 @@ export const UseModalStore = defineStore("ModalStore", () => {
         WinningTicketStore.restarWinningTicket();
         ModalServices.hide(modalDetalle);
       }else {
-        console.log('user')
         UserStore.restartUser();
         ModalServices.hide(modalDetalle);
       }

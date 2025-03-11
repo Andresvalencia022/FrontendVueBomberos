@@ -15,6 +15,11 @@ export const UseNewsStore = defineStore("NewsStore", () => {
 
   const file = ref(null); // Estado para almacenar el archivo
 
+  //Expandir una secccion texto
+  const isExpanded = ref(false); //Mostrar texto
+  const shortText = ref(""); // Variable reactiva donde guardo el contenido del info
+  const isScrollable = ref(false); // ✅ Nueva variable para manejar el scroll
+
   const objectNew = reactive({
     id: "",
     title_news: "",
@@ -76,17 +81,17 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     objectNew.name_image = selectedFile.name; // Guarda el nombre del archivo
     // ID presente: modo edición, habilitar cambio de estado.
     if (objectNew.id) {
-        imageIsUpdated.value = true;
+      imageIsUpdated.value = true;
     }
   };
 
   const addNew = () => {
     const title_news =
-    objectNew.title_news == "" ? false : objectNew.title_news;
+      objectNew.title_news == "" ? false : objectNew.title_news;
     const info = objectNew.info == "" ? false : objectNew.info;
     objectNew.user_id = UserStore.objectUser.id;
     const id = objectNew.id == "" ? false : true;
-    
+
     if (!title_news || !info) {
       ("¡Alerta! El campo Título y descripción son obligatorio");
     }
@@ -106,7 +111,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     const token = APIService.authToken();
 
     const formData = createFormData(objectNew, file, false);
-  
+
     try {
       const { data } = await APIService.CreateNew(formData, token);
       // APIService(formData ,token);
@@ -131,13 +136,24 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       objectNew.video_name = dataNew.video_name;
       objectNew.user_id = dataNew.user_id;
       objectNew.name_imagen = dataNew.name_imagen;
+
+      // ✅ Verificar si la info es mayor a 645 caracteres para activar el scroll
+      isScrollable.value = dataNew.info.length > 600;
+      // Actualizar el texto corto
+      shortText.value =
+        dataNew.info.length > 300
+          ? dataNew.info.substring(0, 600) + "..."
+          : dataNew.info;
     } catch (error) {
       console.error("Error al crear el evento:", error.message);
     }
   }
 
-  const createFormData = (objectNew, file, isUpdate = false) => {
+  function toggleExpand() {
+    isExpanded.value = !isExpanded.value; // ✅ Modificar el estado de forma reactiva
+  }
 
+  const createFormData = (objectNew, file, isUpdate = false) => {
     const formData = new FormData();
     if (isUpdate) {
       formData.append("_method", "put");
@@ -146,7 +162,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     formData.append("info", objectNew.info);
     formData.append("video_name", objectNew.video_name || "");
     formData.append("user_id", objectNew.user_id);
-  
+
     if (file.value) {
       formData.append("name_imagen", file.value, file.value.name);
     }
@@ -156,7 +172,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
   //Actualizar
   async function updateNew() {
     const token = APIService.authToken();
-    
+
     // Convertir objectNews a un objeto plano manualmente
     const Object = {
       id: objectNew.id,
@@ -165,41 +181,38 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       name_imagen: objectNew.name_imagen,
       video_name: objectNew.video_name,
       user_id: objectNew.user_id,
-    };    
-      const formData = createFormData (Object, file, true);
-      try {
+    };
+    const formData = createFormData(Object, file, true);
+    try {
       const { data } = await APIService.updateNews(Object.id, formData, token);
-      const i = arrayNews.value.findIndex((News) => News.id === Object.id); 
+      const i = arrayNews.value.findIndex((News) => News.id === Object.id);
       arrayNews.value[i] = data.data;
     } catch (error) {
       console.error("Error al crear una noticia:", error.message);
     }
   }
 
-
   const newDelete = (id) => {
-    if (window.confirm("¿Estás seguro de que quieres eliminar este registro?")) {
+    if (
+      window.confirm("¿Estás seguro de que quieres eliminar este registro?")
+    ) {
       remove(id);
-    }else{
+    } else {
       console.log("Eliminación cancelada");
     }
-  }
+  };
 
   //Eliminar registros
-    async function remove(id) {
-      const token = APIService.authToken();
-      console.log(id);
-      try {
-        const { data } = await APIService.deleteNews(id, token);
-        arrayNews.value = arrayNews.value.filter((news) => news.id !== id);
-      } catch (error) {
-        console.error("Error al leer categorías:", error.message);
-      }
+  async function remove(id) {
+    const token = APIService.authToken();
+    console.log(id);
+    try {
+      const { data } = await APIService.deleteNews(id, token);
+      arrayNews.value = arrayNews.value.filter((news) => news.id !== id);
+    } catch (error) {
+      console.error("Error al leer categorías:", error.message);
     }
-  
-  
-
-
+  }
 
   //  reiniciar el objeto
   const restartNews = () => {
@@ -234,5 +247,10 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     eventUpdate,
     imageIsUpdated,
     newDelete,
+    searchregistration,
+    isExpanded, // ✅ Exportarlo correctamente
+    shortText,  
+    isScrollable, //  Retornamos la nueva variable
+    toggleExpand,
   };
 });

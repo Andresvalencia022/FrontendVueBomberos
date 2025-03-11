@@ -13,6 +13,7 @@ const { modalDetalle, hideModel, modalStart } = ModalStore;
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
+
 // // voy a tomar el nombre de la ruta en la que estoy
 const route = useRoute();
 const event = computed(() => route.name === "event");
@@ -31,7 +32,7 @@ const user = computed(() => route.name === "users");
       class="content w-2/4 pt-1 justify-center content-center overflow-hidden transition-all ease-in-out duration-1000"
       :class="[modalDetalle.animar ? ' bg-opacity-70' : 'opacity-0']"
     >
-      <div class="bg-white relative rounded-lg"  :class="[user ? 'mt-10' : '' ]">
+      <div class="bg-white relative rounded-lg"  :class="[user ? 'mt-10' : '']">
         <h1 v-if="modalStart === 'event_details'" class="text-center p-4 text-2xl text-white bg-red-700 rounded-lg mb-5">
           Evento: 
         </h1>
@@ -52,7 +53,7 @@ const user = computed(() => route.name === "users");
          
          <EventDetails v-if="event || modalStart === 'event_details' "></EventDetails>
 
-         <NewsDetail v-else-if="news || modalStart === 'home_news' "></NewsDetail>
+         <NewsDetail v-else-if="news || modalStart === 'home_news'"></NewsDetail>
        
          <WinningTicketDetail v-else-if="winningTicket || modalStart === 'WinningTicket_details'"></WinningTicketDetail>
 

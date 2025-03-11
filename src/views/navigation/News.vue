@@ -7,6 +7,10 @@ import { UseNewsStore } from "../../stores/UseNewsStore";
 const NewsStore = UseNewsStore();
 const { modal, show_modal, readNews, eventUpdate, newDelete } = NewsStore;
 
+import { UseModalStore } from "../../stores/UseModalStore";
+const ModalStore = UseModalStore();
+const { modalDetalle, show_modalDetalle } = ModalStore;
+
 onMounted(() => {
   readNews();
 });
@@ -72,8 +76,9 @@ onMounted(() => {
               </svg>
             </td>
             <td class="px-2 py-4 flex">
-              <!-- @click="show_modalDetalle('WinningTicket_details', WinningTicket.id)" -->
-              <a class="inline-block p-2">
+              <a class="inline-block p-2"
+              @click="show_modalDetalle('news_details', New.id)"
+              >
                 <svg
                   class="w-6 h-6 text-gray-800 dark:text-white"
                   aria-hidden="true"
@@ -133,5 +138,5 @@ onMounted(() => {
     </div>
   </div>
   <ModalNews v-if="modal.mostrar"></ModalNews>
-  <!-- <Modal v-if="modalDetalle.mostrar"></Modal> -->
+  <Modal v-if="modalDetalle.mostrar"></Modal>
 </template>
