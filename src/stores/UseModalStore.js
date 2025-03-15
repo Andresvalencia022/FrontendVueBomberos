@@ -58,6 +58,10 @@ export const UseModalStore = defineStore("ModalStore", () => {
         ModalServices.hide(modalDetalle);
       }else if (modalStart.value === 'home_news') {
         ModalServices.hide(modalDetalle);
+      }else if (modalStart.value === 'news_details') {
+        ModalServices.hide(modalDetalle);
+        // reiniciar el estado isExpanded para que no se expanda el texto que tengo el modal. 
+        NewsStore.isExpanded = false;
       }else if (modalStart.value === 'WinningTicket_details') {
         WinningTicketStore.restarWinningTicket();
         ModalServices.hide(modalDetalle);

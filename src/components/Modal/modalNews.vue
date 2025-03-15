@@ -25,11 +25,20 @@ const {
       :class="[modal.animar ? 'bg-opacity-70' : 'opacity-0']"
     >
       <div class="bg-white relative rounded-lg">
+          <!-- condición para mostrar si es actualizar   -->
         <h1
           class="text-center p-4 text-2xl text-white bg-red-700 rounded-lg mb-5"
+          v-if="objectNew.id"
         >
+          Atualizar Noticia
+        </h1>
+        <h1
+          class="text-center p-4 text-2xl text-white bg-red-700 rounded-lg mb-5"
+         v-else
+          >
           Nueva Noticia
         </h1>
+        <!-- Finaliza ña condición -->
         <h1
           class="absolute -top-1 -right-1 h-7 w-7 text-center text-xl text-white rounded-full cursor-pointer"
           @click="hide_Model('cerrarSinGuardarNews')"
@@ -147,8 +156,16 @@ const {
           </div>
           <div class="mt-5 mb-5">
             <button
-              type="submit"
-              class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
+            type="submit"
+            class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
+            v-if="objectNew.id" 
+            >
+            Actualizar
+            </button>
+            <button
+            type="submit"
+            class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
+            v-else 
             >
               Registrar
             </button>

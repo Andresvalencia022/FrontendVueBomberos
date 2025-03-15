@@ -58,7 +58,7 @@ onMounted(() => {
               {{ New.id }}
             </th>
             <td class="px-6 py-4">{{ New.title_news }}</td>
-            <td class="px-6 py-4">{{ New.user_id }}</td>
+            <td class="px-6 py-4">{{ New.user_name }}</td>
               <!-- link del video -->
             <td class="px-6 py-4">
               <svg

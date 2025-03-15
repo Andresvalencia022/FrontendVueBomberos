@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView } from "vue-router";
-import  Routerlink  from "./components/UI/Router-Link.vue";
+import Routerlink from "./components/UI/Router-Link.vue";
 import logobomberos from "./assets/img/Bomberos.png";
 import llamar from "./assets/img/llamar.png";
 import { onUnmounted, computed } from "vue";
@@ -28,19 +28,18 @@ const login = computed(() => route.name === "login");
 const Inicio = computed(() => route.name === "inicio");
 const lottery = computed(() => route.name === "lottery");
 const NotFound = computed(() => route.name === "NotFound");
-
 </script>
 
 <template>
   <div v-if="login">
-     <RouterView />
+    <RouterView />
   </div>
 
-   <div v-else-if="lottery || NotFound">
-       <RouterView /> 
+  <div v-else-if="lottery || NotFound">
+    <RouterView />
   </div>
 
- <!-- else if -->
+  <!-- else if -->
   <div v-else-if="Inicio">
     <header id="index" class="bg-red-500 w-full relative">
       <div class="head mx-auto max-w-6xl py-3 relative z-10">
@@ -61,7 +60,8 @@ const NotFound = computed(() => route.name === "NotFound");
         <nav
           id="nav"
           class="top-0 left-0 w-full bg-gray-700 text-white py-2"
-          :class="[sections.state ? 'fixed' : '']" v-if="!modalDetalle.mostrar"
+          :class="[sections.state ? 'fixed' : '']"
+          v-if="!modalDetalle.mostrar"
         >
           <ul class="flex flex-row justify-center">
             <li>
@@ -99,7 +99,7 @@ const NotFound = computed(() => route.name === "NotFound");
             <li>
               <a
                 href="#quienes_somos"
-                class="nav-link block md:inline-block rounded hover:bg-black hover:text-white p-2 mx-1 text-xs uppercase hover:shadow-[-1px_6px_20px_1px_#718096]"
+                class="nav-link block md:inline-block rounded hover:bg-black hover:text-white p-2 mx-2.5 text-xs uppercase hover:shadow-[-1px_6px_20px_1px_#718096]"
                 @click="controlPagine.checkSection('quienes_somos')"
                 >Quienes somos</a
               >
@@ -115,24 +115,60 @@ const NotFound = computed(() => route.name === "NotFound");
       <h1 class="text-center py-3 text-white">© 2024 Bomberos</h1>
     </footer>
   </div>
-   <div v-else>
-    <div class="flex">
-      <div class="w-1/5 bg-white h-[35rem] border-r-4 border-black">
-        <div class="grid grid-cols-2 place-content-center px-6 py-3 bg-red-700">
-            <img :src="logobomberos" alt="LogoBomberos" class="w-20">
-            <h2 class="text-center content-center font-medium text-xl text-white"> Bomberos la merced</h2>
+  <!-- Condición de vista si ya el usuario ya ingreso  -->
+  <div v-else>
+
+    <div class="flex items-center justify-between px-6 py-3 bg-red-700">
+  <!-- Logo y Texto Centrados -->
+  <div class="flex items-center">
+    <img :src="logobomberos" alt="LogoBomberos" class="w-14" />
+    <h2 class="ml-4 font-semibold text-xl text-white">
+      Bomberos La Merced
+    </h2>
+  </div>
+
+  <!-- Botón de Salida + Nombre de Usuario -->
+  <div class="flex items-center gap-4">
+    <span class="text-white font-medium">Nombre del usuario</span>
+    <a href="#" 
+      class="flex items-center gap-2 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 transition duration-200 ease-in-out">
+      Salir 
+      <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+      </svg>
+    </a>
+  </div>
+</div>
+    <div class="flex h-screen">
+       <!-- Menú Lateral -->
+      <div class="w-1/6 bg-white ring-2 ring-gray-700 ring-offset-1 rounded-r-lg shadow-lg">
+        <div class="mt-6">
+          <ul class="space-y-2">
+            <li
+              class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition duration-200"
+            >
+              <Routerlink to="event">Eventos</Routerlink>
+            </li>
+            <li
+              class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition duration-200"
+            >
+              <Routerlink to="news">Noticias</Routerlink>
+            </li>
+            <li
+              class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition duration-200"
+            >
+              <Routerlink to="winningTicket">Nuevo Ganador</Routerlink>
+            </li>
+            <li
+              class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition duration-200"
+            >
+              <Routerlink to="users">Usuarios</Routerlink>
+            </li>
+          </ul>
         </div>
-        <div class="mt-4">
-           <ul>
-            <li class="my-4 mx-1 font-medium  hover:bg-red-600 hover:text-white p-2"><Routerlink to="event">Eventos</Routerlink></li>
-            <li class="my-4 mx-1 font-medium  hover:bg-red-600 hover:text-white p-2"><Routerlink to="news">Noticias</Routerlink></li>
-            <li class="my-4 mx-1 font-medium  hover:bg-red-600 hover:text-white p-2"><Routerlink to="winningTicket">Nuevo Ganador</Routerlink></li>
-            <li class="my-4 mx-1 font-medium  hover:bg-red-600 hover:text-white p-2"><Routerlink to="users">Usuarios</Routerlink></li>
-           </ul>
-        </div>   
       </div>
-       <div class="w-4/5">
-        <RouterView /> 
+      <div class="w-5/6">
+        <RouterView />
       </div>
     </div>
   </div>

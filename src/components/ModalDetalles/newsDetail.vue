@@ -5,8 +5,6 @@ import {UseNewsStore} from "../../stores/UseNewsStore";
 const NewsStore = UseNewsStore();
 const { objectNew, isExpanded, shortText, searchregistration, isScrollable } = NewsStore;
 
-
-
 </script>
 <template>
   <div class="pb-3 my-7 mx-1" 
@@ -19,7 +17,7 @@ const { objectNew, isExpanded, shortText, searchregistration, isScrollable } = N
 
       <div class="my-3 mx-5 p-4 border rounded-lg"
       >
-      <p class="mt-2 text-gray-700">
+      <p class="mt-2 text-gray-700 whitespace-pre-line">
         {{ NewsStore.isExpanded ? NewsStore.objectNew.info : NewsStore.shortText }}
       </p>
     </div>  

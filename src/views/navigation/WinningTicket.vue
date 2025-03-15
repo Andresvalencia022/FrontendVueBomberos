@@ -28,8 +28,8 @@ onMounted(() => {
       </a>
     </div>
     <!-- table -->
-
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-7">
+    <div class="w-4/5 ml-6">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 max-w-6xl mx-auto">
       <table
         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
       >
@@ -124,6 +124,7 @@ onMounted(() => {
         </tbody>
       </table>
     </div>
+  </div>
   </div>
   <ModalWinningTicket v-if="modal.mostrar"></ModalWinningTicket>
   <Modal v-if="modalDetalle.mostrar"></Modal>
