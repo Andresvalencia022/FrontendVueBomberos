@@ -30,10 +30,6 @@ export const UseModalStore = defineStore("ModalStore", () => {
       EventStore.searchrecord(id)
       ModalServices.show(modalDetalle);
       
-    } else if (modalDetailType === 'home_news') {
-      modalStart.value = modalDetailType;
-      ModalServices.show(modalDetalle);
-      
     }else if (modalDetailType === 'news_details') {
         modalStart.value = modalDetailType;
         NewsStore.searchregistration(id);

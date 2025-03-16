@@ -98,41 +98,33 @@ const { modalDetalle } = ModalStore;
     <AboutUs></AboutUs>
     <div v-if="!modalDetalle.mostrar">
       <div
-        v-if="sections.statelottery"
-        class="w-3/5 flex m-auto overflow-hidden bg-white rounded-lg p-2 fixed bottom-2 right-72 border border-red-500 transition-all ease-in-out duration-500"
-        :class="[sections.Animationlottery ? ' bg-opacity-80' : 'opacity-0']"
-      >
-        <div class="p-2 w-4/12 text-center">
-          <h1 class="font-PoetsenOne text-xl">Ultimo sorteo</h1>
-          <p class="text-xl">10/06/24</p>
-        </div>
-        <div class="p-2 w-4/12">
-          <p class="flex justify-center font-PoetsenOne text-xl">
-            <span
-              class="p-2 px-3 mx-1 text-center text-white bg-red-600 rounded-lg"
-              >1</span
-            >
-            <span
-              class="p-2 px-3 mx-1 text-center text-white bg-red-600 rounded-lg"
-              >2</span
-            >
-            <span
-              class="p-2 px-3 mx-1 text-center text-white bg-red-600 rounded-lg"
-              >8</span
-            >
-            <span
-              class="p-2 px-3 mx-1 text-center text-white bg-red-600 rounded-lg"
-              >8</span
-            >
-          </p>
-          <p class="text-center text-xl">Numero ganado</p>
-        </div>
-        <div class="p-2 w-4/12 content-center">
-         <RouterLink to="/loteria" class="block rounded-lg text-white my-2 w-11/12 m-auto bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-         Consultar Ganador
-        </RouterLink>
-        </div>
-      </div>
+  v-if="sections.statelottery"
+  class="w-2/5 flex m-auto overflow-hidden bg-white rounded-lg p-2 fixed bottom-2 left-1/2 transform -translate-x-1/2 border border-red-500 transition-all ease-in-out duration-500"
+  :class="[sections.Animationlottery ? 'bg-opacity-80' : 'opacity-0']"
+>
+  <div class="p-1 w-1/3 text-center">
+    <h1 class="font-PoetsenOne text-base">Último sorteo</h1>
+    <p class="text-sm">10/06/24</p>
+  </div>
+  <div class="p-1 w-1/3">
+    <p class="flex justify-center font-PoetsenOne text-lg gap-1">
+      <span class="p-1 px-2 text-center text-white bg-red-600 rounded-lg">1</span>
+      <span class="p-1 px-2 text-center text-white bg-red-600 rounded-lg">2</span>
+      <span class="p-1 px-2 text-center text-white bg-red-600 rounded-lg">8</span>
+      <span class="p-1 px-2 text-center text-white bg-red-600 rounded-lg">8</span>
+    </p>
+    <p class="text-center text-sm">Número ganador</p>
+  </div>
+  <div class="p-1 w-1/3 flex items-center">
+    <RouterLink 
+      to="/loteria" 
+      class="block rounded-lg text-white w-full bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-xs py-1.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+    >
+    Últimos sorteos
+    </RouterLink>
+  </div>
+</div>
+
     </div>
   </div>
 </template>

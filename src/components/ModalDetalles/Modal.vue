@@ -51,9 +51,9 @@ const user = computed(() => route.name === "users");
           x
         </h1>
          
-         <EventDetails v-if="event || modalStart === 'event_details' "></EventDetails>
+         <EventDetails v-if="event || modalStart === 'event_details'"></EventDetails>
 
-         <NewsDetail v-else-if="news || modalStart === 'home_news'"></NewsDetail>
+         <NewsDetail v-else-if="news || modalStart === 'news_details'"></NewsDetail>
        
          <WinningTicketDetail v-else-if="winningTicket || modalStart === 'WinningTicket_details'"></WinningTicketDetail>
 

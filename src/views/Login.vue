@@ -2,6 +2,7 @@
 import imagenlogin from "../assets/img/imgservicio.jpg";
 import { reactive, ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
+import { RouterLink } from "vue-router";
 
 import { UseUserStore } from "../stores/UseUserStore";
 const UserStore = UseUserStore();
@@ -23,97 +24,79 @@ const login = computed(() => route.name === "login");
 </script>
 
 <template>
-  <div v-if="login" class="flex h-[35rem] w-full">
-    <div class="w-3/4 static">
-      <h1
-        class="font-PoetsenOne text-center absolute top-20 left-28 text-stroke text-4xl text-white drop-shadow-md transition-transform duration-500"
-        :class="{ '-translate-x-full  invisible': !showText }"
-      >
-        Cuerpo de Bomberos la merced
-      </h1>
-
-      <img :src="imagenlogin" alt="" loading="lazy" />
-    </div>
-    <div class="w-5/12 grid gap-4 place-content-center">
-      <div class="absolute top-3 right-1">
-        <a
-          href=""
-          class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          >Volver</a
+  <div v-if="login" class="flex h-screen w-full items-center justify-center bg-gradient-to-br from-gray-900 via-black to-red-900">
+  <!-- Botón Volver -->
+  <div class="absolute top-6 left-6">
+    <RouterLink
+          to="/"
+          class="flex content-center p-2 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
         >
-      </div>
-      <div
-        class="w-full max-w-sm p-4 bg-gray-900 border text-white border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
-      >
-        <form @click.prevent="authenticateUser"  class="space-y-6" action="#">
-          <h5
-            class="text-xl text-center text-white font-medium dark:text-white"
+          <svg
+            class="w-5 h-5 mr-1 text-white dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
           >
-            Inicia sesión en nuestra plataforma
-          </h5>
-          <div>
-            <label
-              for="email"
-              class="block mb-2 text-sm font-medium text-white dark:text-white"
-              >Email</label
-            >
-            <input
-              type="email"
-              name="email"
-              id="email"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="name@company.com"
-              v-model="userObjectForm.email"
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
             />
-          </div>
-          <div>
-            <label
-              for="password"
-              class="block mb-2 text-sm font-medium text-white dark:text-white"
-              >Password</label
-            >
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="••••••••"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-               v-model="userObjectForm.password"
-            />
-          </div>
-          <div class="flex items-start">
-            <!-- <div class="flex items-start">
-              <div class="flex items-center h-5">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  value=""
-                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                  required
-                />
-              </div>
-              <label
-                for="remember"
-                class="ms-2 text-sm font-medium text-white dark:text-gray-300"
-                >Remember me</label
-              >
-            </div> -->
-            <a
-              href="#"
-              class="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
-              >Olvídate tu contraseña?</a
-            >
-          </div>
-          <button
-            type="submit"
-            class="w-full text-white hover:text-white border border-red-700 bg-red-600 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-          >
-            Ingresar a su cuenta
-          </button>
-        </form>
-      </div>
-    </div>
+          </svg>
+          <p>Inicio</p>
+        </RouterLink>
   </div>
+
+  <!-- Contenedor del Formulario -->
+  <div class="relative w-full max-w-md p-10 bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-700 text-white">
+    <h5 class="text-3xl font-bold text-center mb-6">🔥 Bienvenido</h5>
+    
+    <form @click.prevent="authenticateUser" class="space-y-6">
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-300">Correo Electrónico</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="tuemail@correo.com"
+          v-model="userObjectForm.email"
+          class="w-full bg-transparent border border-gray-500 text-white text-sm rounded-lg focus:ring-red-500 focus:border-red-500 p-3 transition-all duration-300 outline-none focus:shadow-lg"
+        />
+      </div>
+
+      <!-- Contraseña -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-300">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="••••••••"
+          v-model="userObjectForm.password"
+          class="w-full bg-transparent border border-gray-500 text-white text-sm rounded-lg focus:ring-red-500 focus:border-red-500 p-3 transition-all duration-300 outline-none focus:shadow-lg"
+        />
+      </div>
+
+      <!-- Enlace de Recuperación -->
+      <div class="flex justify-between items-center">
+        <a href="#" class="text-sm text-red-400 hover:underline">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <!-- Botón de Ingreso -->
+      <button
+        type="submit"
+        class="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-400 font-medium rounded-lg text-lg px-5 py-3 transition-all duration-300 hover:shadow-xl hover:scale-105"
+      >
+        🚀 Ingresar
+      </button>
+    </form>
+  </div>
+</div>
+
   <div v-else class="flex  w-full">
     
   </div>  

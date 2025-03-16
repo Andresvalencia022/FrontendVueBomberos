@@ -5,6 +5,8 @@ import logobomberos from "./assets/img/Bomberos.png";
 import llamar from "./assets/img/llamar.png";
 import { onUnmounted, computed } from "vue";
 import { RouterLink, useRoute } from "vue-router";
+
+import {UseUserStore} from "./stores/UseUserStore"
 import { UseModalStore } from "./stores/UseModalStore";
 import { useControlPagineStore } from "./stores/controlPaginate";
 
@@ -13,6 +15,9 @@ const { modalDetalle } = ModalStore;
 
 const controlPagine = useControlPagineStore();
 const { sections, handleScroll } = controlPagine;
+
+//Para traer el nombre del Usuario  
+const UserStore = UseUserStore();
 
 // Agregar el evento de scroll cuando se monta el componente
 window.addEventListener("scroll", handleScroll);
@@ -129,7 +134,7 @@ const NotFound = computed(() => route.name === "NotFound");
 
   <!-- Botón de Salida + Nombre de Usuario -->
   <div class="flex items-center gap-4">
-    <span class="text-white font-medium">Nombre del usuario</span>
+    <span class="text-white font-medium">{{ UserStore.objectUser.name }} {{UserStore.objectUser.last_name  }}</span>
     <a href="#" 
       class="flex items-center gap-2 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 transition duration-200 ease-in-out">
       Salir 

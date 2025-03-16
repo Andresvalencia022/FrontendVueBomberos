@@ -5,7 +5,7 @@ import { onMounted } from "vue";
 
 import { UseEventStore } from "../../stores/UseEventStore";
 const EventStore = UseEventStore();
-const { modal, show_modal, getEvent, addEvent, eventUpdate, eventDelete } = EventStore;
+const { modal, show_modal, getEvent, eventUpdate, eventDelete } = EventStore;
 
 import { UseModalStore } from "../../stores/UseModalStore";
 const ModalStore = UseModalStore();

@@ -42,7 +42,6 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     try {
       const { data } = await APIService.getNews(token);
       arrayNews.value = data.data;
-      console.log(data.data);
     } catch (error) {
       console.error("Error al leer todos las noticias:", error.message);
     }
