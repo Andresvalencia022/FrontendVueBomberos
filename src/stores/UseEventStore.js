@@ -32,7 +32,7 @@ export const UseEventStore = defineStore("EventStore", () => {
   //objeto modo para editar
   let editMode = ref();
 
-  const arrayEvents = ref([]);
+  const arrayEvents = ref([]); 
 
   const objectEvent = reactive({
     id: "",
@@ -261,13 +261,13 @@ export const UseEventStore = defineStore("EventStore", () => {
     modal,
     show_modal,
     hideModel,
+    arrayEvents,
     getEvent,
     eventUpdate,
     start_date,
     end_date,
     objectEvent,
     addEvent,
-    arrayEvents,
     stateAlert,
     searchrecord,
     editMode,

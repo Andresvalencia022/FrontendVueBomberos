@@ -3,12 +3,14 @@ import { RouterView } from "vue-router";
 import Routerlink from "./components/UI/Router-Link.vue";
 import logobomberos from "./assets/img/Bomberos.png";
 import llamar from "./assets/img/llamar.png";
-import { onUnmounted, computed } from "vue";
+import { onUnmounted, computed,onMounted } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 
 import {UseUserStore} from "./stores/UseUserStore"
+
 import { UseModalStore } from "./stores/UseModalStore";
 import { useControlPagineStore } from "./stores/controlPaginate";
+
 
 const ModalStore = UseModalStore();
 const { modalDetalle } = ModalStore;
@@ -18,6 +20,7 @@ const { sections, handleScroll } = controlPagine;
 
 //Para traer el nombre del Usuario  
 const UserStore = UseUserStore();
+
 
 // Agregar el evento de scroll cuando se monta el componente
 window.addEventListener("scroll", handleScroll);

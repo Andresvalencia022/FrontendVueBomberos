@@ -9,7 +9,8 @@ import { UseUserStore } from "../stores/UseUserStore";
 export const UseNewsStore = defineStore("NewsStore", () => {
   const UserStore = UseUserStore();
 
-  const arrayNews = ref([]);
+  const arrayNews = ref([]);   //(requiere token)
+  const arrayPublicNews = ref([]); // Para las noticias públicas (sin token)
 
   const imageIsUpdated = ref(false);
 
@@ -46,6 +47,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       console.error("Error al leer todos las noticias:", error.message);
     }
   };
+
 
   const show_modal = (ModalType) => {
     if (ModalType === "modal_new_registration") {
@@ -254,11 +256,11 @@ export const UseNewsStore = defineStore("NewsStore", () => {
 
 
   return {
-    arrayNews,
+    arrayNews,   
     modal,
     show_modal,
     hide_Model,
-    readNews,
+    readNews, 
     handleFileChange,
     file,
     objectNew,
@@ -267,7 +269,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     imageIsUpdated,
     newDelete,
     searchregistration,
-    isExpanded, // ✅ Exportarlo correctamente
+    isExpanded, // Exportarlo correctamente
     shortText,
     isScrollable, //  Retornamos la nueva variable
     toggleExpand,

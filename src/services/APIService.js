@@ -30,6 +30,11 @@ export default {
     return api.get("/event");
   },
 
+   // Evento publicos
+   getPublicEvents() {
+    return api.get("/public/event");
+  },
+
   CreateEvent(data, token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.post("/event", data, token);
@@ -38,6 +43,11 @@ export default {
   bringEvent(id, token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.get("/event/" + id, token);
+  },
+  
+  //publico
+  bringPublicEvents(id) {
+    return api.get("/public/event/" + id);
   },
 
   updateEvent(id, data, token) {
@@ -62,9 +72,19 @@ export default {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.get("/news");
   },
+  // news publicos
+  getPublicNews() {
+    return api.get("/public/news");
+  },
+  
   bringNews(id, token){
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.get("/news/" + id, token);
+  },
+
+  //publico
+  bringPublicNews(id) {
+    return api.get("/public/news/" + id);
   },
 
   updateNews(id, data, token) {

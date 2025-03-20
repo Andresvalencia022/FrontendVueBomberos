@@ -2,19 +2,16 @@
 import Modal from "../components/ModalDetalles/Modal.vue";
 import {onMounted} from "vue";
 import { UseModalStore } from "../stores/UseModalStore";
-import {UseEventStore} from "../stores/UseEventStore";
+import {UsePublicEventStore} from "../stores/UsePublicEventStore";
 
 const ModalStore = UseModalStore();
 const { modalDetalle, show_modalDetalle } = ModalStore;
 // Eventos
-const EventStore = UseEventStore();
-const {getEvent} = EventStore;
-
-// const NewsStore = UseNewsStore();
-// const {objectNew, readNews} = NewsStore;
+const PublicEventStore = UsePublicEventStore();
+const {getPublicEvents} = PublicEventStore;
 
 onMounted(() => {
-  getEvent();
+  getPublicEvents();
 });
 
 </script>
@@ -30,7 +27,7 @@ onMounted(() => {
     <div class="flex flex-row">
       <div
         class="w-2/4 h-64 m-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-        v-for="event in EventStore.arrayEvents.slice(0, 2)" 
+        v-for="event in PublicEventStore.arrayPublicEvents.slice(0, 2)" 
         :key="event.id"
         :event="event"
         >

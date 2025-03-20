@@ -10,10 +10,10 @@ const ModalStore = UseModalStore();
 const { modalDetalle, show_modal } = ModalStore;
 
 const NewsStore = UseNewsStore();
-const {readNews} = NewsStore;
+const {readPublicNews} = NewsStore;
 
 onMounted(() => {
-  readNews()
+  readPublicNews()
 });
 
 </script>
@@ -30,7 +30,7 @@ onMounted(() => {
     <div class="flex flex-row max-h-[600px] overflow-hidden">
       <div
         class="w-2/4 m-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 max-h-[580px] flex flex-col"
-        v-for="news in NewsStore.arrayNews.slice(0, 2)" 
+        v-for="news in NewsStore.arrayPublicNews .slice(0, 2)" 
         :key="news.id"
         :news="news"
         >
