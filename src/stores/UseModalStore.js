@@ -7,6 +7,10 @@ import { UseEventStore } from "../stores/UseEventStore";
 import { UseNewsStore } from "../stores/UseNewsStore"
 import { UseWinningTicketStore } from "../stores/UseWinningTicket";
 
+//publico
+import {UsePublicEventStore} from "../stores/UsePublicEventStore"
+import {UsePublicNewsStore} from "../stores/UsePublicNewsStore"
+
 
 export const UseModalStore = defineStore("ModalStore", () => {
   
@@ -14,6 +18,10 @@ export const UseModalStore = defineStore("ModalStore", () => {
   const NewsStore = UseNewsStore();
   const WinningTicketStore = UseWinningTicketStore();
   const UserStore = UseUserStore();
+  //publico
+  const PublicEventStore = UsePublicEventStore();
+  const PublicNewsStore = UsePublicNewsStore();
+  
 
   let modalStart = ref("");
 
@@ -24,11 +32,17 @@ export const UseModalStore = defineStore("ModalStore", () => {
   });
 
   //mostrar modal
-  const show_modalDetalle = (modalDetailType, id) => {
+  const show_modalDetalle = (modalDetailType, id, eventPublicStatusModifier) => {
     if (modalDetailType === "event_details") {
       modalStart.value = modalDetailType;
-      EventStore.searchrecord(id)
-      ModalServices.show(modalDetalle);
+      if (eventPublicStatusModifier) {
+        //publico
+        PublicEventStore.searchrecord(id, eventPublicStatusModifier );
+      }else{
+        //privado
+        EventStore.searchrecord(id);
+      }
+        ModalServices.show(modalDetalle);
       
     }else if (modalDetailType === 'news_details') {
         modalStart.value = modalDetailType;
@@ -48,11 +62,14 @@ export const UseModalStore = defineStore("ModalStore", () => {
 
 
   //ocultar modal
-  const hideModel = () => {
+  const hideModel = (isPublic = false) => {
     if(modalStart.value === 'event_details' ){
+      if (isPublic) {
+        PublicEventStore.restartobjectPublicEvents();
+        PublicEventStore.resetPublicStatusModifier();
+      }else{
         EventStore.restartEvent();
-        ModalServices.hide(modalDetalle);
-      }else if (modalStart.value === 'home_news') {
+      }
         ModalServices.hide(modalDetalle);
       }else if (modalStart.value === 'news_details') {
         ModalServices.hide(modalDetalle);

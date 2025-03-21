@@ -3,7 +3,10 @@ import { ref, reactive } from "vue";
 
 import APIService from "../services/APIService";
 
-export const UsePublicNewsStore = defineStore("NewsStore", () => {
+export const UsePublicNewsStore = defineStore("PublicNewsStore", () => {
+
+  // let modalStart = ref("");
+
   const arrayPublicNews = ref([]); // Para las noticias públicas (sin token)
 
   const objectPublicNews = reactive({
@@ -19,8 +22,8 @@ export const UsePublicNewsStore = defineStore("NewsStore", () => {
   //todas las noticias publicas
   const readPublicNews = async () => {
     try {
-      const { data } = await APIService.getPublicNews(token);
-      arrayNews.value = data.data;
+      const { data } = await APIService.getPublicNews();
+      arrayPublicNews.value = data.data;
     } catch (error) {
       console.error("Error al leer todos las noticias:", error.message);
     }

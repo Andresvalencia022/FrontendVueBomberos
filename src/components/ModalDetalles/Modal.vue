@@ -10,11 +10,16 @@ import { UseModalStore } from "../../stores/UseModalStore";
 const ModalStore = UseModalStore();
 const { modalDetalle, hideModel, modalStart } = ModalStore;
 
+//store public evento, para manipular el cerrar modal
+import {UsePublicEventStore} from "../../stores/UsePublicEventStore"
+const PublicEventStore = UsePublicEventStore();
+
+
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 
-// // voy a tomar el nombre de la ruta en la que estoy
+//voy a tomar el nombre de la ruta en la que estoy
 const route = useRoute();
 const event = computed(() => route.name === "event");
 const news = computed(() => route.name === "news");
@@ -46,11 +51,11 @@ const user = computed(() => route.name === "users");
         </h1>
         <h1
           class="absolute -top-1 -right-1 h-7 w-7 text-center text-xl text-white rounded-full cursor-pointer"
-          @click="hideModel()"
+          @click="hideModel(PublicEventStore.PublicStatusModifier ? PublicEventStore.PublicStatusModifier : undefined)"
         >
           x
         </h1>
-         
+   
          <EventDetails v-if="event || modalStart === 'event_details'"></EventDetails>
 
          <NewsDetail v-else-if="news || modalStart === 'news_details'"></NewsDetail>

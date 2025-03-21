@@ -29,7 +29,10 @@ onMounted(() => {
         Nuevo Evento
       </a>
     </div>
-    <div class="grid grid-cols-2 gap-1">
+    <div
+      class="grid grid-cols-2 gap-1"
+      v-if="EventStore.arrayEvents.length > 0"
+    >
       <div
         v-for="Events in EventStore.arrayEvents.slice(0, 4)"
         :key="Events.id"
@@ -46,8 +49,7 @@ onMounted(() => {
               {{ Events.event_name }}
             </h5>
             <div class="flex justify-end w-5/12 gap-x-3 gap-y-4 grid-cols-2">
-              <a 
-              @click="eventUpdate(Events.id)">
+              <a @click="eventUpdate(Events.id)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -103,6 +105,28 @@ onMounted(() => {
           </a>
         </div>
       </div>
+    </div>
+    <!-- 🛑 Si no hay eventos, muestra esto -->
+    <div
+      class="flex flex-col items-center justify-center p-10 mx-3 bg-gray-50 dark:bg-gray-900 rounded-lg"
+      v-else
+      >
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/747/747310.png"
+        alt="Sin eventos"
+        class="w-48 h-48 mb-5 opacity-90 transition-transform duration-300 hover:scale-110 drop-shadow-xl"
+      />
+
+      <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300">
+        No hay eventos registrados 📅
+      </h2>
+
+      <p
+        class="text-gray-600 dark:text-gray-400 text-md mt-2 text-center max-w-md leading-relaxed"
+      >
+        Aún no se ha registrado ningún evento. Agrega uno haciendo clic en el
+        botón <strong>"Nuevo Evento"</strong> para comenzar.
+      </p>
     </div>
   </div>
   <ModalEvent v-if="modal.mostrar"></ModalEvent>

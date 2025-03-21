@@ -29,7 +29,7 @@ onMounted(() => {
         Nueva noticia
       </a>
     </div>
-    <div class="m-10">
+    <div class="m-10" v-if="NewsStore.arrayNews.length > 0">
       <table
         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
       >
@@ -59,7 +59,7 @@ onMounted(() => {
             </th>
             <td class="px-6 py-4">{{ New.title_news }}</td>
             <td class="px-6 py-4">{{ New.user_name }}</td>
-              <!-- link del video -->
+            <!-- link del video -->
             <td class="px-6 py-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,8 +76,9 @@ onMounted(() => {
               </svg>
             </td>
             <td class="px-2 py-4 flex">
-              <a class="inline-block p-2"
-              @click="show_modalDetalle('news_details', New.id)"
+              <a
+                class="inline-block p-2"
+                @click="show_modalDetalle('news_details', New.id)"
               >
                 <svg
                   class="w-6 h-6 text-gray-800 dark:text-white"
@@ -97,13 +98,13 @@ onMounted(() => {
               </a>
               <a class="inline-block p-2">
                 <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6 text-green-500 hover:text-green-700"
-                @click="eventUpdate(New.id)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 text-green-500 hover:text-green-700"
+                  @click="eventUpdate(New.id)"
                 >
                   <path
                     stroke-linecap="round"
@@ -112,10 +113,8 @@ onMounted(() => {
                   />
                 </svg>
               </a>
-             
-              <a class="inline-block p-2"
-                  @click="newDelete(New.id)"
-              >
+
+              <a class="inline-block p-2" @click="newDelete(New.id)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -135,6 +134,34 @@ onMounted(() => {
           </tr>
         </tbody>
       </table>
+    </div>
+    <!-- 🛑 Si no hay noticias, muestra esto -->
+    <div
+      class="flex flex-col items-center justify-center p-10 mx-3 bg-gray-50 dark:bg-gray-900 rounded-lg"
+      v-else
+    >
+      <!-- <img
+  src="https://cdn-icons-png.flaticon.com/512/3135/3135769.png"
+  alt="Sin noticias"
+  class="w-48 h-48 mb-5 opacity-90 transition-transform duration-300 hover:scale-110 drop-shadow-xl"
+/> -->
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/3135/3135690.png"
+        alt="Sin noticias"
+        class="w-48 h-48 mb-5 opacity-90 transition-transform duration-300 hover:scale-110 drop-shadow-xl"
+      />
+
+      <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300">
+        No hay noticias registradas 📰
+      </h2>
+
+      <p
+        class="text-gray-600 dark:text-gray-400 text-md mt-2 text-center max-w-md leading-relaxed"
+      >
+        Aún no se ha publicado ninguna noticia. Agrega una haciendo clic en el
+        botón <strong>"Nueva Noticia"</strong> para compartir información
+        importante.
+      </p>
     </div>
   </div>
   <ModalNews v-if="modal.mostrar"></ModalNews>

@@ -28,9 +28,10 @@ onMounted(() => {
       </a>
     </div>
     <!-- table -->
-    <div class="w-4/5 ml-6">
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 max-w-6xl mx-auto">
-      <table
+    <div class="m-10"
+     v-if="WinningTicketStore.arrayWinningTicket.length > 0"
+    >
+          <table
         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
       >
         <thead
@@ -123,8 +124,33 @@ onMounted(() => {
           </tr>
         </tbody>
       </table>
-    </div>
   </div>
+ 
+     <!-- 🛑 Si no hay ganadores, muestra esto -->
+  <div
+  class="flex flex-col items-center justify-center p-10 mx-3 bg-gray-50 dark:bg-gray-900 rounded-lg"
+  v-else
+>
+      <img
+  src="https://cdn-icons-png.flaticon.com/512/3135/3135769.png"
+  alt="Sin noticias"
+  class="w-48 h-48 mb-5 opacity-90 transition-transform duration-300 hover:scale-110 drop-shadow-xl"
+/>
+
+  <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300">
+    No hay ganadores registrados 🏆
+  </h2>
+
+  <p
+    class="text-gray-600 dark:text-gray-400 text-md mt-2 text-center max-w-md leading-relaxed"
+  >
+    Aún no se han registrado ganadores de nuevas boletas. Agrega uno haciendo
+    clic en el botón <strong>"Nuevo Ganador"</strong> para actualizar la
+    información.
+  </p>
+</div>
+
+
   </div>
   <ModalWinningTicket v-if="modal.mostrar"></ModalWinningTicket>
   <Modal v-if="modalDetalle.mostrar"></Modal>
