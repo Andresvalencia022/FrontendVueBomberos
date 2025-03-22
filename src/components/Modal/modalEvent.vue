@@ -57,9 +57,9 @@ const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventS
           <div class="flex sm:col-span-4">
             <div class="w-1/2 px-0.5">
               <label
-                for="start_date"
+                for="date"
                 class="block text-sm font-medium leading-6 text-gray-900"
-                >Fecha de inicio</label
+                >Fecha:</label
               >
               <div class="mt-2">
                 <Datepicker
@@ -68,24 +68,22 @@ const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventS
                     '--vdp-selected-bg-color': '#ad0b0b',
                   }"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model="EventStore.start_date"
+                  v-model="EventStore.date"
                 />
               </div>
             </div>
             <div class="w-1/2 px-0.5">
               <label
-                for="end_date"
+                for="location"
                 class="block text-sm font-medium leading-6 text-gray-900"
-                >Fecha de Fin</label
+                >Ubicación</label
               >
               <div class="mt-2">
-                <Datepicker
-                  :style="{
-                    '--vdp-hover-bg-color': '#ad0b0b',
-                    '--vdp-selected-bg-color': '#ad0b0b',
-                  }"
+                <input
+                  id="location"
+                  name="location"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model="EventStore.end_date"
+                  v-model="objectEvent.location"
                 />
               </div>
             </div>

@@ -13,7 +13,6 @@ const { objectNew, isExpanded, shortText, searchregistration, isScrollable } = N
     <div class="m-3 text-center">
       <h1 class="font-PoetsenOne text-2xl">{{ objectNew.title_news }}</h1>
     </div>
-  
 
       <div class="my-3 mx-5 p-4 border rounded-lg"
       >
@@ -28,11 +27,14 @@ const { objectNew, isExpanded, shortText, searchregistration, isScrollable } = N
   </div>
 
     <div class="my-3 mx-5 mt-6 flex text-center text-lg">
-      <div class="w-1/2">
+      <div v-if="objectNew.name_imagen" class="w-1/2">
         <img :src="objectNew.name_imagen" alt="" />
       </div>
-      <div class="w-1/2 content-center">
-        <a
+      <div 
+        :class="objectNew.name_imagen ? 'w-1/2 content-center' : 'w-full flex items-center justify-center h-full'" 
+      >
+        <a 
+        v-if="objectNew.video_name"
         :href="objectNew.video_name"
          target="_blank"
          class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"

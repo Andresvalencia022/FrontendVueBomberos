@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref, reactive } from "vue";
 // import Cookies from 'js-cookie';
 import APIService from "../services/APIService";
+import TextFormatterService from "../services/TextFormatterService";
 
 import ModalServices from "../services/ModalServices";
 import { UseUserStore } from "../stores/UseUserStore";
@@ -9,7 +10,7 @@ import { UseUserStore } from "../stores/UseUserStore";
 export const UseNewsStore = defineStore("NewsStore", () => {
   const UserStore = UseUserStore();
 
-  const arrayNews = ref([]);   //(requiere token)
+  const arrayNews = ref([]); //(requiere token)
   const arrayPublicNews = ref([]); // Para las noticias públicas (sin token)
 
   const imageIsUpdated = ref(false);
@@ -47,7 +48,6 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       console.error("Error al leer todos las noticias:", error.message);
     }
   };
-
 
   const show_modal = (ModalType) => {
     if (ModalType === "modal_new_registration") {
@@ -137,9 +137,9 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       objectNew.id = dataNew.id;
       objectNew.title_news = dataNew.title_news;
       // 🔹 Decodificar entidades HTML y reemplazar <br> con saltos de línea
-      const decodedInfo = decodeHTMLEntities(dataNew.info)
-      .replace(/<br\s*\/?>/g, "\n\n") // Convertir <br> en doble salto de línea
-      .replace(/\n{3,}/g, "\n\n") // Evitar más de dos saltos seguidos
+      const decodedInfo = TextFormatterService.decodeHTMLEntities(dataNew.info)
+        .replace(/<br\s*\/?>/g, "\n\n") //Convierte <br> a \n
+        .replace(/\n{3,}/g, "\n\n"); // Evita más de dos saltos seguidos
       objectNew.info = decodedInfo.trim();
       objectNew.video_name = dataNew.video_name;
       objectNew.user_id = dataNew.user_id;
@@ -149,24 +149,17 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       isScrollable.value = dataNew.info.length > 600;
       // Actualizar el texto corto
       shortText.value =
-      decodedInfo.length > 300
-      ? decodedInfo.substring(0, 400) + "..."
-      : decodedInfo;
+        decodedInfo.length > 300
+          ? decodedInfo.substring(0, 400) + "..."
+          : decodedInfo;
     } catch (error) {
       console.error("Error al crear el evento:", error.message);
     }
   }
 
-  function decodeHTMLEntities(text) {
-    if (!text) return "";
-    const parser = new DOMParser();
-    return parser.parseFromString(text, "text/html").body.textContent || "";
-  }
-
   function toggleExpand() {
     isExpanded.value = !isExpanded.value; // ✅ Modificar el estado de forma reactiva
   }
-
 
   const createFormData = (objectNew, file, isUpdate = false) => {
     const formData = new FormData();
@@ -189,10 +182,9 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     const token = APIService.authToken();
 
     objectNew.info = objectNew.info
-    .replace(/\r\n/g, '\n')  // Normaliza saltos de línea de Windows (\r\n → \n)
-    .replace(/\n{3,}/g, '\n\n'); // Mantiene máximo dos saltos seguidos
+      .replace(/\r\n/g, "\n") // Normaliza saltos de línea de Windows (\r\n → \n)
+      .replace(/\n{3,}/g, "\n\n"); // Mantiene máximo dos saltos seguidos
 
-  
     // Convertir objectNews a un objeto plano manualmente
     const Object = {
       id: objectNew.id,
@@ -242,7 +234,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       name_imagen: "",
       video_name: "",
       user_id: "",
-      name_user: "", 
+      name_user: "",
     });
   };
 
@@ -254,13 +246,12 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     imageIsUpdated.value = false;
   };
 
-
   return {
-    arrayNews,   
+    arrayNews,
     modal,
     show_modal,
     hide_Model,
-    readNews, 
+    readNews,
     handleFileChange,
     file,
     objectNew,
