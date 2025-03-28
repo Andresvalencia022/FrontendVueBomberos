@@ -180,11 +180,13 @@ export const UseEventStore = defineStore("EventStore", () => {
   async function saveEvent() {
     const token = APIService.authToken();
     try {
-      const { data } = await APIService.CreateEvent(objectEvent, token);
-      // Formatear las fechas del nuevo evento
-      arrayEvents.value.unshift(formattedEvent(data.data));
-      // Crear una copia del array y agregarle el nuevo objeto
-      const updatedArray = [format, ...arrayEvents.value];
+      const { data } = await APIService.createEvent(objectEvent, token);
+       // Formatear el nuevo evento
+       const newEvent = formattedEvent(data.data);
+       // Agregar el nuevo evento al inicio del array
+       arrayEvents.value.unshift(newEvent);
+       // Si realmente necesitas una copia del array (opcional)
+      //  const updatedArray = [newEvent, ...arrayEvents.value];
       // arrayEvents.value = updatedArray;
     } catch (error) {
       console.error("Error al crear el evento:", error.message);
@@ -211,9 +213,6 @@ export const UseEventStore = defineStore("EventStore", () => {
       );
       
       //el método findIndex en el array se utiliza para encontrar el índice del objeto en el lista category que tiene el mismo id
-      const i = arrayEvents.value.findIndex(
-        (event) => event.id === objEvent.id
-      );
       const index = arrayEvents.value.findIndex((event) => event.id === objEvent.id);
       if (index !== -1) arrayEvents.value[index] = formattedEvent(data.data);
 
@@ -241,6 +240,7 @@ export const UseEventStore = defineStore("EventStore", () => {
     } catch (error) {
       console.error("Error al leer categorías:", error.message);
     }
+  
   }
 
   const restartEvent = () => {

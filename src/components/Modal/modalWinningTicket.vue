@@ -4,7 +4,7 @@ import Datepicker from "vue3-datepicker";
 
 import {UseWinningTicketStore} from '../../stores/UseWinningTicket';
 const WinningTicketStore = UseWinningTicketStore();
-const { modal, hideModel, objectWinningTicket, stateAlert, addWinningTicket, editMode} = WinningTicketStore;
+const { objectWinningTicket, modal, hideModel, stateAlert, addWinningTicket, editMode } = WinningTicketStore;
 
 </script>
 
@@ -48,7 +48,7 @@ const { modal, hideModel, objectWinningTicket, stateAlert, addWinningTicket, edi
                   id="winning_number"
                   name="winning_number"
                   class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model="objectWinningTicket.winning_number"
+                  v-model="objectWinningTicket.winning_number "
                  />
               </div>
             </div>
@@ -116,7 +116,7 @@ const { modal, hideModel, objectWinningTicket, stateAlert, addWinningTicket, edi
                 cols="50"
                 class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 v-model="objectWinningTicket.description"
-              ></textarea>
+                ></textarea>
             </div>
           </div> 
           <div class="mt-5 mb-5">

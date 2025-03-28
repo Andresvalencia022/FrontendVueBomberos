@@ -31,7 +31,7 @@ export default {
   },
 
   
-  CreateEvent(data, token) {
+  createEvent(data, token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.post("/event", data, token);
   },
@@ -111,6 +111,7 @@ export default {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.get("/Winningticket/" + id, token);
   },
+  // çççç
   updateWinningTicket(id, data, token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.put("/Winningticket/" + id, data, token);

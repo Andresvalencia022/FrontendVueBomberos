@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
-import { reactive, ref, watch } from "vue";
+import { reactive, ref, watchEffect, toRaw  } from "vue";
 import ModalServices from "../services/ModalServices";
 import APIService from "../services/APIService";
+import TextFormatterService from "../services/TextFormatterService";
 import moment from "moment";
 
 export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
@@ -9,19 +10,21 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
   const arrayWinningTicket = ref([]);
 
   let inputDate = ref(new Date());
+
+  
+  const isScrollable = ref(false); // Nueva variable para manejar el scroll
   //objeto modo para editar
   let editMode = ref();
 
-  // formatear la fecha a 'YYYY-MM-DD'
-  function formatDate(date) {
-    return moment(date).format("YYYY-MM-DD");
-  }
+ // Función para formatear fechas en 'YYYY-MM-DD'
+ const formatDateYMD = (game_date) => (game_date ? moment(game_date).format("YYYY-MM-DD") : "");
+
 
   function formattedWinningTicket(data) {
     // Formatear las fechas del nuevo evento
     return {
      ...data,
-     start_date: formatDate(data.start_date),
+     start_date: formatDateYMD(data.start_date),
    };
  }
 
@@ -30,14 +33,14 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
     winning_number: "",
     winning_name: "",
     description: "",
-    game_date: formatDate(inputDate.value),
+    game_date: formatDateYMD(inputDate.value),
     phone: "",
   });
 
-  // Observar cambios en inputDate y actualizar game_date
-  watch(inputDate, (newValue) => {
-    objectWinningTicket.game_date = formatDate(newValue);
-  });
+   // 📌 Sincronización automática entre `date` y `objectEvent.date`
+   watchEffect(() => {
+     objectWinningTicket.game_date = formatDateYMD(inputDate.value);
+   });
 
   //objeto de modal´
   const modal = reactive({
@@ -84,6 +87,43 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
     }
   };
 
+  //buscar registro para mostrar en detalles de evento
+  async function searchrecord(id) {
+    const token = APIService.authToken();
+    try {
+      const { data } = await APIService.bringWinningTicket(id, token);
+      const dataWinningTicket =  data.data;
+      objectWinningTicket.id = dataWinningTicket.id;
+      objectWinningTicket.winning_number = dataWinningTicket.winning_number;
+      objectWinningTicket.winning_name = dataWinningTicket.winning_name;  
+      const decodedDescription = TextFormatterService.decodeHTMLEntities(
+        dataWinningTicket.description
+      ).replace(/<br\s*\/?>/g, "\n\n") //Convierte <br> a \n
+      .replace(/\n{3,}/g, "\n\n"); // Evita más de dos saltos seguidos
+
+      objectWinningTicket.description = decodedDescription.trim();
+      objectWinningTicket.phone = dataWinningTicket.phone;
+
+       // Formatear las fechas antes de asignarlas
+      inputDate.value = moment(dataWinningTicket.game_date, "YYYY-MM-DD").isValid()
+            ? moment(dataWinningTicket.game_date, "YYYY-MM-DD").toDate()
+            : null;
+       // ✅ Verificar si la info es mayor a 645 caracteres para activar el scroll
+       isScrollable.value = dataWinningTicket.description.length > 210;
+
+    } catch (error) {
+      console.error("Error al crear el evento:", error.message);
+    }
+  }
+
+  function formattedWinningTicket(data) {
+    // Formatear las fechas del nuevo evento
+    return {
+      ...data, // Mantiene el resto de los datos sin cambios
+      date: formatDateYMD(data.date), // Convierte la fecha
+    };
+  }
+  
   const addWinningTicket = () => {
     const winning_number =
       objectWinningTicket.winning_number == ""
@@ -126,14 +166,14 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
       }, 4000);
       return;
     }
-    if (id){
-      updateWinningTicket()
-    }else{
-      saveWinningTicket();
-    }
+    //Condicion si hay id 
+    objectWinningTicket.id ? updateWinningTicket() : saveWinningTicket();
+
     hideModel("Cerrar");
     restarWinningTicket();
   };
+
+
   async function saveWinningTicket() {
     const token = APIService.authToken();
     try {
@@ -141,59 +181,40 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
         objectWinningTicket,
         token
       );
-      // Crear una copia del array y agregarle el nuevo objeto
-      const updatedArray = [data.data, ...arrayWinningTicket.value];
-      // Asignar la nueva copia al ref
-      arrayWinningTicket.value = updatedArray;
+      // Formatear las fechas del nuevo evento y luego agrego al final de mi array la consulta 
+      arrayWinningTicket.value.unshift(formattedWinningTicket(data.data));
+
     } catch (error) {
       console.error("Error al crear el evento:", error.message);
     }
   }
 
-  //buscar registro para mostrar en detalles de evento
-  async function searchrecord(editResult,id) {
-    const token = APIService.authToken();
-    try {
-      const { data } = await APIService.bringWinningTicket(id, token);
-      objectWinningTicket.id = data.data.id;
-      objectWinningTicket.winning_number = data.data.winning_number;
-      objectWinningTicket.winning_name = data.data.winning_name;
-      objectWinningTicket.description = data.data.description;
-      objectWinningTicket.phone = data.data.phone;
-
-      if (editResult === 'edit') {
-        // Crear la fecha sin que se vea afectada por la zona horaria
-        const [year, month, day] = data.data.game_date.split('-');
-        inputDate.value = new Date(year, month - 1, day);
-        show_modal(editResult);
-
-      } else {
-        objectWinningTicket.game_date = data.data.game_date;
-      } 
-    } catch (error) {
-      console.error("Error al crear el evento:", error.message);
-    }
-  }
+  const eventUpdate = (id) => {
+    searchrecord(id);
+    show_modal();
+  };
 
   async function updateWinningTicket() {
+   
     const token = APIService.authToken();
+    
+    objectWinningTicket.description = objectWinningTicket.description
+    .replace(/\r\n/g, "\n") // Normaliza saltos de línea de Windows (\r\n → \n)
+    .replace(/\n{3,}/g, "\n\n"); // Mantiene máximo dos saltos seguidos
+    
     // Convertir objectWinningTicket a un objeto plano manualmente
     const objeto = {
-      id: objectWinningTicket.id,
-      winning_number: objectWinningTicket.winning_number,
-      winning_name: objectWinningTicket.winning_name,
-      description: objectWinningTicket.description,
-      game_date: objectWinningTicket.game_date,
-      phone: objectWinningTicket.phone,
+      ...toRaw(objectWinningTicket),
+      date: typeof objectWinningTicket.game_date === "string" ? objectWinningTicket.game_date : "",
     };
+    
     try {
       const { data } = await APIService.updateWinningTicket(objeto.id, objeto ,token);
-      const format = formattedWinningTicket(data.data);
 
-      //el método findIndex en el array se utiliza para encontrar el índice del objeto en el lista category que tiene el mismo id
-      const i = arrayWinningTicket.value.findIndex((WinningTicket) => WinningTicket.id === objeto.id);
-      //Asigna el objeto data.data al índice i del array WinningTicket.value."
-      arrayWinningTicket.value[i] = format;
+       //el método findIndex en el array se utiliza para encontrar el índice del objeto en el lista category que tiene el mismo id
+       const i = arrayWinningTicket.value.findIndex((WinningTicket) => WinningTicket.id === objeto.id);
+       if (i !== -1) arrayWinningTicket.value[i] = formattedWinningTicket(data.data);
+
     } catch (error) {
       console.error("Error al crear el evento:", error.message);
     }
@@ -230,7 +251,7 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
       winning_number: "",
       winning_name: "",
       description: "",
-      game_date: "",
+      game_date: formatDateYMD(inputDate.value),
       phone: "",
     });
   };
@@ -245,7 +266,9 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
     readWinningTicket,
     stateAlert,
     arrayWinningTicket,
+    eventUpdate,
     searchrecord,
+    isScrollable,
     restarWinningTicket,
     editMode,
     winningTicketDelete,

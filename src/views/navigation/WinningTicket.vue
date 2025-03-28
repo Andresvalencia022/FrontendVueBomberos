@@ -9,7 +9,7 @@ const {  modalDetalle, show_modalDetalle } = ModalStore;
 
 import { UseWinningTicketStore } from "../../stores/UseWinningTicket";
 const WinningTicketStore = UseWinningTicketStore();
-const { modal, show_modal, readWinningTicket, searchrecord, winningTicketDelete } = WinningTicketStore;
+const { modal, show_modal, readWinningTicket,eventUpdate ,searchrecord, winningTicketDelete } = WinningTicketStore;
 
 onMounted(() => {
   readWinningTicket()
@@ -85,7 +85,7 @@ onMounted(() => {
                 </svg>
               </a>
               <a 
-              @click="searchrecord('edit', WinningTicket.id)"
+              @click="eventUpdate(WinningTicket.id)"
               class="inline-block p-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

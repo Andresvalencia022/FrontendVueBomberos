@@ -51,7 +51,13 @@ export const UseModalStore = defineStore("ModalStore", () => {
 
       } else if (modalDetailType === 'WinningTicket_details') {
         modalStart.value = modalDetailType;
-        WinningTicketStore.searchrecord('detalle',id);
+        if (eventPublicStatusModifier) {
+          //publico
+          // PublicEventStore.searchrecord(id, eventPublicStatusModifier );
+        }else{
+          //privado
+          WinningTicketStore.searchrecord(id);
+        }
         ModalServices.show(modalDetalle);
       }else{
         modalStart.value = modalDetailType;
