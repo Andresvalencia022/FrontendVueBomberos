@@ -87,7 +87,7 @@ export default {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.delete("/news/" + id, token);
   },
-  // news publicos
+  //publico
   getPublicNews() {
     return api.get("/public/news");
   },
@@ -111,7 +111,6 @@ export default {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.get("/Winningticket/" + id, token);
   },
-  // çççç
   updateWinningTicket(id, data, token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.put("/Winningticket/" + id, data, token);
@@ -120,7 +119,16 @@ export default {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     return api.delete("/Winningticket/" + id, token);
   },
+  
+  // (publico) traer el ultimo ganador
+  WinningNumber(){
+   return api.get("/public/WinningNumber")
+  },
 
+  // (publico) Traer los ultimos 4 ganadores antes del ultimo 
+  winners(){
+    return api.get("/public/winners")
+   },
   // --------------------------User------------------------------------------------------------
 
   CreateUser(data, token) {

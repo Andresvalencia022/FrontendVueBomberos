@@ -4,9 +4,10 @@ const WinningTicketStore = UseWinningTicketStore();
 const {objectWinningTicket} = WinningTicketStore;
 </script>
 <template>
- <div class="max-w-lg mx-auto p-6 m-7 bg-white rounded-xl shadow-lg border border-gray-300"
-      :class="{'max-h-[500px] overflow-auto': WinningTicketStore.isScrollable}"
- >
+<div class="px-6 pb-6"
+ :class="{'max-h-[500px] overflow-auto': WinningTicketStore.isScrollable}">
+  <div class="mx-auto  p-7 bg-white rounded-xl shadow-lg border border-gray-300"
+  >
   <!-- Encabezado -->
   <div class="text-center mb-6">
     <h2 class="text-3xl font-bold text-gray-800">
@@ -34,10 +35,12 @@ const {objectWinningTicket} = WinningTicketStore;
   <!-- Sección de descripción -->
   <div class="mt-6">
     <h3 class="text-xl font-bold text-gray-800 border-b pb-2">Descripción</h3>
-    <p class="mt-4 text-gray-700 leading-relaxed text-justify">
+    <p class="mt-4 text-gray-700 leading-relaxed text-justify whitespace-pre-line">
       {{ objectWinningTicket.description }}
     </p>
   </div>
+</div>
+
 </div>
 
 </template>

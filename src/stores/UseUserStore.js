@@ -83,7 +83,7 @@ export const UseUserStore = defineStore("UserStore", () => {
        arrayUser.value =  data.data
   
     } catch (error) {
-      console.error('Error al leer Eventos:', error.message);
+      console.error('Error al leer todos los usuarios:', error.message);
     }
   }
 
@@ -146,7 +146,7 @@ export const UseUserStore = defineStore("UserStore", () => {
     arrayUser.value = updatedArray;
 
 } catch (error) {
-    console.error('Error al crear el evento:', error.message);
+    console.error('Error al crear un usuario:', error.message);
 }
  }
 
@@ -166,7 +166,7 @@ export const UseUserStore = defineStore("UserStore", () => {
     }
 
       }  catch (error) {
-         console.error('Error al crear el evento:', error.message);
+         console.error('Error al buscar el usuario:', error.message);
      }
  }
 
@@ -189,7 +189,7 @@ export const UseUserStore = defineStore("UserStore", () => {
     //Asigna el objeto data.data al índice i del array WinningTicket.value."
     arrayUser.value[i] = data.data;
   } catch (error) {
-    console.error("Error al crear el evento:", error.message);
+    console.error("Error al editar el usuario:", error.message);
   }
 } 
 

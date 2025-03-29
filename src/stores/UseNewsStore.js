@@ -45,7 +45,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       const { data } = await APIService.getNews(token);
       arrayNews.value = data.data;
     } catch (error) {
-      console.error("Error al leer todos las noticias:", error.message);
+      console.error("Error al leer todas las noticias:", error.message);
     }
   };
 
@@ -153,7 +153,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
           ? decodedInfo.substring(0, 400) + "..."
           : decodedInfo;
     } catch (error) {
-      console.error("Error al crear el evento:", error.message);
+      console.error("Error al buscar la noticia:", error.message);
     }
   }
 
@@ -200,7 +200,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       const i = arrayNews.value.findIndex((News) => News.id === Object.id);
       arrayNews.value[i] = data.data;
     } catch (error) {
-      console.error("Error al crear una noticia:", error.message);
+      console.error("Error al editar la noticia:", error.message);
     }
   }
 
@@ -221,7 +221,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       const { data } = await APIService.deleteNews(id, token);
       arrayNews.value = arrayNews.value.filter((news) => news.id !== id);
     } catch (error) {
-      console.error("Error al leer categorías:", error.message);
+      console.error("Error al eliminar noticia:", error.message);
     }
   }
 

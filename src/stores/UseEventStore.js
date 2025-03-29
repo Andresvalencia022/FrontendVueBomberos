@@ -60,7 +60,7 @@ export const UseEventStore = defineStore("EventStore", () => {
       arrayEvents.value = data.data
 
     } catch (error) {
-      console.error("Error al leer Eventos:", error.message);
+      console.error("Error al leer todos eventos:", error.message);
     }
   };
 
@@ -118,7 +118,7 @@ export const UseEventStore = defineStore("EventStore", () => {
       
 
     } catch (error) {
-      console.error("Error al crear el evento:", error.message);
+      console.error("Error al buscar el evento:", error.message);
     }
   }
 
@@ -217,7 +217,7 @@ export const UseEventStore = defineStore("EventStore", () => {
       if (index !== -1) arrayEvents.value[index] = formattedEvent(data.data);
 
     } catch (error) {
-      console.error("Error al crear el evento:", error.message);
+      console.error("Error al editar el evento:", error.message);
     }
   }
 
@@ -238,7 +238,7 @@ export const UseEventStore = defineStore("EventStore", () => {
       const { data } = await APIService.deleteEvent(id, token);
       arrayEvents.value = arrayEvents.value.filter((Event) => Event.id !== id);
     } catch (error) {
-      console.error("Error al leer categorías:", error.message);
+      console.error("Error al eliminar el evento:", error.message);
     }
   
   }

@@ -52,7 +52,7 @@ export const UsePublicNewsStore = defineStore("PublicNewsStore", () => {
         ? decodedInfo.substring(0, 400) + "..."
         : decodedInfo;
       } catch (error) {
-        console.error("Error al crear el evento:", error.message);
+        console.error("Error al buscar la noticia:", error.message);
       }
     }
 

@@ -61,7 +61,7 @@ export const UsePublicEventStore = defineStore("PublicEventStore", () => {
       start_date.value = new Date(dataEvento.start_date);
       end_date.value = new Date(dataEvento.end_date);
     } catch (error) {
-      console.error("Error al crear el evento:", error.message);
+      console.error("Error al buscar el evento:", error.message);
     }
   }
 
