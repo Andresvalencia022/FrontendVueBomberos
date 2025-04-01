@@ -1,7 +1,6 @@
 
 
-export default {
-    
+export default {    
     decodeHTMLEntities(text) {
         if (!text) return "";
         const parser = new DOMParser();

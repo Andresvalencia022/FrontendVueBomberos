@@ -95,9 +95,6 @@ const login = computed(() => route.name === "login");
       </button>
     </form>
   </div>
-</div>
-  <div v-else class="flex  w-full text-red-950">
-     Hola desde narnia     
-  </div>  
+</div> 
 </template>
 

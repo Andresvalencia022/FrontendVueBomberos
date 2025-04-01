@@ -21,7 +21,7 @@ onMounted(() => {
     <div class="flex p-2 items-center justify-between">
       <h1 class="mt-2 ml-9 text-xl font-PoetsenOne">Administrador boletas</h1>
       <a
-        class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-800 rounded-lg hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-500"
         @click="show_modal('modal_new_registration')"
       >
         Nuevo ganador
@@ -128,7 +128,7 @@ onMounted(() => {
  
      <!-- 🛑 Si no hay ganadores, muestra esto -->
   <div
-  class="flex flex-col items-center justify-center p-10 mx-3 bg-gray-50 dark:bg-gray-900 rounded-lg"
+  class="flex flex-col items-center justify-center p-10 mx-3 bg-white rounded-lg"
   v-else
 >
       <img
@@ -137,12 +137,12 @@ onMounted(() => {
   class="w-48 h-48 mb-5 opacity-90 transition-transform duration-300 hover:scale-110 drop-shadow-xl"
 />
 
-  <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300">
+  <h2 class="text-2xl font-semibold text-gray-700">
     No hay ganadores registrados 🏆
   </h2>
 
   <p
-    class="text-gray-600 dark:text-gray-400 text-md mt-2 text-center max-w-md leading-relaxed"
+    class="text-gray-600 dark:text-gray-600 text-md mt-2 text-center max-w-md leading-relaxed"
   >
     Aún no se han registrado ganadores de nuevas boletas. Agrega uno haciendo
     clic en el botón <strong>"Nuevo Ganador"</strong> para actualizar la

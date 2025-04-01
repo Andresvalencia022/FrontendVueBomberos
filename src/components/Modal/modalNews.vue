@@ -63,7 +63,7 @@ const {
                 <input
                   id="title_news"
                   name="title_news"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="objectNew.title_news"
                 />
               </div>
@@ -81,7 +81,7 @@ const {
                 name="info"
                 rows="6"
                 cols="50"
-                class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                 v-model="objectNew.info"
                 ></textarea>
             </div>
@@ -95,7 +95,7 @@ const {
               >
               <div class="mt-2">
                 <input
-                  class="lock w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-black focus:border-black p-1 dark:bg-gray-700 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white"
+                  class="lock w-full rounded-md appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   id="default_size"
                   type="file"
                   @change="handleFileChange"
@@ -131,7 +131,7 @@ const {
                 </article>
                 <p 
                   v-else
-                  class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                  class="mt-1 text-sm text-gray-500"
                   id="file_input_help"
                 >
                   PNG, JPG (MAX. 800x400px).
@@ -148,7 +148,7 @@ const {
                 <input
                   id="video_name"
                   name="video_name"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="objectNew.video_name"
                 />
               </div>

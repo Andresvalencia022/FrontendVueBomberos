@@ -47,7 +47,7 @@ const { objectWinningTicket, modal, hideModel, stateAlert, addWinningTicket, edi
                 <input
                   id="winning_number"
                   name="winning_number"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="objectWinningTicket.winning_number "
                  />
               </div>
@@ -64,7 +64,7 @@ const { objectWinningTicket, modal, hideModel, stateAlert, addWinningTicket, edi
                     '--vdp-hover-bg-color': '#ad0b0b',
                     '--vdp-selected-bg-color': '#ad0b0b',
                   }"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="WinningTicketStore.inputDate"
                 />
               </div>
@@ -81,7 +81,7 @@ const { objectWinningTicket, modal, hideModel, stateAlert, addWinningTicket, edi
                 <input
                   id="winning_name"
                   name="winning_name"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="objectWinningTicket.winning_name"
                 />
               </div>
@@ -96,7 +96,7 @@ const { objectWinningTicket, modal, hideModel, stateAlert, addWinningTicket, edi
                 <input
                   id="phone"
                   name="phone"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="objectWinningTicket.phone"
                 />
               </div>
@@ -114,7 +114,7 @@ const { objectWinningTicket, modal, hideModel, stateAlert, addWinningTicket, edi
                 name="info"
                 rows="10"
                 cols="50"
-                class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                 v-model="objectWinningTicket.description"
                 ></textarea>
             </div>

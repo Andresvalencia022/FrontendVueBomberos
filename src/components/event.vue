@@ -15,10 +15,10 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div id="eventos" class="my-2 mt-9">
+  <div id="eventos" class="my-3 mt-12">
     <div class="my-10">
       <h1
-        class="text-3xl pt-10 font-sans subpixel-antialiased font-bold text-center"
+        class="text-3xl  pt-16 font-sans subpixel-antialiased font-bold text-center"
       >
         Eventos
       </h1>
@@ -29,28 +29,28 @@ onMounted(() => {
       v-if="PublicEventStore.arrayPublicEvents.length > 0"
     >
       <div
-        class="w-2/4 h-64 m-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        class="w-2/4 h-64 m-2 p-5 bg-gray-800 border border-gray-700 rounded-lg shadow max-h-[580px] flex flex-col"
         v-for="event in PublicEventStore.arrayPublicEvents.slice(0, 2)"
         :key="event.id"
         :event="event"
       >
-        <article class="p-5 h-64 overflow-hidden">
+        <article class=" h-64 overflow-hidden flex-grow">
           <h5
-            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2"
+            class="mb-2 text-2xl font-bold tracking-tight text-white  line-clamp-2"
           >
             {{ event.event_name }}
           </h5>
-          <p class="text-gray-700 dark:text-gray-300 line-clamp-6">
-            {{ event.description }}
+          <p class="text-white line-clamp-6 whitespace-pre-line">
+            {{ event.description.replace(/<br\s*\/?>/g, "\n") }}
           </p>
         </article>
-        <button
-          type="button"
-          class="text-white w-full bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-          @click="show_modalDetalle('event_details', event.id, true)"
-        >
-          Leer más...
-        </button>
+          <button
+            type="button"
+            class="text-white my-2 w-full bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            @click="show_modalDetalle('event_details', event.id, true)"
+          >
+            Leer más...
+          </button>
       </div>
     </div>
     <!-- Mensaje cuando no hay eventos -->

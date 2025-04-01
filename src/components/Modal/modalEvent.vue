@@ -48,7 +48,7 @@ const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventS
                 <input
                   id="event_name"
                   name="event_name"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="objectEvent.event_name"
                 />
               </div>
@@ -67,7 +67,7 @@ const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventS
                     '--vdp-hover-bg-color': '#ad0b0b',
                     '--vdp-selected-bg-color': '#ad0b0b',
                   }"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="EventStore.date"
                 />
               </div>
@@ -82,7 +82,7 @@ const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventS
                 <input
                   id="location"
                   name="location"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="objectEvent.location"
                 />
               </div>
@@ -115,7 +115,7 @@ const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventS
                 name="description"
                 rows="5"
                 cols="50"
-                class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                 v-model="objectEvent.description"
               ></textarea>
             </div>

@@ -14,6 +14,8 @@ const { modalDetalle, hideModel, modalStart } = ModalStore;
 import {UsePublicEventStore} from "../../stores/UsePublicEventStore"
 const PublicEventStore = UsePublicEventStore();
 
+import {UsePublicNewsStore} from "../../stores/UsePublicNewsStore"
+const  PublicNewsStore = UsePublicNewsStore();
 
 import { computed } from "vue";
 import { useRoute } from "vue-router";
@@ -51,7 +53,7 @@ const user = computed(() => route.name === "users");
         </h1>
         <h1
           class="absolute -top-1 -right-1 h-7 w-7 text-center text-xl text-white rounded-full cursor-pointer"
-          @click="hideModel(PublicEventStore.PublicStatusModifier ? PublicEventStore.PublicStatusModifier : undefined)"
+          @click="hideModel(PublicEventStore.PublicStatusModifier ? PublicEventStore.PublicStatusModifier : PublicNewsStore.PublicStatusModifier )"
         >
           x
         </h1>

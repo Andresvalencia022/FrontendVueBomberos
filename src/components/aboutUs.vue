@@ -5,10 +5,10 @@ import Instagram from "../assets/img/iconsRedes/icons8-instagram.png";
 import Whatsapp from "../assets/img/iconsRedes/icons8-whatsapp.png";
 </script>
 <template>
-  <div id="quienes_somos" class="my-2 mt-9">
+  <div id="quienes_somos" class="my-3 mt-12">
     <div class="my-10">
       <h1
-        class="text-3xl pt-10 font-sans subpixel-antialiased font-bold text-center"
+        class="text-3xl pt-16 font-sans subpixel-antialiased font-bold text-center"
       >
         Sobre Nosotros
       </h1>
@@ -17,7 +17,7 @@ import Whatsapp from "../assets/img/iconsRedes/icons8-whatsapp.png";
     <div class="flex flex-row">
       <div class="w-3/5 mx-10">
         <!-- Sección "Quiénes somos" -->
-        <h1 class="text-4xl font-sans font-extrabold text-red-600">
+        <h1 class="text-4xl pt-12 font-sans font-extrabold text-red-600">
           Quiénes somos
         </h1>
         <p class="mt-4 text-lg text-gray-700 leading-relaxed">

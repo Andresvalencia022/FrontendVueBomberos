@@ -23,7 +23,7 @@ const { PublicStatusModifier, objectPublicEvents } = PublicEventStore;
 
     <!-- Descripción -->
     <div class="mb-6">
-      <p class="text-gray-600 text-justify leading-relaxed">
+      <p class="text-gray-600 text-justify whitespace-pre-line leading-relaxed">
         {{ objectPublicEvents.description }}
       </p>
     </div>
@@ -31,12 +31,12 @@ const { PublicStatusModifier, objectPublicEvents } = PublicEventStore;
     <!-- Fechas de inicio y fin -->
     <div class="flex justify-between text-lg font-semibold text-gray-700">
       <div class="w-1/2 text-center border-r border-gray-300">
-        <h2 class="font-bold text-gray-800">Fecha inicio</h2>
-        <p>{{ objectPublicEvents.start_date }}</p>
+        <h2 class="font-bold text-gray-800">Fecha:</h2>
+        <p>{{ objectPublicEvents.date }}</p>
       </div>
       <div class="w-1/2 text-center">
-        <h2 class="font-bold text-gray-800">Fecha fin</h2>
-        <p>{{ objectPublicEvents.end_date }}</p>
+        <h2 class="font-bold text-gray-800">Ubicación</h2>
+        <p>{{ objectPublicEvents.location }}</p>
       </div>
     </div>
 

@@ -41,56 +41,55 @@ onMounted(() => {
       class="w-80 absolute top-0 -right-80 transform transition-transform duration-200 filter drop-shadow-xl animate-slide-left"
       :src="bomberomovible" alt="" />
   </div>
-  <div class="w-[74rem] m-auto relative">
-    <div id="servicios" class="my-2 mt-9">
-      <div class="my-10">
-        <h1 class="text-3xl pt-10 font-sans subpixel-antialiased font-bold text-center">
-          Servicio
-        </h1>
-      </div>
-      <article class="grid grid-cols-2 gap-4">
-        <div class="flex flex-col justify-center items-center p-2">
-          <h1 class="my-6 font-sans text-2xl font-semibold">
-            Servicio a la Ciudadanía
-          </h1>
-          <p>
-            A través de la Oficina de Servicio al Ciudadano se busca acercar al
-            usuario a la Unidad Administrativa Cuerpo Oficial de Bomberos de la
-            merced caldas. con el propósito de mejorar la calidad, oportunidad y
-            eficiencia de sus servicios. La Entidad es consciente de que la
-            ciudadanía es el eje de la función pública, por eso sus esfuerzos
-            están encaminados a satisfacer las necesidades de sus usuarios. Por
-            lo anterior, en la U.A.E. Cuerpo Oficial de Bomberos de la merced
-            caldas se ha conformado un equipo para servir a la comunidad desde
-            la Oficina de Servicio al Ciudadano, bajo la normatividad del
-            decreto 2623 de 2009.
-          </p>
-        </div>
-        <div class="h-96 bg-slate-400 overflow-hidden rounded-lg">
-          <img :src="servicioBombero" alt="" srcset="" />
-        </div>
-        <div
-          class="flex flex-col justify-center items-center p-6 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 shadow-[0px_0px_4px_1px_#718096]">
-          <h1 class="my-6 font-sans text-2xl font-semibold">Misión</h1>
-          <p>
-            Proteger la vida, el ambiente y el patrimonio, a través de la
-            gestión integral de riesgos de incendios, atención de rescates en
-            todas sus modalidades e incidentes con materiales peligrosos en
-            Bogotá y su entorno
-          </p>
-        </div>
-        <div
-          class="flex flex-col justify-center items-center p-6 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 shadow-[0px_0px_4px_1px_#718096]">
-          <h1 class="my-6 font-sans text-2xl font-semibold">Visión</h1>
-          <p>
-            Al 2030, ser el mejor cuerpo de bomberos de Colombia soportado en el
-            compromiso de sus colaboradores y la confianza de los ciudadanos,
-            reconocido a nivel mundial por su fortaleza técnica y capacidad de
-            gestión.
-          </p>
-        </div>
-      </article>
+  <div class="w-[74rem] m-auto relative pt-10">
+
+    <section id="servicios" class="my-4 pt-12 px-4">
+  <!-- Título principal -->
+  <div class="text-center mb-4">
+    <h1 class="text-3xl font-bold">Servicio</h1>
+  </div>
+
+  <!-- Contenido en grid -->
+  <article class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <!-- Servicio a la Ciudadanía -->
+    <div>
+      <h2 class="text-2xl font-semibold text-center mb-4">Servicio a la Ciudadanía</h2>
+      <p class="text-justify text-gray-700 leading-relaxed">
+        A través de la Oficina de Servicio al Ciudadano se busca acercar al usuario
+        a la Unidad Administrativa Cuerpo Oficial de Bomberos de La Merced, Caldas,
+        con el propósito de mejorar la calidad, oportunidad y eficiencia de sus servicios...
+      </p>
     </div>
+
+    <!-- Imagen -->
+    <div class="overflow-hidden rounded-lg shadow-lg">
+      <img :src="servicioBombero" alt="Servicio de Bomberos" class="w-full h-80 object-cover" />
+    </div>
+  </article>
+
+  <!-- Misión y Visión -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+    <!-- Misión -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-semibold text-center mb-4">Misión</h2>
+      <p class="text-justify text-gray-700 leading-relaxed">
+        Proteger la vida, el ambiente y el patrimonio, a través de la gestión
+        integral de riesgos de incendios, atención de rescates en todas sus modalidades...
+      </p>
+    </div>
+
+    <!-- Visión -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-semibold text-center mb-4">Visión</h2>
+      <p class="text-justify text-gray-700 leading-relaxed">
+        Al 2030, ser el mejor cuerpo de bomberos de Colombia soportado en el compromiso
+        de sus colaboradores y la confianza de los ciudadanos...
+      </p>
+    </div>
+  </div>
+</section>
+
+
     <Event></Event>
 
     <NewsVue></NewsVue>
@@ -144,4 +143,5 @@ onMounted(() => {
 .animate-slide-left {
   animation: slide-left 2s linear forwards;
 }
+
 </style>

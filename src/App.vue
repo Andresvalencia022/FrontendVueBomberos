@@ -2,7 +2,6 @@
 import { RouterView } from "vue-router";
 import Routerlink from "./components/UI/Router-Link.vue";
 import logobomberos from "./assets/img/Bomberos.png";
-import llamar from "./assets/img/llamar.png";
 import { onUnmounted, computed, onMounted } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 
@@ -49,20 +48,28 @@ const NotFound = computed(() => route.name === "NotFound");
   <!-- else if -->
   <div v-else-if="Inicio">
     <header id="index" class="bg-red-500 w-full relative">
-      <div class="head mx-auto max-w-6xl py-3 relative z-10">
-        <div class="flex items-center">
-          <div class="w-2/4 flex items-center justify">
-            <img class="w-14" :src="logobomberos" alt="" />
-            <h1 class="font-bebasNeue text-4xl pl-5 text-white">
-              Cuerpo de Bomberos La Merced
-            </h1>
-          </div>
-          <div class="w-2/4 flex justify-end items-center">
-            <img class="w-44" :src="llamar" alt="" />
-            <h1 class="font-bebasNeue text-3xl text-white">31374123331</h1>
-          </div>
-        </div>
-      </div>
+     <!--  -->
+  <div class="py-5 px-6 bg-gradient-to-r rounded-lg shadow-lg z-10">
+  <div class="flex items-center justify-between">
+    <!-- Logo y Título -->
+    <div class="flex items-center space-x-4">
+      <img class="w-16 rounded-full shadow-lg" :src="logobomberos" alt="Logo Bomberos" />
+      <h1 class="font-bebasNeue text-4xl text-white tracking-wide">
+        Cuerpo de Bomberos La Merced
+      </h1>
+    </div>
+
+    <!-- Número de Emergencia -->
+    <div class="flex items-center space-x-3">
+      <span class="text-white text-lg font-semibold">Emergencias:</span>
+      <h1 class="font-bebasNeue text-3xl text-white font-bold bg-red-600 py-2 px-4 rounded-full shadow-lg">
+        31374123331
+      </h1>
+    </div>
+  </div>
+</div>
+
+     <!--  -->
       <div class="nav m-auto my-1 relative z-20">
         <nav
           id="nav"
@@ -164,34 +171,26 @@ const NotFound = computed(() => route.name === "NotFound");
     </div>
     <div class="flex h-screen">
       <!-- Menú Lateral -->
-      <div
-        class="w-1/6 bg-white ring-2 ring-gray-700 ring-offset-1 rounded-r-lg shadow-lg"
-      >
-        <div class="mt-6">
-          <ul class="space-y-2">
-            <li
-              class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition duration-200"
-            >
-              <Routerlink to="event">Eventos</Routerlink>
-            </li>
-            <li
-              class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition duration-200"
-            >
-              <Routerlink to="news">Noticias</Routerlink>
-            </li>
-            <li
-              class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition duration-200"
-            >
-              <Routerlink to="winningTicket">Nuevo Ganador</Routerlink>
-            </li>
-            <li
-              class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition duration-200"
-            >
-              <Routerlink to="users">Usuarios</Routerlink>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <!-- Menú Lateral Mejorado -->
+<div class="w-1/6 bg-white border border-gray-300 rounded-r-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+  <div class="mt-6">
+    <ul class="space-y-2">
+      <li class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 hover:scale-105">
+        <Routerlink to="event">Eventos</Routerlink>
+      </li>
+      <li class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 hover:scale-105">
+        <Routerlink to="news">Noticias</Routerlink>
+      </li>
+      <li class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 hover:scale-105">
+        <Routerlink to="winningTicket">Nuevo Ganador</Routerlink>
+      </li>
+      <li class="block px-4 py-3 text-lg font-medium text-gray-800 rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 hover:scale-105">
+        <Routerlink to="users">Usuarios</Routerlink>
+      </li>
+    </ul>
+  </div>
+</div>
+
       <div class="w-5/6" v-if="!access">
         <!-- renderizan las vistas según la ruta actual en la que te encuentres. -->
         <RouterView />

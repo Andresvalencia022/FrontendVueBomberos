@@ -56,7 +56,6 @@ export const UseEventStore = defineStore("EventStore", () => {
 
     try {
       const { data } = await APIService.getEvents(token);
-      // Formatear las fechas antes de asignar los datos a arrayEvents.value
       arrayEvents.value = data.data
 
     } catch (error) {

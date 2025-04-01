@@ -24,7 +24,7 @@ onMounted(() => {
         Administrador de Usuario
       </h1>
       <a
-        class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-900 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="items-center mt-1 mr-6 px-3 py-2 text-sm font-medium text-center text-white bg-gray-800 rounded-lg hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-500"
         @click="show_modal('new_registration')"
       >
         Nuevo usuario
@@ -34,12 +34,12 @@ onMounted(() => {
       <div
         v-for="user in UserStore.arrayUser"
         :key="user.id"
-        class="w-full p-6 bg-gray-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        class="w-full p-6 bg-gray-300 border border-gray-400 rounded-lg shadow"
       >
         <!-- CABECERA: Título + Iconos -->
         <div class="flex justify-between items-center mb-4">
           <h5
-            class="text-lg font-bold tracking-tight text-gray-900 dark:text-white"
+            class="text-lg font-bold tracking-tight text-gray-900 first-letter:uppercase"
           >
             {{ user.post }}
           </h5>
@@ -48,7 +48,7 @@ onMounted(() => {
             <!-- Botón de editar -->
             <button
               @click="searchrecord('edit', user.id)"
-              class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+              class="p-2 rounded-lg hover:bg-gray-200 "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -72,14 +72,14 @@ onMounted(() => {
         </div>
 
         <!-- INFORMACIÓN DEL USUARIO -->
-        <p class="text-gray-700 dark:text-gray-400 text-base">
+        <p class="text-gray-700  text-base">
           {{ user.name }} {{ user.last_name }}
         </p>
 
         <!-- BOTÓN DE VER DETALLES -->
         <button
           @click="show_modalDetalle('user_detail', user.id)"
-          class="mt-4 w-full px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-all"
+          class="mt-4 w-full px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300  transition-all"
         >
           Ver detalles
         </button>
