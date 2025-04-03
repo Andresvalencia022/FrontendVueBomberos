@@ -165,14 +165,7 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
               type="submit"
               class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
             >
-              Actualizar 
-            </button>
-            <button
-              v-else
-              type="submit"
-              class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
-            >
-              Registrar
+              {{ editMode ? "Actualizar" : "Registrar" }} 
             </button>
           </div>
         </form>

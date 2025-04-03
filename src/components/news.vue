@@ -27,6 +27,7 @@ onMounted(() => {
       >
         Noticias
       </h1>
+      <div class="w-16 h-1 bg-red-600 mx-auto mt-2"></div>
     </div>
     <div class="flex flex-row max-h-[600px] overflow-hidden"
          v-if="PublicNewsStore.arrayPublicNews.length > 0"

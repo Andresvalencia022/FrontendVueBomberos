@@ -96,10 +96,10 @@ import Whatsapp from "../assets/img/iconsRedes/icons8-whatsapp.png";
       </div>
 
       <div
-        class="w-full md:w-3/5 lg:w-2/5 bg-white shadow-xl rounded-2xl border border-gray-300 p-4 mx-4"
+        class="w-full md:w-3/5 lg:w-2/5 bg-gray-800 shadow-xl rounded-2xl border border-gray-600 p-4 mx-4"
       >
         <!-- Encabezado -->
-        <h2 class="text-lg font-semibold text-gray-700 text-center mb-3">
+        <h2 class="text-lg font-semibold text-gray-200 text-center mb-3">
           📍 Ubicación - Bomberos Voluntarios La Merced
         </h2>
 

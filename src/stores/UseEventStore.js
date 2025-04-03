@@ -24,6 +24,9 @@ export const UseEventStore = defineStore("EventStore", () => {
     mostrar: false,
     animar: false,
   });
+
+  const loader = ref(false);
+
   //objeto modo para editar
   let editMode = ref();
 
@@ -52,19 +55,18 @@ export const UseEventStore = defineStore("EventStore", () => {
 
   //Todos los eventos
   const getEvent = async () => {
+    loader.value = true;  
     const token = APIService.authToken();
-
     try {
       const { data } = await APIService.getEvents(token);
       arrayEvents.value = data.data
 
     } catch (error) {
       console.error("Error al leer todos eventos:", error.message);
+    } finally {
+      loader.value = false; // 🔄 Desactivamos el loader
     }
   };
-
-  
-  
   
   //Mostrar modal
   const show_modal = (ModalType) => {
@@ -177,6 +179,7 @@ export const UseEventStore = defineStore("EventStore", () => {
   }
 
   async function saveEvent() {
+    loader.value = true; // Mostrar loader al iniciar
     const token = APIService.authToken();
     try {
       const { data } = await APIService.createEvent(objectEvent, token);
@@ -189,6 +192,8 @@ export const UseEventStore = defineStore("EventStore", () => {
       // arrayEvents.value = updatedArray;
     } catch (error) {
       console.error("Error al crear el evento:", error.message);
+    } finally {
+      loader.value = false; // Ocultar loader al finalizar
     }
   }
 
@@ -221,13 +226,7 @@ export const UseEventStore = defineStore("EventStore", () => {
   }
 
   const eventDelete = (id) => {
-    if (
-      window.confirm("¿Estás seguro de que quieres eliminar este registro?")
-    ) {
-      remove(id);
-    } else {
-      console.log("Eliminación cancelada");
-    }
+    if (window.confirm("¿Estás seguro de que quieres eliminar este registro?")) remove(id);
   };
 
   //Eliminar registros
@@ -257,6 +256,7 @@ export const UseEventStore = defineStore("EventStore", () => {
 
   return {
     modal,
+    loader,
     show_modal,
     hideModel,
     arrayEvents,

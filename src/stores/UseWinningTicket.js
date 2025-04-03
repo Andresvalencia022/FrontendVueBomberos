@@ -10,15 +10,17 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
   const arrayWinningTicket = ref([]);
 
   let inputDate = ref(new Date());
-
+   
 
   const isScrollable = ref(false); // Nueva variable para manejar el scroll
   //objeto modo para editar
   let editMode = ref();
 
+  const loader = ref(false);
+
   // Función para formatear fechas en 'YYYY-MM-DD'
   const formatDateYMD = (game_date) => (game_date ? moment(game_date).format("YYYY-MM-DD") : "");
-
+  
 
   function formattedWinningTicket(data) {
     // Formatear las fechas del nuevo evento
@@ -57,12 +59,15 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
 
   //Todos los WinningTicket
   const readWinningTicket = async () => {
+    loader.value = true;
     const token = APIService.authToken();
     try {
       const { data } = await APIService.getWinningTicket(token);
       arrayWinningTicket.value = data.data;
     } catch (error) {
       console.error("Error al leer todos los registros:", error.message);
+    } finally {
+      loader.value = false;
     }
   };
 
@@ -221,13 +226,7 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
   }
 
   const winningTicketDelete = (id) => {
-    if (
-      window.confirm("¿Estás seguro de que quieres eliminar este registro?")
-    ) {
-      remove(id);
-    } else {
-      console.log("Eliminación cancelada");
-    }
+    if (window.confirm("¿Estás seguro de que quieres eliminar este registro?")) remove(id);
   };
 
   //Eliminar registros
@@ -258,6 +257,7 @@ export const UseWinningTicketStore = defineStore("WinningTicketStore", () => {
 
   return {
     modal,
+    loader,
     show_modal,
     hideModel,
     inputDate,

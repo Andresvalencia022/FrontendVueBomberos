@@ -1,6 +1,7 @@
 <script setup>
 import ModalWinningTicket from "../../components/Modal/modalWinningTicket.vue";
 import Modal from "../../components/ModalDetalles/Modal.vue";
+import Loader from "../../components/UI/loader.vue";
 import { onMounted } from "vue";
 
 import { UseModalStore } from "../../stores/UseModalStore";
@@ -9,7 +10,7 @@ const {  modalDetalle, show_modalDetalle } = ModalStore;
 
 import { UseWinningTicketStore } from "../../stores/UseWinningTicket";
 const WinningTicketStore = UseWinningTicketStore();
-const { modal, show_modal, readWinningTicket,eventUpdate ,searchrecord, winningTicketDelete } = WinningTicketStore;
+const { modal, show_modal, readWinningTicket,eventUpdate, winningTicketDelete } = WinningTicketStore;
 
 onMounted(() => {
   readWinningTicket()
@@ -27,9 +28,13 @@ onMounted(() => {
         Nuevo ganador
       </a>
     </div>
+     <!--  Utilizo acción Loader (Cargar...)-->
+     <div v-if="WinningTicketStore.loader" class="flex justify-center items-center py-10 h-[50vh]">
+      <Loader></Loader>
+    </div>
     <!-- table -->
     <div class="m-10"
-     v-if="WinningTicketStore.arrayWinningTicket.length > 0"
+     v-else-if="WinningTicketStore.arrayWinningTicket.length > 0"
     >
           <table
         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"

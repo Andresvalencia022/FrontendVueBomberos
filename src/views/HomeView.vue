@@ -47,6 +47,7 @@ onMounted(() => {
   <!-- Título principal -->
   <div class="text-center mb-4">
     <h1 class="text-3xl font-bold">Servicio</h1>
+    <div class="w-16 h-1 bg-red-600 mx-auto mt-2"></div>
   </div>
 
   <!-- Contenido en grid -->

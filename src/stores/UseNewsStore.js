@@ -11,9 +11,10 @@ export const UseNewsStore = defineStore("NewsStore", () => {
   const UserStore = UseUserStore();
 
   const arrayNews = ref([]); //(requiere token)
-  const arrayPublicNews = ref([]); // Para las noticias públicas (sin token)
 
   const imageIsUpdated = ref(false);
+
+   const loader = ref(false);
 
   const file = ref(null); // Estado para almacenar el archivo
 
@@ -39,6 +40,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
 
   //todas las noticias
   const readNews = async () => {
+    loader.value = true;
     const token = APIService.authToken();
 
     try {
@@ -46,6 +48,8 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       arrayNews.value = data.data;
     } catch (error) {
       console.error("Error al leer todas las noticias:", error.message);
+    } finally {
+      loader.value = false;
     }
   };
 
@@ -205,13 +209,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
   }
 
   const newDelete = (id) => {
-    if (
-      window.confirm("¿Estás seguro de que quieres eliminar este registro?")
-    ) {
-      remove(id);
-    } else {
-      console.log("Eliminación cancelada");
-    }
+    if (window.confirm("¿Estás seguro de que quieres eliminar este registro?")) remove(id);
   };
 
   //Eliminar registros
@@ -248,6 +246,7 @@ export const UseNewsStore = defineStore("NewsStore", () => {
 
   return {
     arrayNews,
+    loader,
     modal,
     show_modal,
     hide_Model,

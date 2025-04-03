@@ -121,20 +121,10 @@ const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventS
             </div>
           </div>
       
-          <div v-if="editMode" class="mt-5 mb-5">
-            <button
-              type="submit"
-              class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
-            >
-              Editar registro
-            </button>
-          </div>
-          <div v-else class="mt-5 mb-5">
-            <button
-              type="submit"
-              class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
-           >
-              Registrar
+          <div class="mt-5 mb-5">
+            <button type="submit"
+              class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg">
+              {{ editMode ? "Actualizar" : "Registrar" }}
             </button>
           </div>
         </form>

@@ -22,6 +22,7 @@ onMounted(() => {
       >
         Eventos
       </h1>
+      <div class="w-16 h-1 bg-red-600 mx-auto mt-2"></div>
     </div>
     <!-- Validar si el arrayPublicEvents tiene contenido para mostrar-->
     <div
