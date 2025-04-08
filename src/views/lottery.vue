@@ -4,7 +4,7 @@ import { onMounted } from "vue";
 
 import { UsePublicWinningTicketStore } from "../stores/UsePublicWinningTicket";
 const PublicWinningTicketStore = UsePublicWinningTicketStore();
-const { objectPublicWinningTicket } = PublicWinningTicketStore;
+const { objectPublicWinningTicket, loader } = PublicWinningTicketStore;
 
 onMounted(() => {
   PublicWinningTicketStore.winners();
@@ -29,6 +29,19 @@ onMounted(() => {
       </div>
     </header>
 
+<!-- Loader mientras se cargan los datos -->
+<div
+  v-if="loader"
+  class="min-h-[90vh] flex items-center justify-center bg-gradient-to-b from-gray-900 via-gray-800 to-red-900"
+>
+  <div class="flex flex-col items-center space-y-4">
+    <div class="w-16 h-16 border-4 border-white border-t-red-700 rounded-full animate-spin"></div>
+    <p class="text-white text-xl font-semibold">Cargando resultados...</p>
+  </div>
+</div>    
+
+
+<!-- Contenido principal -->
     <div class="min-h-[90vh] flex items-center justify-center bg-gradient-to-b from-gray-900 via-gray-800 to-red-900">
       <div class="w-full max-w-5xl bg-white bg-opacity-90 rounded-lg shadow-lg p-8 font-sans">
         <h1 class="text-center text-4xl font-extrabold text-red-700 border-b-4 border-red-500 pb-3 uppercase">

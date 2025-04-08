@@ -29,30 +29,23 @@ export const UseModalStore = defineStore("ModalStore", () => {
   });
 
   //mostrar modal
-  const show_modalDetalle = (modalDetailType, id, PublicStatusModifier) => {
+  const show_modalDetalle = (modalDetailType, id, isPublic) => {
 
     if (modalDetailType === "event_details") {
       modalStart.value = modalDetailType;
-      PublicStatusModifier
-        ? PublicEventStore.searchrecord(id, PublicStatusModifier)
+      isPublic
+        ? PublicEventStore.searchrecord(id, isPublic)
         : EventStore.searchrecord(id);
       ModalServices.show(modalDetalle);
-    } else if (modalDetailType === "news_details") {
+    } else if (modalDetailType === "news_details") { 
       modalStart.value = modalDetailType;      
-      // PublicNewsStore.searchrecord(id, PublicStatusModifier)
-      PublicStatusModifier
-        ? PublicNewsStore.searchrecord(id, PublicStatusModifier)
+      isPublic
+        ? PublicNewsStore.searchrecord(id, isPublic)
         : NewsStore.searchregistration(id);
       ModalServices.show(modalDetalle);
     } else if (modalDetailType === "WinningTicket_details") {
       modalStart.value = modalDetailType;
-      if (eventPublicStatusModifier) {
-        //publico
-        // PublicEventStore.searchrecord(id, eventPublicStatusModifier );
-      } else {
-        //privado
-        WinningTicketStore.searchrecord(id);
-      }
+      WinningTicketStore.searchrecord(id);
       ModalServices.show(modalDetalle);
     } else {
       modalStart.value = modalDetailType;
@@ -71,7 +64,7 @@ export const UseModalStore = defineStore("ModalStore", () => {
 
     } else if (modalStart.value === "news_details") {
       //condicion ternario 
-      isPublic ? (console.log("cerrar noticia:", isPublic ))
+      isPublic ? (PublicNewsStore.restartobjectPublicNews(),PublicNewsStore.resetPublicStatusModifier())
         : EventStore.restartEvent();
       ModalServices.hide(modalDetalle);
 

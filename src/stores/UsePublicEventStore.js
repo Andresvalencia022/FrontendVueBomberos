@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 //moment sirve para manipular, formatear y trabajar con fechas y horas
-import { ref, reactive, watch } from "vue";
+import { ref, reactive  } from "vue";
 import APIService from "../services/APIService";
 import TextFormatterService from "../services/TextFormatterService";
 
 export const UsePublicEventStore = defineStore("PublicEventStore", () => {
 
   const PublicStatusModifier = ref(false); // Estado inicial como booleano
+
+  const loader = ref(false);
 
   const arrayPublicEvents = ref([]); // Para las noticias públicas (sin token)
 
@@ -21,22 +23,22 @@ export const UsePublicEventStore = defineStore("PublicEventStore", () => {
   });
 
   const getPublicEvents = async () => {
+    loader.value = true;
     try {
       const { data } = await APIService.getPublicEvents();
       arrayPublicEvents.value = data.data
     } catch (error) {
       console.error("Error al leer Eventos:", error.message);
+    } finally {
+      loader.value = false;
     }
   };
 
   //buscar registro para mostrar en detalles de evento o poderlo traer para editar
-  async function searchrecord(id, PublicStatusModifier) {
-
-     // Asegúrate de que PublicStatusModifier sea un objeto con un valor booleano
-     if (typeof PublicStatusModifier.value !== "boolean") {
-      PublicStatusModifier = true; // Asignamos un valor predeterminado si no es un booleano
-    }
-    
+  async function searchrecord(id, isPublic) {
+      // Aquí actualizamos el valor directamente en el store
+  PublicStatusModifier.value = isPublic === true;
+  
     try {
       const { data } = await APIService.bringPublicEvents(id);
       const dataEvento = data.data;
@@ -52,6 +54,7 @@ export const UsePublicEventStore = defineStore("PublicEventStore", () => {
       objectPublicEvents.date = dataEvento.date;
       objectPublicEvents.location = dataEvento.location;
       objectPublicEvents.user_id = dataEvento.user_id;
+
       // Cambiar estado para cambiar poder cerrar 
     } catch (error) {
       console.error("Error al buscar el evento:", error.message);
@@ -85,5 +88,6 @@ export const UsePublicEventStore = defineStore("PublicEventStore", () => {
     PublicStatusModifier,
     restartobjectPublicEvents,
     resetPublicStatusModifier,
+    loader,
   };
 });

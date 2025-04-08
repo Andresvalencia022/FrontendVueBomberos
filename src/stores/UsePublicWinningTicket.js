@@ -9,7 +9,9 @@ export const UsePublicWinningTicketStore = defineStore("PublicWinningTicketStore
     const arrayPublicWinningTicket = ref([]);
     
     const PublicStatusModifier = ref(false); // Estado inicial como booleano
-
+   
+    
+    const loader = ref(false);
 
     const objectPublicWinningTicket = reactive({
         id: "",
@@ -22,6 +24,7 @@ export const UsePublicWinningTicketStore = defineStore("PublicWinningTicketStore
 
     // Ultimo ganador 
     const last_winner = async () => {
+        loader.value = true;
         try {
            const { data } = await APIService.WinningNumber();
         const dataApi = data.data   
@@ -35,6 +38,8 @@ export const UsePublicWinningTicketStore = defineStore("PublicWinningTicketStore
         
         }catch{
             console.error("Error al mostrar el ultimo ganador:", error.message);
+        } finally {
+            loader.value = false;
         }
     }
 
@@ -55,5 +60,6 @@ export const UsePublicWinningTicketStore = defineStore("PublicWinningTicketStore
         objectPublicWinningTicket,
         arrayPublicWinningTicket,
         PublicStatusModifier,
+        loader
     }
 })

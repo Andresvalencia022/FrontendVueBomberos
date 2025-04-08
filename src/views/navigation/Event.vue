@@ -81,7 +81,7 @@ onMounted(() => {
           <!-- Botón de detalles -->
           <button
             class="w-full px-4 py-2 text-white font-medium text-sm rounded-lg bg-gray-900 hover:bg-red-600 transition focus:ring-4 focus:outline-none"
-            @click="show_modalDetalle('event_details', event.id)">
+            @click="show_modalDetalle('event_details', event.id, true)">
             Ver más detalles
           </button>
         </div>

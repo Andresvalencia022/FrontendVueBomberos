@@ -1,4 +1,5 @@
 <script setup>
+import { storeToRefs } from 'pinia'; // ← ESTA LÍNEA ES LA CLAVE 🔑
 import { UseEventStore } from "../../stores/UseEventStore";
 import { UsePublicEventStore } from "../../stores/UsePublicEventStore";
 
@@ -6,7 +7,8 @@ const EventStore = UseEventStore();
 const { objectEvent } = EventStore;
 
 const PublicEventStore = UsePublicEventStore();
-const { PublicStatusModifier, objectPublicEvents } = PublicEventStore;
+const { PublicStatusModifier, objectPublicEvents } = storeToRefs(PublicEventStore);
+
 </script>
 <template>
   <!-- publico -->

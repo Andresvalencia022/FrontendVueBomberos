@@ -8,6 +8,8 @@ export const UsePublicNewsStore = defineStore("PublicNewsStore", () => {
 
   const PublicStatusModifier = ref(false); // Estado inicial como booleano
 
+  const loader = ref(false);
+
   const isScrollable = ref(false); // Nueva variable para manejar el scroll
 
   const arrayPublicNews = ref([]); // Para las noticias públicas (sin token)
@@ -24,20 +26,21 @@ export const UsePublicNewsStore = defineStore("PublicNewsStore", () => {
 
   //todas las noticias publicas
   const readPublicNews = async () => {
+    loader.value = true;
     try {
       const { data } = await APIService.getPublicNews();
       arrayPublicNews.value = data.data;
     } catch (error) {
       console.error("Error al leer todos las noticias:", error.message);
+    } finally {
+      loader.value = false;
     }
   };
 
-    async function searchrecord(id, PublicStatusModifier) {
-    // Asegúrate de que PublicStatusModifier sea un objeto con un valor booleano
-    if (typeof PublicStatusModifier.value !== "boolean") {
-      PublicStatusModifier = true; // Asignamos un valor predeterminado si no es un booleano
-    }
-    
+    async function searchrecord(id, isPublic) {
+        // Aquí actualizamos el valor directamente en el store
+        PublicStatusModifier.value = isPublic === true;
+
       try {
         const { data } = await APIService.bringPublicNews(id);
         const dataNew = data.data;
@@ -60,16 +63,16 @@ export const UsePublicNewsStore = defineStore("PublicNewsStore", () => {
       }
     }
     
-    const restartobjectPublicEvents = () => {
+    const restartobjectPublicNews = () => {
       //  reiniciar el objeto para que no muestre los valores en los campos del formulario
-      Object.assign(objectPublicEvents, {
+      Object.assign(objectPublicNews, {
         id: "",
-        event_name: "",
-        date: "",
-        location: "",
-        time: "",
-        description: "",
+        title_news: "",
+        info: "",
+        name_imagen: "",
+        video_name: "",
         user_id: "",
+        user_name: "",
       });
     };
 
@@ -87,6 +90,7 @@ export const UsePublicNewsStore = defineStore("PublicNewsStore", () => {
     isScrollable,
     PublicStatusModifier,
     resetPublicStatusModifier,
-    restartobjectPublicEvents,
+    restartobjectPublicNews,
+    loader
   };
 });

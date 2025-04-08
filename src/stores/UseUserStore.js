@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { reactive, ref } from "vue";
+import { reactive, ref, nextTick } from "vue";
 import APIService from '../services/APIService'
 import { useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
@@ -17,7 +17,7 @@ export const UseUserStore = defineStore("UserStore", () => {
   //objeto modo para editar
   let editMode = ref();
 
-   const loader = ref(false);
+  const loader = ref(false);
 
   const arrayUser = ref([])
 
@@ -65,13 +65,20 @@ export const UseUserStore = defineStore("UserStore", () => {
   }
 
   async function authenticateUser() {
+    loader.value = true;
     try {
       const { data } = await APIService.getTokenLongin(userObjectForm);
       Cookies.set('AUTH-TOKEN', data.token, { expires: 1 });
 
+      // await nextTick() // Espera a que Vue actualice el DOM
+      setTimeout(() => {
       router.push({ name: 'access' }); // redireccionar 
+    }, 500) // Espera 500ms para mostrar el loader antes de redirigir
+    
     } catch (error) {
-      console.log(errorCode[error.code]);
+      console.log(errorCode[error.code] || 'Error al iniciar sesión');
+    } finally {
+      loader.value = false;
     }
   }
 

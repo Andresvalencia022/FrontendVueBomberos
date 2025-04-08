@@ -1,5 +1,6 @@
 <script setup>
 import news from "../assets/img/news1.jpg";
+import Loaders from "../components/loaders.vue";
 import Modal from "../components/ModalDetalles/Modal.vue";
 import {onMounted} from "vue"
 import {UsePublicNewsStore} from "../stores/UsePublicNewsStore";
@@ -29,8 +30,13 @@ onMounted(() => {
       </h1>
       <div class="w-16 h-1 bg-red-600 mx-auto mt-2"></div>
     </div>
+     
+    <div v-if="PublicNewsStore.loader"  class="flex flex-row" >
+      <loaders></loaders>
+    </div>
+
     <div class="flex flex-row max-h-[600px] overflow-hidden"
-         v-if="PublicNewsStore.arrayPublicNews.length > 0"
+         v-else-if="PublicNewsStore.arrayPublicNews.length > 0"
     >
       <div
         class="w-2/4 m-2 bg-gray-800 border-gray-700 border  rounded-lg shadow max-h-[580px] flex flex-col"

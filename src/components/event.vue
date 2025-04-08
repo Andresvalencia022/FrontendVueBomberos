@@ -1,5 +1,6 @@
 <script setup>
 import Modal from "../components/ModalDetalles/Modal.vue";
+import Loaders from "../components/loaders.vue";
 import { onMounted } from "vue";
 import { UseModalStore } from "../stores/UseModalStore";
 import { UsePublicEventStore } from "../stores/UsePublicEventStore";
@@ -24,10 +25,13 @@ onMounted(() => {
       </h1>
       <div class="w-16 h-1 bg-red-600 mx-auto mt-2"></div>
     </div>
+    <div v-if="PublicEventStore.loader"  class="flex flex-row" >
+      <loaders></loaders>
+    </div>
     <!-- Validar si el arrayPublicEvents tiene contenido para mostrar-->
     <div
       class="flex flex-row"
-      v-if="PublicEventStore.arrayPublicEvents.length > 0"
+      v-else-if="PublicEventStore.arrayPublicEvents.length > 0"
     >
       <div
         class="w-2/4 h-64 m-2 p-5 bg-gray-800 border border-gray-700 rounded-lg shadow max-h-[580px] flex flex-col"
