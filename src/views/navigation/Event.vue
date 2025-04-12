@@ -2,6 +2,7 @@
 import ModalEvent from "../../components/Modal/modalEvent.vue";
 import Modal from "../../components/ModalDetalles/Modal.vue";
 import Loader from "../../components/UI/loader.vue"
+import alertMain from "../../components/UI/alertMain.vue"
 import { onMounted } from "vue";
 
 import { UseEventStore } from "../../stores/UseEventStore";
@@ -11,6 +12,9 @@ const { modal, show_modal, getEvent, eventUpdate, eventDelete, loader } = EventS
 import { UseModalStore } from "../../stores/UseModalStore";
 const ModalStore = UseModalStore();
 const { modalDetalle, show_modalDetalle } = ModalStore;
+
+import {UseAlertStore} from "../../stores/UseAlertStore"
+const alertStore = UseAlertStore();
 
 onMounted(() => {
   getEvent();
@@ -29,6 +33,11 @@ onMounted(() => {
         Nuevo Evento
       </a>
     </div>
+    <!-- Notificacion -->
+    <alertMain v-if="(alertStore.visible && alertStore.type === 'success') || (alertStore.visible && alertStore.type === 'error')">
+      {{ alertStore.message }}
+    </alertMain>
+
     <!--  Utilizo acción Loader (Cargar...)-->
     <div v-if="EventStore.loader" class="flex justify-center items-center py-10 h-[50vh]">
       <Loader></Loader>

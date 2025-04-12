@@ -2,6 +2,7 @@
 import ModalNews from "../../components/Modal/modalNews.vue";
 import Modal from "../../components/ModalDetalles/Modal.vue";
 import Loader from "../../components/UI/loader.vue";
+import Alert from "../../components/UI/alertMain.vue"
 import { onMounted } from "vue";
 
 import { UseNewsStore } from "../../stores/UseNewsStore";
@@ -11,6 +12,9 @@ const { modal, show_modal, readNews, eventUpdate, newDelete } = NewsStore;
 import { UseModalStore } from "../../stores/UseModalStore";
 const ModalStore = UseModalStore();
 const { modalDetalle, show_modalDetalle } = ModalStore;
+
+import {UseAlertStore} from "../../stores/UseAlertStore";
+const alertStore = UseAlertStore();
 
 onMounted(() => {
   readNews();
@@ -28,6 +32,11 @@ onMounted(() => {
         Nueva noticia
       </a>
     </div>
+    <!-- Notificacion -->
+    <Alert v-if="(alertStore.visible && alertStore.type === 'success') || (alertStore.visible && alertStore.type === 'error')">
+   {{ alertStore.message }}
+</Alert>
+
     <!--  Utilizo acción Loader (Cargar...)-->
     <div v-if="NewsStore.loader" class="flex justify-center items-center py-10 h-[50vh]">
       <Loader></Loader>
@@ -91,7 +100,7 @@ onMounted(() => {
       </table>
     </div>
     <!-- 🛑 Si no hay noticias, muestra esto -->
-    <div class="flex flex-col items-center justify-center p-10 mx-3 bg-white rounded-lg" v-else>
+    <div v-else class="flex flex-col items-center justify-center p-10 mx-3 bg-white rounded-lg">
       <img src="https://cdn-icons-png.flaticon.com/512/3135/3135690.png" alt="Sin noticias"
         class="w-48 h-48 mb-5 opacity-90 transition-transform duration-300 hover:scale-110 drop-shadow-xl" />
 

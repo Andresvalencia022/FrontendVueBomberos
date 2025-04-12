@@ -3,6 +3,7 @@ import logobomberos from "../../assets/img/Bomberos.png";
 import ModalUsers from "../../components/Modal/modalUsers.vue";
 import Modal from "../../components/ModalDetalles/Modal.vue";
 import Loader from "../../components/UI/loader.vue";
+import alertMain from "../../components/UI/alertMain.vue"
 import { onMounted } from "vue";
 
 import { UseModalStore } from "../../stores/UseModalStore";
@@ -12,6 +13,10 @@ const { modalDetalle, show_modalDetalle } = ModalStore;
 import { UseUserStore } from "../../stores/UseUserStore";
 const UserStore = UseUserStore();
 const { modal, show_modal, readUser, searchrecord } = UserStore;
+
+import {UseAlertStore} from "../../stores/UseAlertStore"
+const alertStore = UseAlertStore();
+
 
 onMounted(() => {
   readUser();
@@ -29,6 +34,11 @@ onMounted(() => {
         Nuevo usuario
       </a>
     </div>
+    <!-- Notificacion -->
+    <alertMain v-if="(alertStore.visible && alertStore.type === 'success') || (alertStore.visible && alertStore.type === 'error')">
+      {{ alertStore.message }}
+    </alertMain>
+
     <!--  Utilizo acción Loader (Cargar...)-->
     <div v-if="UserStore.loader" class="flex justify-center items-center py-10 h-[50vh]">
       <Loader></Loader>

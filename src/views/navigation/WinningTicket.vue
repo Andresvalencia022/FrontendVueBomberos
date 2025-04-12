@@ -2,6 +2,7 @@
 import ModalWinningTicket from "../../components/Modal/modalWinningTicket.vue";
 import Modal from "../../components/ModalDetalles/Modal.vue";
 import Loader from "../../components/UI/loader.vue";
+import AlertMain from "../../components/UI/alertMain.vue"
 import { onMounted } from "vue";
 
 import { UseModalStore } from "../../stores/UseModalStore";
@@ -11,6 +12,9 @@ const {  modalDetalle, show_modalDetalle } = ModalStore;
 import { UseWinningTicketStore } from "../../stores/UseWinningTicket";
 const WinningTicketStore = UseWinningTicketStore();
 const { modal, show_modal, readWinningTicket,eventUpdate, winningTicketDelete } = WinningTicketStore;
+
+import {UseAlertStore} from "../../stores/UseAlertStore"
+const alertStore = UseAlertStore();
 
 onMounted(() => {
   readWinningTicket()
@@ -28,6 +32,11 @@ onMounted(() => {
         Nuevo ganador
       </a>
     </div>
+    <!-- Notificacion -->
+    <AlertMain v-if="(alertStore.visible && alertStore.type === 'success') || (alertStore.visible && alertStore.type === 'error')">
+      {{ alertStore.message }}
+    </AlertMain>
+
      <!--  Utilizo acción Loader (Cargar...)-->
      <div v-if="WinningTicketStore.loader" class="flex justify-center items-center py-10 h-[50vh]">
       <Loader></Loader>

@@ -1,12 +1,14 @@
 <script setup>
 
-import Alert from '../UI/Alert.vue'
+import Alert from '../UI/Alert.vue';
 
 //Stora para manejar todos los Modales
 import {UseUserStore} from '../../stores/UseUserStore';
 const UserStore = UseUserStore();
 const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
 
+import {UseAlertStore}  from  "../../stores/UseAlertStore";
+const alertStore = UseAlertStore();
 
 </script>
 
@@ -31,10 +33,11 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
         >
           x
         </h1>
+        <!-- Vista de alerta en formulario -->
         <Alert
-          v-if="UserStore.stateAlert.showAlert"
-          :class="UserStore.stateAlert.classAlert"
-          >{{ UserStore.stateAlert.Message }}
+          v-if="alertStore.visible"
+          :class="[alertStore.classAlert]"
+          >{{ alertStore.message }}
         </Alert>
         
         <form class="block px-9 pb-5" @submit.prevent="addUser()">
@@ -49,7 +52,7 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
                 <input
                   id="name"
                   name="name"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="userObjectForm.name"
                 />
               </div>
@@ -64,7 +67,7 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
                 <input
                   id="last_name"
                   name="last_name"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="userObjectForm.last_name"
                 />
               </div>
@@ -81,7 +84,7 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
                 <input
                   id="phone"
                   name="phone"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="userObjectForm.phone"
                 />
               </div>
@@ -97,7 +100,7 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
                   id="email"
                   name="email"
                   autocomplete="email"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="userObjectForm.email"
                 />
               </div>
@@ -118,7 +121,7 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
                   type="password"
                   name="password"
                   autocomplete="new-password" 
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="userObjectForm.password"
                 />
               </div>
@@ -135,7 +138,7 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
                   type="password"
                   name="password_confirm"
                   autocomplete="new-password"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="userObjectForm.password_confirm"
                 />
               </div>
@@ -153,7 +156,7 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
                 <input
                   id="post"
                   name="post"
-                  class="block w-full rounded-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-red-500"
                   v-model="userObjectForm.post"
                 />
               </div>
@@ -161,11 +164,10 @@ const { modal, hideModel, userObjectForm, addUser, editMode } = UserStore;
           </div>
           <div class="mt-5 mb-5">
             <button
-              v-if="editMode"
               type="submit"
               class="w-full block text-white bg-red-600 hover:bg-red-800 py-2 font-bold text-base rounded-lg"
             >
-              {{ editMode ? "Actualizar" : "Registrar" }} 
+              {{ editMode ? "Actualizar" : "Registrar"}} 
             </button>
           </div>
         </form>

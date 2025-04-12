@@ -9,6 +9,7 @@ export default {
         'bebasNeue': ['Bebas Neue', 'sans-serif'], 
         'PoetsenOne': ['Poetsen One', 'sans-serif'], 
         'Neuton': ['Neuton', 'serif'], 
+        'roboto-condensed': ['Roboto Condensed', 'sans-serif'], 
 
       }, 
       backgroundImage: {

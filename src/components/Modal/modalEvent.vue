@@ -4,9 +4,10 @@ import Alert from '../UI/Alert.vue'
 
 import { UseEventStore } from "../../stores/UseEventStore";
 const EventStore = UseEventStore();
-const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventStore;
+const { objectEvent, addEvent, modal, hideModel, editMode } = EventStore;
 
-
+import {UseAlertStore}  from  "../../stores/UseAlertStore";
+const alertStore = UseAlertStore();
 </script>
 
 <template>
@@ -30,10 +31,11 @@ const { objectEvent, addEvent, stateAlert, modal, hideModel, editMode } = EventS
         >
           x
         </h1>
+         <!-- Vista de alerta en formulario -->
         <Alert
-          v-if="stateAlert.showAlert"
-          :class="stateAlert.classAlert"
-          >{{ stateAlert.Message }}
+          v-if="alertStore.visible"
+          :class="['p-4 rounded',alertStore.classAlert]"
+          >{{ alertStore.message }}
         </Alert>
         
         <form class="block px-9 pb-5" @submit.prevent="addEvent()">

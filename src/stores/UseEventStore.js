@@ -8,16 +8,19 @@ import ModalServices from "../services/ModalServices";
 import moment from "moment";
 
 import { UseUserStore } from "../stores/UseUserStore";
+import { UseAlertStore } from "../stores/UseAlertStore";
 
 export const UseEventStore = defineStore("EventStore", () => {
+
   const UserStore = UseUserStore();
+  const alertStore = UseAlertStore();
 
   let date = ref(new Date());
 
   const isScrollable = ref(false); // Nueva variable para manejar el scroll
 
- // Función para formatear fechas en 'YYYY-MM-DD'
- const formatDateYMD = (date) => (date ? moment(date).format("YYYY-MM-DD") : "");
+  // Función para formatear fechas en 'YYYY-MM-DD'
+  const formatDateYMD = (date) => (date ? moment(date).format("YYYY-MM-DD") : "");
 
   //objeto de modal
   const modal = reactive({
@@ -46,16 +49,10 @@ export const UseEventStore = defineStore("EventStore", () => {
   watchEffect(() => {
     objectEvent.date = formatDateYMD(date.value);
   });
-   
-  const stateAlert = reactive({
-    Message: "",
-    showAlert: false,
-    classAlert: "",
-  });
 
   //Todos los eventos
   const getEvent = async () => {
-    loader.value = true;  
+    loader.value = true;
     const token = APIService.authToken();
     try {
       const { data } = await APIService.getEvents(token);
@@ -67,7 +64,7 @@ export const UseEventStore = defineStore("EventStore", () => {
       loader.value = false; // 🔄 Desactivamos el loader
     }
   };
-  
+
   //Mostrar modal
   const show_modal = (ModalType) => {
     if (ModalType === "modal_new_registration") {
@@ -78,7 +75,7 @@ export const UseEventStore = defineStore("EventStore", () => {
       editMode.value = true;
     }
   };
-  
+
   //ocultar modal
   const hideModel = (ModalType) => {
     if (ModalType === "cerrarSinGuardarEvent") {
@@ -108,15 +105,15 @@ export const UseEventStore = defineStore("EventStore", () => {
 
       objectEvent.time = dataEvento.time;
       objectEvent.user_id = dataEvento.user_id;
-      
+
       // Formatear las fechas antes de asignarlas
       date.value = moment(dataEvento.date, "YYYY-MM-DD").isValid()
-      ? moment(dataEvento.date, "YYYY-MM-DD").toDate()
-      : null;
-  
+        ? moment(dataEvento.date, "YYYY-MM-DD").toDate()
+        : null;
+
       // ✅ Verificar si la info es mayor a 645 caracteres para activar el scroll
       isScrollable.value = dataEvento.description.length > 210;
-      
+
 
     } catch (error) {
       console.error("Error al buscar el evento:", error.message);
@@ -150,48 +147,30 @@ export const UseEventStore = defineStore("EventStore", () => {
     const id = objectEvent.id == "" ? false : true;
 
     if (!event_name || !date || !location || !time || !description) {
-      stateAlert.Message =
-        "¡Alerta! Debes llenar todos los campos requeridos antes de continuar.";
-      stateAlert.showAlert = true;
-
-      identifyTypeAlert("Error");
-
-      setTimeout(() => {
-        stateAlert.Message = "";
-        stateAlert.showAlert = false;
-        stateAlert.classAlert = "";
-      }, 4000);
+      // activar la alerta 
+      alertStore.seeAlert("¡Alerta! Debes llenar todos los campos requeridos antes de continuar.", "error-form");
       return;
     }
     objectEvent.id ? updateEvent() : saveEvent();
-    
+
     hideModel("Cerrar");
     restartEvent();
   };
-
-  //identificar el tipo de Alerta
-  function identifyTypeAlert(typeaAlert) {
-    if (typeaAlert === "Error") {
-      stateAlert.classAlert = "bg-red-600 text-white";
-    } else {
-      stateAlert.classAlert = "bg-green-600";
-    }
-  }
 
   async function saveEvent() {
     loader.value = true; // Mostrar loader al iniciar
     const token = APIService.authToken();
     try {
       const { data } = await APIService.createEvent(objectEvent, token);
-       // Formatear el nuevo evento
-       const newEvent = formattedEvent(data.data);
-       // Agregar el nuevo evento al inicio del array
-       arrayEvents.value.unshift(newEvent);
-       // Si realmente necesitas una copia del array (opcional)
-      //  const updatedArray = [newEvent, ...arrayEvents.value];
-      // arrayEvents.value = updatedArray;
+      // Formatear el nuevo evento
+      const newEvent = formattedEvent(data.data);
+      // Agregar el nuevo evento al inicio del array
+      arrayEvents.value.unshift(newEvent);
+      // activar la alerta 
+      alertStore.seeAlert("Operación exitosa: el evento ha sido registrado", "success");
     } catch (error) {
       console.error("Error al crear el evento:", error.message);
+      alertStore.seeAlert("Error al crear un nuevo evento. Intenta nuevamente.", "error");
     } finally {
       loader.value = false; // Ocultar loader al finalizar
     }
@@ -215,13 +194,15 @@ export const UseEventStore = defineStore("EventStore", () => {
         objEvent,
         token
       );
-      
+
       //el método findIndex en el array se utiliza para encontrar el índice del objeto en el lista category que tiene el mismo id
       const index = arrayEvents.value.findIndex((event) => event.id === objEvent.id);
       if (index !== -1) arrayEvents.value[index] = formattedEvent(data.data);
-
+        // activar la alerta 
+        alertStore.seeAlert("Actualización completada", "success");
     } catch (error) {
       console.error("Error al editar el evento:", error.message);
+      alertStore.seeAlert("Error al actualizar el evento. Intenta nuevamente.", "error");
     }
   }
 
@@ -235,10 +216,12 @@ export const UseEventStore = defineStore("EventStore", () => {
     try {
       const { data } = await APIService.deleteEvent(id, token);
       arrayEvents.value = arrayEvents.value.filter((Event) => Event.id !== id);
+      alertStore.seeAlert('El evento fue eliminado correctamente.', 'success');
     } catch (error) {
       console.error("Error al eliminar el evento:", error.message);
+      alertStore.seeAlert('Error al eliminar el evento. Intenta nuevamente.', 'error');
     }
-  
+
   }
 
   const restartEvent = () => {
@@ -265,7 +248,6 @@ export const UseEventStore = defineStore("EventStore", () => {
     date,
     objectEvent,
     addEvent,
-    stateAlert,
     searchrecord,
     editMode,
     eventDelete,

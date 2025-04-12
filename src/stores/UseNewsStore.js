@@ -6,15 +6,18 @@ import TextFormatterService from "../services/TextFormatterService";
 
 import ModalServices from "../services/ModalServices";
 import { UseUserStore } from "../stores/UseUserStore";
+import { UseAlertStore } from "../stores/UseAlertStore";
 
 export const UseNewsStore = defineStore("NewsStore", () => {
+
   const UserStore = UseUserStore();
+  const alertStore = UseAlertStore();
 
   const arrayNews = ref([]); //(requiere token)
 
   const imageIsUpdated = ref(false);
 
-   const loader = ref(false);
+  const loader = ref(false);
 
   const file = ref(null); // Estado para almacenar el archivo
 
@@ -92,42 +95,6 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     }
   };
 
-  const addNew = () => {
-    const title_news =
-      objectNew.title_news == "" ? false : objectNew.title_news;
-    const info = objectNew.info == "" ? false : objectNew.info;
-    objectNew.user_id = UserStore.objectUser.id;
-    const id = objectNew.id == "" ? false : true;
-
-    if (!title_news || !info) {
-      ("¡Alerta! El campo Título y descripción son obligatorio");
-    }
-
-    if (id) {
-      updateNew();
-    } else {
-      saveNew();
-    }
-    hide_Model("Cerrar");
-    restartNews();
-    resetFile();
-  };
-
-  // Registrar
-  async function saveNew() {
-    const token = APIService.authToken();
-
-    const formData = createFormData(objectNew, file, false);
-
-    try {
-      const { data } = await APIService.CreateNew(formData, token);
-      const updateNew = [data.data, ...arrayNews.value];
-      arrayNews.value = updateNew;
-    } catch (error) {
-      console.error("Error al crear una noticia:", error.message);
-    }
-  }
-
   const eventUpdate = async (id) => {
     await searchregistration(id);
     show_modal("edit");
@@ -160,6 +127,43 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       console.error("Error al buscar la noticia:", error.message);
     }
   }
+
+  const addNew = () => {
+    const title_news =
+      objectNew.title_news == "" ? false : objectNew.title_news;
+    const info = objectNew.info == "" ? false : objectNew.info;
+    objectNew.user_id = UserStore.objectUser.id;
+    const id = objectNew.id == "" ? false : true;
+
+    if (!title_news || !info) {
+      // activar la alerta 
+      alertStore.seeAlert("¡Alerta! El título y la descripción son obligatorios. Por favor, completa todos los campos.", "error-form");
+      return;
+    }
+
+    id ? updateNew() : saveNew();
+
+    hide_Model("Cerrar");
+    restartNews();
+    resetFile();
+  };
+
+  // Registrar
+  async function saveNew() {
+    const token = APIService.authToken();
+    const formData = createFormData(objectNew, file, false);
+    try {
+      const { data } = await APIService.CreateNew(formData, token);
+      const updateNew = [data.data, ...arrayNews.value];
+      arrayNews.value = updateNew;
+      //Alerta de éxito
+      alertStore.seeAlert("La nueva noticia se ha guardado con éxito.", "success");
+    } catch (error) {
+      console.error("Error al crear una noticia:", error.message);
+      alertStore.seeAlert("Error al guardar la noticia. Intenta nuevamente.", "error");
+    }
+  }
+
 
   function toggleExpand() {
     isExpanded.value = !isExpanded.value; // ✅ Modificar el estado de forma reactiva
@@ -203,8 +207,13 @@ export const UseNewsStore = defineStore("NewsStore", () => {
       const { data } = await APIService.updateNews(Object.id, formData, token);
       const i = arrayNews.value.findIndex((News) => News.id === Object.id);
       arrayNews.value[i] = data.data;
+
+      //Alerta de éxito
+      alertStore.seeAlert("La noticia ha sido actualizada con éxito", "success");
+
     } catch (error) {
       console.error("Error al editar la noticia:", error.message);
+      alertStore.seeAlert("Error al actualizar el usuario. Intenta nuevamente.", "error");
     }
   }
 
@@ -218,8 +227,12 @@ export const UseNewsStore = defineStore("NewsStore", () => {
     try {
       const { data } = await APIService.deleteNews(id, token);
       arrayNews.value = arrayNews.value.filter((news) => news.id !== id);
+      //Alerta de éxito
+      alertStore.seeAlert('La noticia fue eliminada correctamente.', 'success');
+
     } catch (error) {
       console.error("Error al eliminar noticia:", error.message);
+      alertStore.seeAlert('Error al eliminar la noticia. Intenta nuevamente.', 'error');
     }
   }
 
